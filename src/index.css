@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@700;900&family=Raleway:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 228 67% 32%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 231 42% 36%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 205 100% 39%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 228 67% 32%;
+
+    --radius: 12px;
+
+    /* ESPOL custom tokens */
+    --espol-blue-dark: 228 67% 32%;
+    --espol-blue-mid: 231 42% 36%;
+    --espol-blue-accent: 205 100% 39%;
+    --espol-bg: 220 20% 97%;
+    --espol-text: 222 47% 11%;
+    --espol-text-soft: 220 9% 46%;
+    --espol-footer: 222 47% 11%;
+    --espol-whatsapp: 142 70% 49%;
+
+    --font-display: 'Source Sans Pro', sans-serif;
+    --font-body: 'Raleway', sans-serif;
+
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-navbar: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-card-hover: 0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+}
+
+/* Scroll reveal animation */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Course card hover */
+.c-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.c-card:hover .c-img img {
+  transform: scale(1.06);
+}
+
+.c-card:hover .c-overlay {
+  opacity: 1;
+}
+
+.c-card:hover .c-enroll-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.c-enroll-btn {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.c-overlay {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Navbar link underline animation */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: hsl(var(--espol-blue-accent));
+  border-radius: 1px;
+  transition: width var(--transition-smooth);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Button hover effect */
+.btn-hover {
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), background var(--transition-smooth);
+}
+
+.btn-hover:hover {
+  transform: translateY(-2px);
+}
