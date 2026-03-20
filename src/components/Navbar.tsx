@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import espolLogo from "@/assets/espol-logo.png";
 
-// Genera el slug de cada categoria: "Trànsit i Circulació" → "/cursos/transit-i-circulacio"
 const toSlug = (cat: string) =>
   cat
     .toLowerCase()
@@ -25,10 +24,10 @@ const cursosCategories = [
 ];
 
 const navItems = [
-  "ALUMNES ISPC",
-  "OPOSICIONS",
-  "CONTACTE",
-  "NOSALTRES",
+  { label: "ALUMNES ISPC", href: "/" },
+  { label: "OPOSICIONS", href: "/" },
+  { label: "CONTACTE", href: "/" },
+  { label: "NOSALTRES", href: "/nosaltres" },
 ];
 
 const Navbar = () => {
@@ -44,7 +43,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -61,6 +59,7 @@ const Navbar = () => {
         }`}
     >
       <div className="container mx-auto px-4 max-w-[1400px] flex items-center justify-between h-[72px]">
+
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img src={espolLogo} alt="Acadèmia ESPOL" className="h-12 w-auto" />
@@ -121,13 +120,13 @@ const Navbar = () => {
 
           {/* Rest of nav items */}
           {navItems.map((item) => (
-            <a
-              key={item}
-              href="#"
+            <Link
+              key={item.label}
+              to={item.href}
               className="nav-link relative font-body font-bold text-[12px] text-muted-foreground uppercase tracking-[0.05em] hover:text-foreground transition-colors"
             >
-              {item}
-            </a>
+              {item.label}
+            </Link>
           ))}
         </div>
 
@@ -154,14 +153,6 @@ const Navbar = () => {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden bg-card border-t border-border px-4 py-5 space-y-1">
-          {/* ALUMNES ISPC */}
-          <a
-            href="#"
-            className="block font-body font-bold text-sm text-foreground uppercase tracking-wide hover:text-accent transition-colors py-2"
-            onClick={() => setMobileOpen(false)}
-          >
-            ALUMNES ISPC
-          </a>
 
           {/* CURSOS PUNTUABLES accordion */}
           <div>
@@ -201,14 +192,14 @@ const Navbar = () => {
 
           {/* Rest of nav items */}
           {navItems.map((item) => (
-            <a
-              key={item}
-              href="#"
+            <Link
+              key={item.label}
+              to={item.href}
               className="block font-body font-bold text-sm text-foreground uppercase tracking-wide hover:text-accent transition-colors py-2"
               onClick={() => setMobileOpen(false)}
             >
-              {item}
-            </a>
+              {item.label}
+            </Link>
           ))}
 
           <a

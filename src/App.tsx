@@ -8,6 +8,7 @@ import CourseDetail from "./pages/CourseDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import CriminologiaPage from "./pages/CriminologiaPage";
 import ScrollToTop from "@/components/ScrollToTop";
+import NosaltresPage from "@/pages/NosaltresPage";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/curs/cursdetall" element={<CourseDetail />} />
           <Route path="/criminologia" element={<CriminologiaPage />} />
+          <Route path="/nosaltres" element={<NosaltresPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
