@@ -39,7 +39,7 @@ const categoryMeta: Record<string, CategoryMeta> = {
     },
     "dret-penal": {
         title: "Dret Penal",
-        description: "Formació en dret penal per a professionals de la seguretat i l'àmbit jurídic. Coneix el marc legal que regula els delictes i les penes.",
+        description: "Formació en dret penal per a professionals de la seguretat pública. Coneix el marc legal que regula els delictes i les penes.",
         img: "/images/dret-penal.jpg",
     },
     "transit-i-circulacio": {
@@ -170,8 +170,8 @@ const CategoryPage = () => {
                                         : `${categoryCourses.length} cursos disponibles`,
                                 },
                                 { icon: <Monitor size={13} />, label: "100% online" },
-                                { icon: <Award size={13} />, label: "Certificat oficial" },
-                                { icon: <BadgeCheck size={13} />, label: "Accés immediat" },
+                                // { icon: <Award size={13} />, label: "Certificat oficial" },
+                                // { icon: <BadgeCheck size={13} />, label: "Accés immediat" },
                             ].map(({ icon, label }) => (
                                 <div key={label} className="flex items-center gap-2 text-white/85 font-body font-semibold text-xs">
                                     <span className="text-accent">{icon}</span>
@@ -238,15 +238,15 @@ const CategoryPage = () => {
                                             {course.isNew && (
                                                 <span className="inline-flex items-center gap-1 bg-accent text-accent-foreground font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
                                                     <Sparkles size={9} />
-                                                    Nou
+                                                    Pròxima edició
                                                 </span>
                                             )}
-                                            {course.isPopular && (
+                                            {/* {course.isPopular && (
                                                 <span className="inline-flex items-center gap-1 bg-primary text-primary-foreground font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
                                                     <Star size={9} className="fill-current" />
                                                     Popular
                                                 </span>
-                                            )}
+                                            )} */}
                                         </div>
 
                                         {/* Level badge */}
@@ -333,22 +333,6 @@ const CategoryPage = () => {
 
                                         {/* Preu + CTA */}
                                         <div className="border-t border-border pt-4 flex items-center justify-between mt-auto">
-                                            <div>
-                                                <div className="flex items-end gap-1.5">
-                                                    <span className="font-display font-black text-xl text-foreground">{course.price}€</span>
-                                                    {course.originalPrice && (
-                                                        <span className="font-body text-xs text-muted-foreground line-through mb-0.5">
-                                                            {course.originalPrice}€
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                {course.originalPrice && (
-                                                    <span className="font-body font-bold text-[10px] text-green-600">
-                                                        -{Math.round((1 - course.price / course.originalPrice) * 100)}% descompte
-                                                    </span>
-                                                )}
-                                            </div>
-
                                             <span className="inline-flex items-center gap-1.5 font-body font-semibold text-accent text-xs group-hover:gap-2.5 transition-[gap] duration-150">
                                                 Més info <ArrowRight size={13} />
                                             </span>

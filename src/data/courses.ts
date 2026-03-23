@@ -170,7 +170,7 @@ export const courses: CourseData[] = [
     originalPrice: null,
     sidebarCategoryLabel: "Dret Penal",
     totalPlaces: 30,
-    remainingPlaces: 30,
+    remainingPlaces: 25,
     enrollmentUrl:
       "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=qruYLed9IAw=&return=no&returnurl=",
     whatsappText: "Hola!%20M'interessa%20el%20curs%20de%20Dret%20Penal",
@@ -260,11 +260,9 @@ export const courses: CourseData[] = [
         features: [
           { text: "Accés a tots els mòduls", included: true },
           { text: "Material didàctic PDF", included: true },
-          { text: "Avaluació per mòdul", included: true },
-          { text: "Certificat oficial ESPOL", included: true },
-          { text: "Tutories setmanals", included: false },
+          { text: "Certificat reconegust ISPC: RP20250141152", included: true },
+          { text: "Tutories en línea", included: false },
           { text: "Accés il·limitat", included: false },
-          { text: "Suport prioritari", included: false },
         ],
       },
       {
@@ -272,15 +270,13 @@ export const courses: CourseData[] = [
         price: 25,
         originalPrice: null,
         highlight: true,
-        badge: "Millor preu",
+        badge: "Afiliats/ades",
         features: [
           { text: "Accés a tots els mòduls", included: true },
           { text: "Material didàctic PDF", included: true },
-          { text: "Avaluació per mòdul", included: true },
-          { text: "Certificat oficial ESPOL", included: true },
-          { text: "Tutories setmanals", included: true },
+          { text: "Certificat reconegust ISPC: RP20250141152", included: true },
+          { text: "Tutories en línea", included: true },
           { text: "Accés il·limitat", included: true },
-          { text: "Suport prioritari", included: true },
         ],
       },
       {
@@ -292,39 +288,29 @@ export const courses: CourseData[] = [
         features: [
           { text: "Accés a tots els mòduls", included: true },
           { text: "Material didàctic PDF", included: true },
-          { text: "Avaluació per mòdul", included: true },
-          { text: "Certificat oficial ESPOL", included: true },
-          { text: "Tutories setmanals", included: true },
+          { text: "Certificat reconegust ISPC: RP20250141152", included: true },
+          { text: "Tutories en línea", included: true },
           { text: "Accés il·limitat", included: true },
-          { text: "Suport prioritari", included: false },
         ],
       },
     ],
 
-    requirements: [
-      "Titulació de Batxillerat o equivalent",
-      "No es requereix experiència prèvia en criminologia",
-      "Accés a un dispositiu amb connexió a internet",
-      "Disponibilitat mínima de 6 hores setmanals",
-      "Nivell bàsic de català o castellà",
-    ],
+    // requirements: [
+    //   "Titulació de Batxillerat o equivalent",
+    //   "No es requereix experiència prèvia en criminologia",
+    //   "Accés a un dispositiu amb connexió a internet",
+    //   "Disponibilitat mínima de 6 hores setmanals",
+    //   "Nivell bàsic de català o castellà",
+    // ],
 
     audience: [
       {
         title: "Cossos de Seguretat",
-        desc: "Agents dels Mossos d'Esquadra, Policia Nacional, Guàrdia Civil i policies locals que volen ampliar la seva formació.",
+        desc: "Agents dels Mossos d'Esquadra, Policia Nacional, Guàrdia Civil, alumnes de l'ISPC i policies locals que volen ampliar la seva formació.",
       },
       {
         title: "Professionals Jurídics",
         desc: "Advocats, fiscals, jutges i procuradors que necessiten comprendre la conducta criminal des d'una perspectiva científica.",
-      },
-      {
-        title: "Estudiants Universitaris",
-        desc: "Alumnes de Dret, Psicologia, Sociologia o Treball Social amb interès en la criminologia aplicada.",
-      },
-      {
-        title: "Professionals de la Salut Mental",
-        desc: "Psicòlegs i treballadors socials que intervenen en contextos de conducta antisocial i rehabilitació.",
       },
     ],
 
@@ -358,9 +344,9 @@ export const courses: CourseData[] = [
     reviews: {
       rating: 4.9,
       count: 238,
-      text: "El millor curs de criminologia que he fet. Els continguts estan molt ben estructurats i els docents expliquen amb casos reals que et fan entendre tot de forma molt pràctica.",
+      text: "El millor curs de dret penal que he fet. Els continguts estan molt ben estructurats i el docent explica amb casos reals que et fan entendre tot de forma molt pràctica.",
       author: "Maria G.",
-      role: "Mossos d'Esquadra · 2024",
+      role: "Mossos d'Esquadra · 2025",
       initials: "MG",
     },
   },
