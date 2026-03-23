@@ -340,7 +340,7 @@ const CourseDetail = () => {
                                                         <span className={`font-body text-sm line-through mb-1 ${plan.highlight ? "text-white/40" : "text-muted-foreground"}`}>{plan.originalPrice}€</span>
                                                     )}
                                                 </div>
-                                                <p className={`font-body text-[11px] ${plan.highlight ? "text-white/50" : "text-muted-foreground"}`}>Preu únic · IVA inclòs</p>
+                                                <p className={`font-body text-[11px] ${plan.highlight ? "text-white/50" : "text-muted-foreground"}`}>Preu únic</p>
                                             </div>
                                             <div className={`p-5 flex-1 flex flex-col gap-3 ${plan.highlight ? "bg-card" : ""}`}>
                                                 {plan.features.map((feat) => (
@@ -536,6 +536,7 @@ const CourseDetail = () => {
                                 {/* Preu */}
                                 <div>
                                     <div className="flex items-end gap-2 mb-0.5">
+                                        des de
                                         <span className="font-display font-black text-4xl text-foreground">{course.price}€</span>
                                         {course.originalPrice && (
                                             <span className="font-body text-sm text-muted-foreground line-through mb-1">{course.originalPrice}€</span>
@@ -546,7 +547,7 @@ const CourseDetail = () => {
                                             </span>
                                         )}
                                     </div>
-                                    <p className="font-body text-xs text-muted-foreground">Preu únic · accés il·limitat</p>
+                                    <p className="font-body text-xs text-muted-foreground">Preu únic</p>
                                 </div>
 
                                 <button

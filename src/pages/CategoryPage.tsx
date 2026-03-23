@@ -187,7 +187,7 @@ const CategoryPage = () => {
             <section className="py-14 bg-muted">
                 <div className="container mx-auto px-4 max-w-[1400px]">
 
-                    <div className="flex items-center justify-between mb-8 scroll-reveal">
+                    <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <div className="w-1 h-7 bg-accent rounded-full" />
                             <h2 className="font-display font-black text-xl text-foreground uppercase tracking-tight">
@@ -200,7 +200,7 @@ const CategoryPage = () => {
 
                     {/* Missatge si no hi ha cursos encara */}
                     {categoryCourses.length === 0 && (
-                        <div className="text-center py-20 scroll-reveal">
+                        <div className="text-center py-20">
                             <div className="w-14 h-14 rounded-2xl bg-muted-foreground/10 flex items-center justify-center mx-auto mb-4">
                                 <BookOpen size={24} className="text-muted-foreground/40" />
                             </div>
@@ -220,7 +220,7 @@ const CategoryPage = () => {
                                 <Link
                                     key={course.slug}
                                     to={`/curs/${course.slug}`}
-                                    className="scroll-reveal group bg-card rounded-2xl border border-border overflow-hidden flex flex-col transition-[border-color,box-shadow] duration-150 hover:border-accent/40 hover:shadow-[0_8px_32px_rgba(27,48,136,0.10)]"
+                                    className="group bg-card rounded-2xl border border-border overflow-hidden flex flex-col transition-[border-color,box-shadow] duration-150 hover:border-accent/40 hover:shadow-[0_8px_32px_rgba(27,48,136,0.10)]"
                                     style={{ transitionDelay: `${i * 60}ms` }}
                                 >
                                     {/* Image */}

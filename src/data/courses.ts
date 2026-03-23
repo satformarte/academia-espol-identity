@@ -169,8 +169,8 @@ export const courses: CourseData[] = [
     price: 25,
     originalPrice: null,
     sidebarCategoryLabel: "Dret Penal",
-    totalPlaces: 30,
-    remainingPlaces: 25,
+    totalPlaces: 35,
+    remainingPlaces: 20,
     enrollmentUrl:
       "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=qruYLed9IAw=&return=no&returnurl=",
     whatsappText: "Hola!%20M'interessa%20el%20curs%20de%20Dret%20Penal",
@@ -261,8 +261,8 @@ export const courses: CourseData[] = [
           { text: "Accés a tots els mòduls", included: true },
           { text: "Material didàctic PDF", included: true },
           { text: "Certificat reconegust ISPC: RP20250141152", included: true },
-          { text: "Tutories en línea", included: false },
-          { text: "Accés il·limitat", included: false },
+          { text: "Tutories en línea", included: true },
+          { text: "Accés il·limitat", included: true },
         ],
       },
       {
@@ -280,7 +280,7 @@ export const courses: CourseData[] = [
         ],
       },
       {
-        name: "Preu general",
+        name: "No afiliat/ada",
         price: 50,
         originalPrice: null,
         highlight: false,
@@ -307,10 +307,6 @@ export const courses: CourseData[] = [
       {
         title: "Cossos de Seguretat",
         desc: "Agents dels Mossos d'Esquadra, Policia Nacional, Guàrdia Civil, alumnes de l'ISPC i policies locals que volen ampliar la seva formació.",
-      },
-      {
-        title: "Professionals Jurídics",
-        desc: "Advocats, fiscals, jutges i procuradors que necessiten comprendre la conducta criminal des d'una perspectiva científica.",
       },
     ],
 
