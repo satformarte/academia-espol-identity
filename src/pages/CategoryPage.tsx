@@ -139,9 +139,9 @@ const CategoryPage = () => {
                     <img
                         src={meta.img}
                         alt={meta.title}
-                        className="w-full h-full object-cover opacity-15"
+                        className="w-full h-full object-cover opacity-25"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/60" />
+                    <div className="absolute inset-0 bg-gradient-to-r via-primary/95 to-primary/70" />
                 </div>
 
                 <div className="relative container mx-auto px-4 max-w-[1400px] py-12 lg:py-16">
