@@ -25,24 +25,29 @@ const cursos = [
     durada: "6 sessions (18 hores)",
     preu: "180 €",
     afiliats: "150 €",
+    img: "/images/ispc-bulevard.jpg",
   },
   {
-    nom: "Procediments d'intervenció (Identificació, Esposar, Maneig de Persones Agressives/Conflictives)",
+    nom: "Procediments d'intervenció",
+    subtitol: "Identificació, Esposar, Maneig de Persones Agressives/Conflictives",
     durada: "3 sessions (4,5 hores)",
     preu: "75 €",
     afiliats: "–",
+    img: "/images/ispc-procediments.jpg",
   },
   {
     nom: "Tràfic i Transport",
     durada: "3 sessions (4,5 hores)",
     preu: "75 €",
     afiliats: "–",
+    img: "/images/ispc-transit.jpg",
   },
   {
     nom: "Armament",
     durada: "2 sessions (4 hores)",
     preu: "50 €",
     afiliats: "–",
+    img: "/images/ispc-armament.jpg",
   },
 ];
 
