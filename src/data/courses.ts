@@ -89,7 +89,11 @@ export interface CourseData {
 
 // ── Col·laboradors globals ────────────────────────────────────────────────────
 export const globalCollaborators = [
-  { name: "CCOO FSC", img: "/images/ccoo.png" },
+  { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
+  { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
+  { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
+  { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
+  { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
   { name: "GAMS", img: "/images/gams.jpg" },
   { name: "ISO 9001", img: "/images/iso.png" },
 ];
@@ -182,7 +186,7 @@ export const courses: CourseData[] = [
 
     gridImg: "/images/espol26-026-001.jpg",
     gridStudents: 30,
-    gridLevel: "Intermedi",
+    // gridLevel: "Intermedi",
     gridStartDate: "15/09/2025",
     gridEndDate: "15/03/2026",
     isNew: true,
@@ -317,15 +321,15 @@ export const courses: CourseData[] = [
       },
       {
         q: "Hi ha examen final?",
-        a: "El curs s'avalua mitjançant activitats pràctiques i qüestionaris al final de cada mòdul. No hi ha un examen presencial. L'avaluació és contínua i es pot realitzar des de qualsevol dispositiu.",
+        a: "El curs s'avalua mitjançant activitats i el qüestionari en línia. A més, si vols aconseguir el certificat d’aprofitament perquè el curs t’atorgui mèrits cal superar una prova presencial.",
       },
       {
         q: "Puc fer el curs al meu propi ritme?",
-        a: "Sí, el curs és 100% asíncron. Un cop matriculat tens accés il·limitat als continguts i pots avançar al teu ritme. El termini màxim per completar-lo és de 6 mesos des de la data de matriculació.",
+        a: "Sí, el curs és 100% asíncron. Un cop matriculat tens accés il·limitat als continguts i pots avançar al teu ritme, però sempre dins la data de finalització del curs.",
       },
       {
         q: "Oferiu tutories o suport durant el curs?",
-        a: "Sí. Tots els alumnes matriculats tenen accés a tutories setmanals per videoconferència i a un fòrum de dubtes amb resposta garantida en menys de 48 hores.",
+        a: "Sí. Tots els alumnes matriculats tenen accés a tutories a través d'un fòrum de dubtes amb resposta garantida en menys de 48 hores hàbils.",
       },
       {
         q: "Quan rebo el certificat un cop acabat el curs?",

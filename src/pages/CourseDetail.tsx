@@ -30,6 +30,7 @@ import {
     Check,
     BadgeAlert,
     Flame,
+    BadgeCheck as BadgeCheckIcon,
 } from "lucide-react";
 import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
@@ -144,6 +145,15 @@ const EnrollmentModal = ({ url, title, onClose }: { url: string; title: string; 
     );
 };
 
+// ── Helper: busca el codi ISPC als metaItems ──────────────────────────────────
+function getIspcCode(metaItems?: { label: string; value: string }[]): string | null {
+    if (!metaItems) return null;
+    const item = metaItems.find((m) =>
+        m.label.toLowerCase().includes("ispc") || m.label.toLowerCase().includes("reconegu")
+    );
+    return item ? item.value : null;
+}
+
 const CourseDetail = () => {
     const { slug } = useParams<{ slug: string }>();
     const course = courses.find((c) => c.slug === slug);
@@ -161,6 +171,7 @@ const CourseDetail = () => {
         ? Math.round(((course.totalPlaces - course.remainingPlaces) / course.totalPlaces) * 100)
         : 0;
     const courseTitle = `${course.titleBase}${course.titleAccent ? ` ${course.titleAccent}` : ""}`;
+    const ispcCode = getIspcCode(course.metaItems);
 
     return (
         <div className="min-h-screen bg-background">
@@ -411,6 +422,58 @@ const CourseDetail = () => {
                             </section>
                         )}
 
+                        {/* ── Reconeixement ISPC ────────────────────────────────────── */}
+                        {ispcCode && (
+                            <section className="scroll-reveal">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="w-1 h-7 bg-accent rounded-full" />
+                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Reconeixement ISPC</h2>
+                                </div>
+                                <div className="bg-card border border-border rounded-xl overflow-hidden">
+                                    {/* Banner */}
+                                    <div className="bg-primary px-6 py-5 flex items-center gap-4">
+                                        <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center">
+                                            <BadgeCheckIcon size={28} className="text-accent" />
+                                        </div>
+                                        <div>
+                                            <p className="font-body text-white/70 text-[11px] uppercase tracking-widest font-semibold mb-0.5">Reconegut per</p>
+                                            <h3 className="font-display font-black text-white text-base leading-tight">Institut de Seguretat Pública de Catalunya</h3>
+                                            <p className="font-body text-white/60 text-xs mt-0.5">Codi de reconeixement: <strong className="text-white/90">{ispcCode}</strong></p>
+                                        </div>
+                                    </div>
+
+                                    {/* Detalls */}
+                                    <div className="p-6 space-y-4">
+                                        <p className="font-body text-sm text-muted-foreground leading-relaxed">
+                                            Aquest curs compta amb el reconeixement oficial de l'<strong className="text-foreground">Institut de Seguretat Pública de Catalunya (ISPC)</strong>, l'organisme responsable de la formació dels cossos de seguretat a Catalunya.
+                                        </p>
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                            {[
+                                                { icon: <ShieldCheck size={15} />, label: "Organisme", value: "ISPC — Generalitat de Catalunya" },
+                                                { icon: <BadgeCheckIcon size={15} />, label: "Codi", value: ispcCode },
+                                            ].map(({ icon, label, value }) => (
+                                                <div key={label} className="bg-muted/50 rounded-xl p-4 flex items-start gap-3">
+                                                    <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center mt-0.5">{icon}</div>
+                                                    <div>
+                                                        <p className="font-body font-bold text-[10px] text-muted-foreground uppercase tracking-wide mb-0.5">{label}</p>
+                                                        <p className="font-body text-xs text-foreground leading-snug font-semibold">{value}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Footer */}
+                                    <div className="border-t border-border px-6 py-4 bg-muted/40 flex items-center gap-2">
+                                        <BadgeAlert size={13} className="text-accent flex-shrink-0" />
+                                        <p className="font-body text-[11px] text-muted-foreground">
+                                            El reconeixement ISPC és vàlid per als processos selectius dels <strong className="text-foreground">Mossos d'Esquadra</strong> i <strong className="text-foreground">policies locals</strong> de Catalunya.
+                                        </p>
+                                    </div>
+                                </div>
+                            </section>
+                        )}
+
                         {/* ── FAQ ───────────────────────────────────────────────────── */}
                         {course.faq && course.faq.length > 0 && (
                             <section className="scroll-reveal">
@@ -495,7 +558,6 @@ const CourseDetail = () => {
                                         ? Math.round(((course.totalPlaces - remaining) / course.totalPlaces) * 100)
                                         : 0;
 
-                                    // Sense places — missatge i sense barra
                                     if (remaining === 0) {
                                         return (
                                             <div className="bg-muted border border-border rounded-xl px-4 py-3 flex items-center gap-2">
@@ -507,7 +569,6 @@ const CourseDetail = () => {
                                         );
                                     }
 
-                                    // Color dinàmic segons ocupació
                                     const color = pct >= 75
                                         ? { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700", sub: "text-rose-600", bar: "bg-rose-500", barBg: "bg-rose-200", icon: "text-rose-500" }
                                         : pct >= 40
@@ -536,7 +597,7 @@ const CourseDetail = () => {
                                 {/* Preu */}
                                 <div>
                                     <div className="flex items-end gap-2 mb-0.5">
-                                        des de
+                                        <span className="font-body text-xs text-muted-foreground mb-1.5 mr-1">des de</span>
                                         <span className="font-display font-black text-4xl text-foreground">{course.price}€</span>
                                         {course.originalPrice && (
                                             <span className="font-body text-sm text-muted-foreground line-through mb-1">{course.originalPrice}€</span>
@@ -547,7 +608,6 @@ const CourseDetail = () => {
                                             </span>
                                         )}
                                     </div>
-                                    <p className="font-body text-xs text-muted-foreground">Preu únic</p>
                                 </div>
 
                                 <button
@@ -557,12 +617,22 @@ const CourseDetail = () => {
                                     Matricular-me ara
                                 </button>
 
+                                {/* Badge ISPC al sidebar */}
+                                {ispcCode && (
+                                    <div className="flex items-center gap-2.5 bg-primary/5 border border-primary/15 rounded-xl px-3 py-2.5">
+                                        <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                            <BadgeCheckIcon size={14} />
+                                        </div>
+                                        <div>
+                                            <p className="font-body font-bold text-[10px] text-primary uppercase tracking-wide">Reconegut ISPC</p>
+                                            <p className="font-body text-[10px] text-muted-foreground">{ispcCode}</p>
+                                        </div>
+                                    </div>
+                                )}
 
                                 {/* Meta items + dates */}
                                 {((course.metaItems && course.metaItems.length > 0) || course.gridStartDate || course.gridEndDate) && (
                                     <div className="space-y-3 pt-2 border-t border-border">
-
-                                        {/* Meta items dinàmics */}
                                         {course.metaItems && course.metaItems.map(({ label, value }) => {
                                             const iconMap: Record<string, React.ReactNode> = {
                                                 "Durada": <Clock size={14} />,
@@ -583,7 +653,6 @@ const CourseDetail = () => {
                                             );
                                         })}
 
-                                        {/* Data d'inici — només si existeix */}
                                         {course.gridStartDate && (
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2 text-muted-foreground">
@@ -594,7 +663,6 @@ const CourseDetail = () => {
                                             </div>
                                         )}
 
-                                        {/* Data de fi — només si existeix */}
                                         {course.gridEndDate && (
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2 text-muted-foreground">
@@ -606,13 +674,6 @@ const CourseDetail = () => {
                                         )}
                                     </div>
                                 )}
-
-                                <div className="flex items-center gap-2 bg-muted rounded-lg px-3 py-2.5">
-                                    <UserCheck size={14} className="text-accent flex-shrink-0" />
-                                    <p className="font-body text-[11px] text-muted-foreground leading-snug">
-                                        Formació <strong className="text-foreground">reconeguda</strong> per a l'accés als cossos de seguretat de Catalunya
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </aside>
@@ -628,8 +689,8 @@ const CourseDetail = () => {
                     </div>
                     <div className="flex flex-wrap items-center justify-start gap-10">
                         {collaborators.map((col) => (
-                            <div key={col.name} className="flex items-center justify-center h-14">
-                                <img src={col.img} alt={col.name} className="max-h-full w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                            <div key={col.name} className="flex items-center justify-center h-16">
+                                <img src={col.img} alt={col.name} className="max-h-full w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
                             </div>
                         ))}
                     </div>
