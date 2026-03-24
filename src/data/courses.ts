@@ -106,7 +106,7 @@ export const courses: CourseData[] = [
     originalPrice: null,
     sidebarCategoryLabel: "Dret Penal",
     totalPlaces: 35,
-    remainingPlaces: 20,
+    remainingPlaces: 2,
     enrollmentUrl:
       "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=qruYLed9IAw=&return=no&returnurl=",
     whatsappText: "Hola!%20M'interessa%20el%20curs%20de%20Dret%20Penal",

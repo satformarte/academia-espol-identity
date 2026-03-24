@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import espolLogo from "@/assets/espol-logo.png";
 
 const slides = [
   {
@@ -9,7 +8,7 @@ const slides = [
     desc: "Cursos especialitzats per a professionals de la seguretat pública i privada, amb certificació oficial i metodologia contrastada.",
     btn1: "Veure tots els cursos →",
     btn2: "Demana informació",
-    img: "/images/hero-graduation-1.jpg",
+    img: "/images/heroSlider1.png",
   },
   {
     badge: "📋 Oposicions 2025",
@@ -17,7 +16,7 @@ const slides = [
     desc: "Temaris actualitzats, simulacres d'examen i professors en actiu que coneixen el procés selectiu de primera mà.",
     btn1: "Veure oposicions →",
     btn2: "Parla amb un assessor",
-    img: "/images/hero-graduation-2.jpg",
+    img: "/images/heroSlider2.png",
   },
   {
     badge: "🎓 Formació especialitzada",
@@ -25,7 +24,7 @@ const slides = [
     desc: "Aprofundeix en les àrees més demandades del sector amb formació impartida per professionals en actiu.",
     btn1: "Explorar cursos →",
     btn2: "Saber-ne més",
-    img: "/images/hero-graduation-3.jpg",
+    img: "/images/heroSlider3.png",
   },
 ];
 
@@ -43,8 +42,8 @@ const HeroSlider = () => {
   const slide = slides[current];
 
   return (
-    <section className="relative h-[600px] md:h-[640px] overflow-hidden">
-      {/* Background image with ken burns */}
+    <section className="relative h-[420px] sm:h-[480px] md:h-[640px] overflow-hidden">
+      {/* Background images */}
       {slides.map((s, i) => (
         <div
           key={i}
@@ -66,16 +65,16 @@ const HeroSlider = () => {
       <div className="absolute inset-0 z-[1] opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
 
       {/* Content */}
-      <div className="relative z-[3] container mx-auto px-4 max-w-[1400px] h-full flex items-center">
+      <div className="relative z-[3] container mx-auto px-6 sm:px-8 md:px-4 max-w-[1400px] h-full flex items-center py-8 md:py-0">
         <div className="max-w-2xl">
-          <span className="inline-block bg-accent/20 backdrop-blur-md text-primary-foreground text-xs font-body font-semibold px-5 py-2 rounded-full mb-6 border border-accent/30">
+          <span className="inline-block bg-accent/20 backdrop-blur-md text-primary-foreground text-xs font-body font-semibold px-5 py-2 rounded-full mb-4 md:mb-6 border border-accent/30">
             {slide.badge}
           </span>
           <h1
-            className="font-display font-black text-primary-foreground text-[30px] md:text-[48px] leading-[1.1] tracking-[-1.5px] mb-5"
+            className="font-display font-black text-primary-foreground text-[24px] sm:text-[30px] md:text-[48px] leading-[1.1] tracking-[-1.5px] mb-3 md:mb-5"
             dangerouslySetInnerHTML={{ __html: slide.title }}
           />
-          <p className="font-body text-primary-foreground/70 text-base md:text-lg mb-10 max-w-lg leading-relaxed">
+          <p className="font-body text-primary-foreground/70 text-sm md:text-lg mb-6 md:mb-10 max-w-lg leading-relaxed">
             {slide.desc}
           </p>
           <div className="flex flex-wrap gap-4">
@@ -106,7 +105,7 @@ const HeroSlider = () => {
       </button>
 
       {/* Progress bar dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2.5 z-10">
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2.5 z-10">
         {slides.map((_, i) => (
           <button
             key={i}

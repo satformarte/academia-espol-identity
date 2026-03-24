@@ -119,8 +119,8 @@ const Navbar = () => {
 
             <div
               className={`absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-56 bg-card border border-border rounded-xl shadow-[0_8px_30px_rgba(27,48,136,0.12)] overflow-hidden transition-all duration-200 origin-top ${oposicionsDropdownOpen
-                  ? "opacity-100 scale-y-100 translate-y-0 pointer-events-auto"
-                  : "opacity-0 scale-y-95 -translate-y-1 pointer-events-none"
+                ? "opacity-100 scale-y-100 translate-y-0 pointer-events-auto"
+                : "opacity-0 scale-y-95 -translate-y-1 pointer-events-none"
                 }`}
               style={{ transformOrigin: "top center" }}
             >
@@ -171,8 +171,8 @@ const Navbar = () => {
 
             <div
               className={`absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-56 bg-card border border-border rounded-xl shadow-[0_8px_30px_rgba(27,48,136,0.12)] overflow-hidden transition-all duration-200 origin-top ${dropdownOpen
-                  ? "opacity-100 scale-y-100 translate-y-0 pointer-events-auto"
-                  : "opacity-0 scale-y-95 -translate-y-1 pointer-events-none"
+                ? "opacity-100 scale-y-100 translate-y-0 pointer-events-auto"
+                : "opacity-0 scale-y-95 -translate-y-1 pointer-events-none"
                 }`}
               style={{ transformOrigin: "top center" }}
             >
