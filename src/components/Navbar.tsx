@@ -237,7 +237,7 @@ const Navbar = () => {
 
           {/* ALUMNES ISPC */}
           <Link
-            to="/"
+            to="/alumnes-ispc"
             className="block font-body font-bold text-sm text-foreground uppercase tracking-wide hover:text-accent transition-colors py-2"
             onClick={() => setMobileOpen(false)}
           >
