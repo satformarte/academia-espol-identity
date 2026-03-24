@@ -8,6 +8,7 @@ import CourseDetail from "./pages/CourseDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ScrollToTop from "@/components/ScrollToTop";
 import NosaltresPage from "@/pages/NosaltresPage";
+import AlumnesISPCPage from "@/pages/AlumnesISPCPage";
 import CategoryPage from "./pages/CategoryPage.tsx";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           {/* <Route path="/curs/cursdetall" element={<CourseDetail />} /> */}
           <Route path="/curs/:slug" element={<CourseDetail />} />
+          <Route path="/alumnes-ispc" element={<AlumnesISPCPage />} />
           <Route path="/:categoria" element={<CategoryPage />} />
           <Route path="/nosaltres" element={<NosaltresPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
