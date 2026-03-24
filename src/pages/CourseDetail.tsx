@@ -35,7 +35,7 @@ import {
 import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { courses, globalCollaborators } from "@/data/courses";
+import { courses } from "@/data/courses";
 
 const MODULE_ICONS = [
     <Brain size={18} />,
@@ -166,7 +166,7 @@ const CourseDetail = () => {
     const { ref: sidebarRef } = useStickyCard();
     useScrollReveal();
 
-    const collaborators = course.collaborators ?? globalCollaborators;
+    const collaborators = course.collaborators ?? [];
     const occupiedPct = course.totalPlaces && course.remainingPlaces
         ? Math.round(((course.totalPlaces - course.remainingPlaces) / course.totalPlaces) * 100)
         : 0;
@@ -351,7 +351,6 @@ const CourseDetail = () => {
                                                         <span className={`font-body text-sm line-through mb-1 ${plan.highlight ? "text-white/40" : "text-muted-foreground"}`}>{plan.originalPrice}€</span>
                                                     )}
                                                 </div>
-                                                <p className={`font-body text-[11px] ${plan.highlight ? "text-white/50" : "text-muted-foreground"}`}>Preu únic</p>
                                             </div>
                                             <div className={`p-5 flex-1 flex flex-col gap-3 ${plan.highlight ? "bg-card" : ""}`}>
                                                 {plan.features.map((feat) => (
@@ -681,21 +680,23 @@ const CourseDetail = () => {
             </div>
 
             {/* ── Entitats col·laboradores ──────────────────────────────────────── */}
-            <section className="py-10 bg-card border-t border-border scroll-reveal">
-                <div className="container mx-auto px-4 max-w-[1400px]">
-                    <div className="flex items-center gap-3 mb-8">
-                        <div className="w-1 h-7 bg-accent rounded-full" />
-                        <h2 className="font-display font-black text-lg text-foreground uppercase tracking-tight">Entitats Col·laboradores</h2>
+            {collaborators.length > 0 && (
+                <section className="py-10 bg-card border-t border-border scroll-reveal">
+                    <div className="container mx-auto px-4 max-w-[1400px]">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="w-1 h-7 bg-accent rounded-full" />
+                            <h2 className="font-display font-black text-lg text-foreground uppercase tracking-tight">Entitats Col·laboradores</h2>
+                        </div>
+                        <div className="flex flex-wrap items-center justify-start gap-10">
+                            {collaborators.map((col) => (
+                                <div key={col.name} className="flex items-center justify-center h-16">
+                                    <img src={col.img} alt={col.name} className="max-h-full w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <div className="flex flex-wrap items-center justify-start gap-10">
-                        {collaborators.map((col) => (
-                            <div key={col.name} className="flex items-center justify-center h-16">
-                                <img src={col.img} alt={col.name} className="max-h-full w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                </section>
+            )}
 
             {/* ── WhatsApp fixed CTA ────────────────────────────────────────────── */}
             {course.whatsappText && (

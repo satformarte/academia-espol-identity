@@ -1,12 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // src/data/courses.ts
-// Fitxer central amb TOTA la informació de tots els cursos.
-// Per afegir un curs nou: afegeix un objecte al array "courses".
-// CourseDetail.tsx i CategoryPage.tsx llegiran automàticament
-// les dades des d'aquí — no cal tocar cap altre fitxer.
-//
-// CAMPS OPCIONALS (amb ?): si no s'especifiquen o estan buits (""),
-// el component NO els renderitzarà — no hi haurà espais en blanc.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface CoursePlan {
@@ -87,69 +80,8 @@ export interface CourseData {
   collaborators?: { name: string; img: string }[];
 }
 
-// ── Col·laboradors globals ────────────────────────────────────────────────────
-export const globalCollaborators = [
-  { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-  { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-  { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-  { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-  { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-  { name: "GAMS", img: "/images/gams.jpg" },
-  { name: "ISO 9001", img: "/images/iso.png" },
-];
-
-// ── Plans compartits — ordre: Nou afiliat (centre/highlight) al mig ───────────
-// Ordre: Afiliat+6mesos | Nou afiliat (highlight) | Preu general
-const plansEstandard: CoursePlan[] = [
-  // {
-  //   name: "Nou afiliat/ada",
-  //   price: 30,
-  //   originalPrice: null,
-  //   highlight: false,
-  //   badge: null,
-  //   features: [
-  //     { text: "Accés a tots els mòduls", included: true },
-  //     { text: "Material didàctic PDF", included: true },
-  //     { text: "Avaluació per mòdul", included: true },
-  //     { text: "Certificat oficial ESPOL", included: true },
-  //     { text: "Tutories setmanals", included: false },
-  //     { text: "Accés il·limitat", included: false },
-  //     { text: "Suport prioritari", included: false },
-  //   ],
-  // },
-  // {
-  //   name: "Afiliat/ada + 6 mesos i alumnes en pràctiques afiliats",
-  //   price: 25,
-  //   originalPrice: null,
-  //   highlight: true,
-  //   badge: "Millor preu",
-  //   features: [
-  //     { text: "Accés a tots els mòduls", included: true },
-  //     { text: "Material didàctic PDF", included: true },
-  //     { text: "Avaluació per mòdul", included: true },
-  //     { text: "Certificat oficial ESPOL", included: true },
-  //     { text: "Tutories setmanals", included: true },
-  //     { text: "Accés il·limitat", included: true },
-  //     { text: "Suport prioritari", included: true },
-  //   ],
-  // },
-  // {
-  //   name: "Preu general",
-  //   price: 50,
-  //   originalPrice: null,
-  //   highlight: false,
-  //   badge: null,
-  //   features: [
-  //     { text: "Accés a tots els mòduls", included: true },
-  //     { text: "Material didàctic PDF", included: true },
-  //     { text: "Avaluació per mòdul", included: true },
-  //     { text: "Certificat oficial ESPOL", included: true },
-  //     { text: "Tutories setmanals", included: true },
-  //     { text: "Accés il·limitat", included: true },
-  //     { text: "Suport prioritari", included: false },
-  //   ],
-  // },
-];
+// ── Plans compartits ──────────────────────────────────────────────────────────
+const plansEstandard: CoursePlan[] = [];
 
 // ── Cursos ────────────────────────────────────────────────────────────────────
 export const courses: CourseData[] = [
@@ -186,7 +118,6 @@ export const courses: CourseData[] = [
 
     gridImg: "/images/espol26-026-001.jpg",
     gridStudents: 30,
-    // gridLevel: "Intermedi",
     gridStartDate: "15/09/2025",
     gridEndDate: "15/03/2026",
     isNew: true,
@@ -243,17 +174,6 @@ export const courses: CourseData[] = [
       },
     ],
 
-    // certification: {
-    //   entity: "Acadèmia ESPOL",
-    //   code: "ESPOL-CRIM-2025",
-    //   validity: "Reconegut en oposicions de Catalunya i Espanya",
-    //   format: "Digital amb codi de verificació únic",
-    //   delivery: "5 dies hàbils després de completar el curs",
-    //   score: "Mèrit en processos selectius de cossos de seguretat",
-    //   footerNote:
-    //     "El certificat és vàlid per als processos selectius dels Mossos d'Esquadra, Policia Nacional i policies locals de Catalunya.",
-    // },
-
     plans: [
       {
         name: "Nou afiliat/ada",
@@ -299,14 +219,6 @@ export const courses: CourseData[] = [
       },
     ],
 
-    // requirements: [
-    //   "Titulació de Batxillerat o equivalent",
-    //   "No es requereix experiència prèvia en criminologia",
-    //   "Accés a un dispositiu amb connexió a internet",
-    //   "Disponibilitat mínima de 6 hores setmanals",
-    //   "Nivell bàsic de català o castellà",
-    // ],
-
     audience: [
       {
         title: "Cossos de Seguretat",
@@ -321,7 +233,7 @@ export const courses: CourseData[] = [
       },
       {
         q: "Hi ha examen final?",
-        a: "El curs s'avalua mitjançant activitats i el qüestionari en línia. A més, si vols aconseguir el certificat d’aprofitament perquè el curs t’atorgui mèrits cal superar una prova presencial.",
+        a: "El curs s'avalua mitjançant activitats i el qüestionari en línia. A més, si vols aconseguir el certificat d'aprofitament perquè el curs t'atorgui mèrits cal superar una prova presencial.",
       },
       {
         q: "Puc fer el curs al meu propi ritme?",
@@ -349,6 +261,16 @@ export const courses: CourseData[] = [
       role: "Mossos d'Esquadra · 2025",
       initials: "MG",
     },
+
+    collaborators: [
+      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
+      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
+      { name: "GAMS", img: "/images/gams.jpg" },
+      { name: "ISO 9001", img: "/images/iso.png" },
+    ],
   },
 
   // ──────────────────────────────────────────────────────────────────────────
@@ -522,6 +444,16 @@ export const courses: CourseData[] = [
       role: "Mossos d'Esquadra · 2024",
       initials: "MG",
     },
+
+    collaborators: [
+      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
+      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
+      { name: "GAMS", img: "/images/gams.jpg" },
+      { name: "ISO 9001", img: "/images/iso.png" },
+    ],
   },
 
   // ──────────────────────────────────────────────────────────────────────────
@@ -695,6 +627,16 @@ export const courses: CourseData[] = [
       role: "Mossos d'Esquadra · 2024",
       initials: "MG",
     },
+
+    collaborators: [
+      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
+      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
+      { name: "GAMS", img: "/images/gams.jpg" },
+      { name: "ISO 9001", img: "/images/iso.png" },
+    ],
   },
 
 ];
