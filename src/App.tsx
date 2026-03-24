@@ -8,6 +8,7 @@ import CourseDetail from "./pages/CourseDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ScrollToTop from "@/components/ScrollToTop";
 import NosaltresPage from "@/pages/NosaltresPage";
+import AlumnesISPCPage from "@/pages/AlumnesISPCPage";
 import CategoryPage from "./pages/CategoryPage.tsx";
 
 const queryClient = new QueryClient();
