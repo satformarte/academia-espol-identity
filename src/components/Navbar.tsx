@@ -89,7 +89,7 @@ const Navbar = () => {
 
           {/* ALUMNES ISPC */}
           <Link
-            to="/"
+            to="/alumnes-ispc"
             className="nav-link relative font-body font-bold text-[12px] text-muted-foreground uppercase tracking-[0.05em] hover:text-foreground transition-colors"
           >
             ALUMNES ISPC
