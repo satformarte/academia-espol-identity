@@ -24,7 +24,7 @@ const slides = [
     desc: "Aprofundeix en les àrees més demandades del sector amb formació impartida per professionals en actiu.",
     btn1: "Explorar cursos →",
     btn2: "Saber-ne més",
-    img: "/images/heroSlider3.png",
+    img: "/images/heroSlider3.jpg",
   },
 ];
 

@@ -16,6 +16,7 @@ import {
 import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const WHATSAPP_LINK = "https://wa.me/34694234416";
 
@@ -358,6 +359,7 @@ const AlumnesISPCPage = () => {
       </section>
 
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };

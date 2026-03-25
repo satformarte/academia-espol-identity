@@ -17,6 +17,7 @@ import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { courses } from "@/data/courses";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Per afegir una categoria nova:
@@ -345,6 +346,7 @@ const CategoryPage = () => {
                 </div>
             </section>
             <Footer />
+            <WhatsAppButton />
         </div>
     );
 };
