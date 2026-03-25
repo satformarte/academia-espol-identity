@@ -35,7 +35,7 @@ const ContactePage = () => {
 
             {/* Hero */}
             <div className="relative bg-primary overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-primary" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/70" />
                 <div className="relative container mx-auto px-4 max-w-[1400px] py-12 lg:py-16">
                     <div className="max-w-2xl">
                         <span className="inline-flex items-center gap-1.5 bg-accent/20 border border-accent/30 text-accent-foreground font-body font-bold text-[10px] uppercase tracking-[0.1em] px-3 py-1 rounded-full mb-5">
