@@ -14,6 +14,8 @@ import AlumnesISPC from "./pages/AlumnesISPC.tsx";
 import AlumnesISPCDetail from "./pages/Alumnesispcdetail.tsx";
 import GuardiaUrbana from "./pages/GuardiaUrbana.tsx";
 import MossosEsquadra from "./pages/MossosEsquadra.tsx";
+import ContactePage from "./pages/ContactePage.tsx";
+
 
 const queryClient = new QueryClient();
 
@@ -34,6 +36,7 @@ const App = () => (
           <Route path="/nosaltres" element={<NosaltresPage />} />
           <Route path="/oposicions/guardia-urbana" element={<GuardiaUrbana />} />
           <Route path="/oposicions/mossos-desquadra" element={<MossosEsquadra />} />
+          <Route path="/contacte" element={<ContactePage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

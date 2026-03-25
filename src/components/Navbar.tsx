@@ -29,7 +29,7 @@ const oposicionsCategories = [
 ];
 
 const navItems = [
-  { label: "CONTACTE", href: "/" },
+  { label: "CONTACTE", href: "/contacte" },
   { label: "NOSALTRES", href: "/nosaltres" },
 ];
 
