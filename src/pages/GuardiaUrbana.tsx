@@ -104,7 +104,7 @@ const GuardiaUrbana = () => {
                     <nav className="flex items-center gap-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.06em] text-muted-foreground">
                         <Link to="/" className="hover:text-accent transition-colors duration-150">Inici</Link>
                         <ChevronRight size={12} className="opacity-40" />
-                        <Link to="/oposicions" className="hover:text-accent transition-colors duration-150">Oposicions</Link>
+                        <Link to="/" className="hover:text-accent transition-colors duration-150">Oposicions</Link>
                         <ChevronRight size={12} className="opacity-40" />
                         <span className="text-foreground">Guàrdia Urbana</span>
                     </nav>
