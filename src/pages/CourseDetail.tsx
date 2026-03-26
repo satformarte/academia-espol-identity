@@ -456,7 +456,7 @@ const CourseDetail = () => {
                                 <div className="bg-card border border-border rounded-xl overflow-hidden">
                                     <div className="bg-primary px-6 py-5 flex items-center gap-4">
                                         <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center">
-                                            <Award size={28} className="text-accent" />
+                                            <Award size={28} className="text-white" />
                                         </div>
                                         <div>
                                             <p className="font-body text-white/70 text-[11px] uppercase tracking-widest font-semibold mb-0.5">Reconegut per</p>
