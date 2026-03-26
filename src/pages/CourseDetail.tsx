@@ -30,7 +30,6 @@ import {
     Check,
     BadgeAlert,
     Flame,
-    BadgeCheck as BadgeCheckIcon,
 } from "lucide-react";
 import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
@@ -145,7 +144,6 @@ const EnrollmentModal = ({ url, title, onClose }: { url: string; title: string; 
     );
 };
 
-// ── Helper: busca el codi ISPC als metaItems ──────────────────────────────────
 function getIspcCode(metaItems?: { label: string; value: string }[]): string | null {
     if (!metaItems) return null;
     const item = metaItems.find((m) =>
@@ -167,9 +165,6 @@ const CourseDetail = () => {
     useScrollReveal();
 
     const collaborators = course.collaborators ?? [];
-    const occupiedPct = course.totalPlaces && course.remainingPlaces
-        ? Math.round(((course.totalPlaces - course.remainingPlaces) / course.totalPlaces) * 100)
-        : 0;
     const courseTitle = `${course.titleBase}${course.titleAccent ? ` ${course.titleAccent}` : ""}`;
     const ispcCode = getIspcCode(course.metaItems);
 
@@ -186,7 +181,7 @@ const CourseDetail = () => {
                 />
             )}
 
-            {/* ── Breadcrumbs ───────────────────────────────────────────────── */}
+            {/* Breadcrumbs */}
             <div className="bg-card border-b border-border">
                 <div className="container mx-auto px-4 max-w-[1400px] py-3">
                     <nav className="flex items-center gap-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.06em] text-muted-foreground">
@@ -201,7 +196,7 @@ const CourseDetail = () => {
                 </div>
             </div>
 
-            {/* ── Hero banner ───────────────────────────────────────────────── */}
+            {/* Hero */}
             <div className="relative bg-primary overflow-hidden">
                 <div className="absolute inset-0">
                     <img src={course.img} alt="imatgeHero" className="w-full h-full object-cover opacity-20" />
@@ -239,14 +234,14 @@ const CourseDetail = () => {
                 </div>
             </div>
 
-            {/* ── Main content + sidebar ────────────────────────────────────── */}
+            {/* Main content + sidebar */}
             <div className="container mx-auto px-4 max-w-[1400px] py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-10 items-start">
 
                     {/* LEFT COLUMN */}
                     <div className="space-y-12">
 
-                        {/* ── Mòduls ────────────────────────────────────────────────── */}
+                        {/* Mòduls */}
                         {course.modules && course.modules.length > 0 && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
@@ -283,7 +278,7 @@ const CourseDetail = () => {
                             </section>
                         )}
 
-                        {/* ── Certificació ──────────────────────────────────────────── */}
+                        {/* Certificació */}
                         {course.certification && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
@@ -325,45 +320,74 @@ const CourseDetail = () => {
                             </section>
                         )}
 
-                        {/* ── Plans i preus ─────────────────────────────────────────── */}
+                        {/* Plans i preus */}
                         {course.plans && course.plans.length > 0 && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-1 h-7 bg-accent rounded-full" />
                                     <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Plans i Preus</h2>
                                 </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                                     {course.plans.map((plan) => (
                                         <div
                                             key={plan.name}
-                                            className={`relative rounded-2xl border overflow-hidden flex flex-col transition-all duration-150 ${plan.highlight ? "border-accent shadow-[0_8px_32px_rgba(27,48,136,0.15)]" : "border-border bg-card"}`}
+                                            className={`relative rounded-2xl overflow-hidden flex flex-col transition-all duration-150 ${plan.highlight
+                                                ? "border-2 border-[#ee3034] shadow-[0_12px_40px_rgba(238,48,52,0.20)] -my-3"
+                                                : "border-2 border-primary shadow-[0_8px_24px_rgba(27,48,136,0.13)]"
+                                                }`}
                                         >
-                                            {plan.badge && (
-                                                <div className="absolute top-0 left-0 right-0 bg-accent text-accent-foreground font-body font-bold text-[10px] uppercase tracking-widest text-center py-1.5">
-                                                    {plan.badge}
-                                                </div>
-                                            )}
-                                            <div className={`p-5 ${plan.highlight ? "bg-primary pt-9" : "pt-5"}`}>
-                                                <p className={`font-body font-bold text-[11px] uppercase tracking-widest mb-2 ${plan.highlight ? "text-white/60" : "text-muted-foreground"}`}>{plan.name}</p>
-                                                <div className="flex items-end gap-1.5 mb-0.5">
-                                                    <span className={`font-display font-black text-3xl ${plan.highlight ? "text-white" : "text-foreground"}`}>{plan.price}€</span>
+                                            {/* Badge superior — tots els plans */}
+                                            <div
+                                                className="text-white font-body font-bold text-[10px] uppercase tracking-widest text-center py-2"
+                                                style={{ backgroundColor: plan.highlight ? "#ee3034" : "#1b3088" }}
+                                            >
+                                                {plan.badge ?? plan.name}
+                                            </div>
+
+                                            {/* Capçalera */}
+                                            <div
+                                                className="px-5 pt-4 pb-4 text-center"
+                                                style={{ backgroundColor: plan.highlight ? "#ee3034" : "#1b3088" }}
+                                            >
+                                                <p className="font-body font-bold text-[11px] text-white/60 uppercase tracking-widest mb-2">
+                                                    {plan.name}
+                                                </p>
+                                                <div className="flex items-end justify-center gap-1.5">
+                                                    <span className={`font-display font-black text-white ${plan.highlight ? "text-4xl" : "text-3xl"}`}>
+                                                        {plan.price}€
+                                                    </span>
                                                     {plan.originalPrice && (
-                                                        <span className={`font-body text-sm line-through mb-1 ${plan.highlight ? "text-white/40" : "text-muted-foreground"}`}>{plan.originalPrice}€</span>
+                                                        <span className="font-body text-sm line-through mb-1 text-white/40">
+                                                            {plan.originalPrice}€
+                                                        </span>
                                                     )}
                                                 </div>
                                             </div>
-                                            <div className={`p-5 flex-1 flex flex-col gap-3 ${plan.highlight ? "bg-card" : ""}`}>
+
+                                            {/* Features — sempre neutres */}
+                                            <div className="px-5 pt-4 pb-5 flex-1 flex flex-col gap-3 bg-card">
                                                 {plan.features.map((feat) => (
                                                     <div key={feat.text} className="flex items-center gap-2.5">
-                                                        <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${feat.included ? "bg-accent/15 text-accent" : "bg-muted text-muted-foreground/40"}`}>
-                                                            {feat.included ? <Check size={10} strokeWidth={3} /> : <X size={9} strokeWidth={2.5} />}
+                                                        <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${feat.included
+                                                            ? "bg-primary/10 text-primary"
+                                                            : "bg-muted text-muted-foreground/40"
+                                                            }`}>
+                                                            {feat.included
+                                                                ? <Check size={10} strokeWidth={3} />
+                                                                : <X size={9} strokeWidth={2.5} />
+                                                            }
                                                         </div>
-                                                        <span className={`font-body text-xs ${feat.included ? "text-foreground" : "text-muted-foreground/50 line-through"}`}>{feat.text}</span>
+                                                        <span className={`font-body text-xs ${feat.included ? "text-foreground" : "text-muted-foreground/50 line-through"}`}>
+                                                            {feat.text}
+                                                        </span>
                                                     </div>
                                                 ))}
+
                                                 <button
                                                     onClick={() => setEnrollOpen(true)}
-                                                    className={`mt-auto w-full font-body font-bold text-xs uppercase tracking-[0.06em] px-4 py-2.5 rounded-xl transition-all duration-150 cursor-pointer ${plan.highlight ? "bg-accent text-accent-foreground hover:shadow-lg" : "bg-muted text-foreground hover:bg-primary hover:text-white"}`}
+                                                    className="mt-auto w-full font-body font-bold text-xs uppercase tracking-[0.06em] px-4 py-2.5 rounded-xl transition-all duration-150 cursor-pointer text-white hover:opacity-90 hover:shadow-lg"
+                                                    style={{ backgroundColor: plan.highlight ? "#ee3034" : "#1b3088" }}
                                                 >
                                                     Matricular-me
                                                 </button>
@@ -374,7 +398,8 @@ const CourseDetail = () => {
                             </section>
                         )}
 
-                        {/* ── Requisits ─────────────────────────────────────────────── */}
+
+                        {/* Requisits */}
                         {course.requirements && course.requirements.length > 0 && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
@@ -396,7 +421,7 @@ const CourseDetail = () => {
                             </section>
                         )}
 
-                        {/* ── Públic objectiu ───────────────────────────────────────── */}
+                        {/* Públic objectiu */}
                         {course.audience && course.audience.length > 0 && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
@@ -421,7 +446,7 @@ const CourseDetail = () => {
                             </section>
                         )}
 
-                        {/* ── Reconeixement ISPC ────────────────────────────────────── */}
+                        {/* Reconeixement ISPC */}
                         {ispcCode && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
@@ -429,10 +454,9 @@ const CourseDetail = () => {
                                     <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Reconeixement ISPC</h2>
                                 </div>
                                 <div className="bg-card border border-border rounded-xl overflow-hidden">
-                                    {/* Banner */}
                                     <div className="bg-primary px-6 py-5 flex items-center gap-4">
                                         <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center">
-                                            <BadgeCheckIcon size={28} className="text-accent" />
+                                            <Award size={28} className="text-accent" />
                                         </div>
                                         <div>
                                             <p className="font-body text-white/70 text-[11px] uppercase tracking-widest font-semibold mb-0.5">Reconegut per</p>
@@ -440,8 +464,6 @@ const CourseDetail = () => {
                                             <p className="font-body text-white/60 text-xs mt-0.5">Codi de reconeixement: <strong className="text-white/90">{ispcCode}</strong></p>
                                         </div>
                                     </div>
-
-                                    {/* Detalls */}
                                     <div className="p-6 space-y-4">
                                         <p className="font-body text-sm text-muted-foreground leading-relaxed">
                                             Aquest curs compta amb el reconeixement oficial de l'<strong className="text-foreground">Institut de Seguretat Pública de Catalunya (ISPC)</strong>, l'organisme responsable de la formació dels cossos de seguretat a Catalunya.
@@ -449,7 +471,7 @@ const CourseDetail = () => {
                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                             {[
                                                 { icon: <ShieldCheck size={15} />, label: "Organisme", value: "ISPC — Generalitat de Catalunya" },
-                                                { icon: <BadgeCheckIcon size={15} />, label: "Codi", value: ispcCode },
+                                                { icon: <Award size={15} />, label: "Codi", value: ispcCode },
                                             ].map(({ icon, label, value }) => (
                                                 <div key={label} className="bg-muted/50 rounded-xl p-4 flex items-start gap-3">
                                                     <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center mt-0.5">{icon}</div>
@@ -461,8 +483,6 @@ const CourseDetail = () => {
                                             ))}
                                         </div>
                                     </div>
-
-                                    {/* Footer */}
                                     <div className="border-t border-border px-6 py-4 bg-muted/40 flex items-center gap-2">
                                         <BadgeAlert size={13} className="text-accent flex-shrink-0" />
                                         <p className="font-body text-[11px] text-muted-foreground">
@@ -473,7 +493,7 @@ const CourseDetail = () => {
                             </section>
                         )}
 
-                        {/* ── FAQ ───────────────────────────────────────────────────── */}
+                        {/* FAQ */}
                         {course.faq && course.faq.length > 0 && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
@@ -504,7 +524,7 @@ const CourseDetail = () => {
                             </section>
                         )}
 
-                        {/* ── Valoració ─────────────────────────────────────────────── */}
+                        {/* Valoració */}
                         {course.reviews && (
                             <section className="scroll-reveal">
                                 <div className="bg-primary/5 border border-primary/10 rounded-xl p-6 flex flex-col sm:flex-row items-center gap-5">
@@ -551,7 +571,7 @@ const CourseDetail = () => {
                             <div className="p-6 space-y-5">
 
                                 {/* Contador de places */}
-                                {course.totalPlaces && course.remainingPlaces !== undefined && (() => {
+                                {/* {course.totalPlaces && course.remainingPlaces !== undefined && (() => {
                                     const remaining = course.remainingPlaces ?? 0;
                                     const pct = course.totalPlaces
                                         ? Math.round(((course.totalPlaces - remaining) / course.totalPlaces) * 100)
@@ -591,7 +611,7 @@ const CourseDetail = () => {
                                             </p>
                                         </div>
                                     );
-                                })()}
+                                })()} */}
 
                                 {/* Preu */}
                                 <div>
@@ -616,11 +636,11 @@ const CourseDetail = () => {
                                     Matricular-me ara
                                 </button>
 
-                                {/* Badge ISPC al sidebar */}
+                                {/* Badge ISPC */}
                                 {ispcCode && (
                                     <div className="flex items-center gap-2.5 bg-primary/5 border border-primary/15 rounded-xl px-3 py-2.5">
                                         <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                                            <BadgeCheckIcon size={14} />
+                                            <Award size={14} />
                                         </div>
                                         <div>
                                             <p className="font-body font-bold text-[10px] text-primary uppercase tracking-wide">Reconegut ISPC</p>
@@ -629,7 +649,7 @@ const CourseDetail = () => {
                                     </div>
                                 )}
 
-                                {/* Meta items + dates */}
+                                {/* Meta items */}
                                 {((course.metaItems && course.metaItems.length > 0) || course.gridStartDate || course.gridEndDate) && (
                                     <div className="space-y-3 pt-2 border-t border-border">
                                         {course.metaItems && course.metaItems.map(({ label, value }) => {
@@ -651,7 +671,6 @@ const CourseDetail = () => {
                                                 </div>
                                             );
                                         })}
-
                                         {course.gridStartDate && (
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2 text-muted-foreground">
@@ -661,7 +680,6 @@ const CourseDetail = () => {
                                                 <span className="font-body font-bold text-xs text-foreground">{course.gridStartDate}</span>
                                             </div>
                                         )}
-
                                         {course.gridEndDate && (
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2 text-muted-foreground">
@@ -679,7 +697,7 @@ const CourseDetail = () => {
                 </div>
             </div>
 
-            {/* ── Entitats col·laboradores ──────────────────────────────────────── */}
+            {/* Entitats col·laboradores */}
             {collaborators.length > 0 && (
                 <section className="py-10 bg-card border-t border-border scroll-reveal">
                     <div className="container mx-auto px-4 max-w-[1400px]">
@@ -698,7 +716,7 @@ const CourseDetail = () => {
                 </section>
             )}
 
-            {/* ── WhatsApp fixed CTA ────────────────────────────────────────────── */}
+            {/* WhatsApp CTA */}
             {course.whatsappText && (
                 <a
                     href={`https://wa.me/34694234416?text=${course.whatsappText}`}
