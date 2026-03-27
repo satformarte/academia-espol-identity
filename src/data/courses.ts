@@ -95,7 +95,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "dret-penal",
     titleBase: "CURS SOBRE L'APLICACIÓ POLICIAL DE LA LLEI ORGÀNICA 4/2015",
     titleAccent: "ONLINE",
-    img: "/images/espol26-026-001.jpg",
+    img: "/images/espol26-026-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -115,7 +115,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250141152" },
     ],
 
-    gridImg: "/images/espol26-026-001.jpg",
+    gridImg: "/images/espol26-026-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -262,13 +262,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // DRET PENAL ─────────────────────────────────────────────────────────────────
@@ -280,7 +280,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "dret-penal",
     titleBase: "LA JURISDICCIÓ PENAL DE MENORS DES DE L'ÒPTICA POLICIAL",
     titleAccent: "ONLINE",
-    img: "/images/espol26-036-001.jpg",
+    img: "/images/espol26-036-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -300,7 +300,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250141194" },
     ],
 
-    gridImg: "/images/espol26-036-001.jpg",
+    gridImg: "/images/espol26-036-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -447,13 +447,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // CRIMINOLOGIA ─────────────────────────────────────────────────────────────────
@@ -465,7 +465,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "criminologia",
     titleBase: "CURS DE DEONTOLOGIA I ÈTICA POLICIAL",
     titleAccent: "ONLINE",
-    img: "/images/espol26-001-001.jpg",
+    img: "/images/espol26-001-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -485,7 +485,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP2021018001" },
     ],
 
-    gridImg: "/images/espol26-001-001.jpg",
+    gridImg: "/images/espol26-001-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -632,13 +632,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // CRIMINOLOGIA ─────────────────────────────────────────────────────────────────
@@ -650,7 +650,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "criminologia",
     titleBase: "CURS DE CRIMINOLOGIA. LA PREVENCIÓ DE LA DELINQÜÈNCIA",
     titleAccent: "ONLINE",
-    img: "/images/espol26-002-001.jpg",
+    img: "/images/espol26-002-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -670,7 +670,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250140963" },
     ],
 
-    gridImg: "/images/espol26-002-001.jpg",
+    gridImg: "/images/espol26-002-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -817,13 +817,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // CRIMINOLOGIA ─────────────────────────────────────────────────────────────────
@@ -835,7 +835,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "criminologia",
     titleBase: "CURS DE CRIMINOLOGIA. RESOLUCIÓ DE PROBLEMES",
     titleAccent: "ONLINE",
-    img: "/images/espol26-004-001.jpg",
+    img: "/images/espol26-004-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -855,7 +855,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250140975" },
     ],
 
-    gridImg: "/images/espol26-004-001.jpg",
+    gridImg: "/images/espol26-004-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -1002,13 +1002,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // CRIMINOLOGIA ─────────────────────────────────────────────────────────────────
@@ -1020,7 +1020,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "criminologia",
     titleBase: "CURS SOBRE INTRODUCCIÓ A LA NEGOCIACIÓ I LA MEDIACIÓ PER A LA SOLUCIÓ DE CONFLICTES",
     titleAccent: "ONLINE",
-    img: "/images/espol26-029-001.png",
+    img: "/images/espol26-029-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -1040,7 +1040,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250141153" },
     ],
 
-    gridImg: "/images/espol26-029-001.png",
+    gridImg: "/images/espol26-029-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -1163,13 +1163,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // CRIMINOLOGIA ─────────────────────────────────────────────────────────────────
@@ -1181,7 +1181,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "criminologia",
     titleBase: "CURS PER A GUANYAR LA COOPERACIÓ EN LA MEDIACIÓ I NEGOCIACIÓ",
     titleAccent: "ONLINE",
-    img: "/images/espol26-030-001.jpg",
+    img: "/images/espol26-030-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -1201,7 +1201,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP2021018030" },
     ],
 
-    gridImg: "/images/espol26-030-001.jpg",
+    gridImg: "/images/espol26-030-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -1324,13 +1324,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // CRIMINOLOGIA ─────────────────────────────────────────────────────────────────
@@ -1342,7 +1342,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "criminologia",
     titleBase: "CURS DE MEDIACIÓ I NEGOCIACIÓ AMB PERSONES QUE ADOPTEN POSTURES INFLEXIBLES. MÒDUL 3",
     titleAccent: "ONLINE",
-    img: "/images/espol26-031-001.jpeg",
+    img: "/images/espol26-031-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -1362,7 +1362,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250141155" },
     ],
 
-    gridImg: "/images/espol26-031-001.jpeg",
+    gridImg: "/images/espol26-031-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -1485,13 +1485,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // TRÀNSIT I CIRCULACIÓ ─────────────────────────────────────────────────────────────────
@@ -1503,7 +1503,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "transit-i-circulacio",
     titleBase: "CURS D'INSPECCIÓ I CONTROL DEL TACÒGRAF ANALÒGIC",
     titleAccent: "ONLINE",
-    img: "/images/espol26-006-001.jpeg",
+    img: "/images/espol26-006-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -1523,7 +1523,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250141001" },
     ],
 
-    gridImg: "/images/espol26-006-001.jpeg",
+    gridImg: "/images/espol26-006-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -1646,13 +1646,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // TRÀNSIT I CIRCULACIÓ ─────────────────────────────────────────────────────────────────
@@ -1664,7 +1664,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "transit-i-circulacio",
     titleBase: "CURS D'INSPECCIÓ I CONTROL DEL TACÒGRAF DIGITAL",
     titleAccent: "ONLINE",
-    img: "/images/espol26-008-001.jpg",
+    img: "/images/espol26-008-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -1684,7 +1684,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP2021018008" },
     ],
 
-    gridImg: "/images/espol26-008-001.jpg",
+    gridImg: "/images/espol26-008-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -1807,13 +1807,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // TRÀNSIT I CIRCULACIÓ ─────────────────────────────────────────────────────────────────
@@ -1825,7 +1825,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "transit-i-circulacio",
     titleBase: "CURS SOBRE SEGURETAT VIÀRIA I EFICIÈNCIA EN LA CONDUCCIÓ",
     titleAccent: "ONLINE",
-    img: "/images/espol26-013-001.jpg",
+    img: "/images/espol26-013-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -1845,7 +1845,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250141036" },
     ],
 
-    gridImg: "/images/espol26-013-001.jpg",
+    gridImg: "/images/espol26-013-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -1968,13 +1968,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // TRÀNSIT I CIRCULACIÓ ─────────────────────────────────────────────────────────────────
@@ -1986,7 +1986,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "transit-i-circulacio",
     titleBase: "CURS SOBRE PROCEDIMENTS DE SEGURETAT ADR",
     titleAccent: "ONLINE",
-    img: "/images/espol26-016-001.jpg",
+    img: "/images/espol26-016-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -2006,7 +2006,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250141150" },
     ],
 
-    gridImg: "/images/espol26-016-001.jpg",
+    gridImg: "/images/espol26-016-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -2129,13 +2129,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // TRÀNSIT I CIRCULACIÓ ─────────────────────────────────────────────────────────────────
@@ -2147,7 +2147,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "transit-i-circulacio",
     titleBase: "INSPECCIÓ DEL NOU SISTEMA DE TACÒGRAF DIGITAL GRAU MITJÀ",
     titleAccent: "ONLINE",
-    img: "/images/espol26-042-001.png",
+    img: "/images/espol26-042-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -2167,7 +2167,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250141067" },
     ],
 
-    gridImg: "/images/espol26-042-001.png",
+    gridImg: "/images/espol26-042-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -2290,13 +2290,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // TRÀNSIT I CIRCULACIÓ ─────────────────────────────────────────────────────────────────
@@ -2308,7 +2308,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "transit-i-circulacio",
     titleBase: "ACTUACIONS BÀSIQUES EN ACCIDENTS DE TRÀNSIT",
     titleAccent: "ONLINE",
-    img: "/images/espol26-035-001.jpg",
+    img: "/images/espol26-035-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -2328,7 +2328,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP2021018028" },
     ],
 
-    gridImg: "/images/espol26-035-001.jpg",
+    gridImg: "/images/espol26-035-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -2451,13 +2451,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
   // TRÀNSIT I CIRCULACIÓ ─────────────────────────────────────────────────────────────────
@@ -2469,7 +2469,7 @@ export const courses: CourseData[] = [
     categoriaSlug: "transit-i-circulacio",
     titleBase: "ACTUACIONS POLICIALS EN ACCIDENTS AMB VEHICLES ELÈCTRICS",
     titleAccent: "ONLINE",
-    img: "/images/espol26-034-001.jpg",
+    img: "/images/espol26-034-001.webp",
     heroStats: [
       { label: "100% online" },
       { label: "Matrícula oberta" },
@@ -2489,7 +2489,7 @@ export const courses: CourseData[] = [
       { label: "Certificat reconegust ISPC", value: "RP20250141203" },
     ],
 
-    gridImg: "/images/espol26-034-001.jpg",
+    gridImg: "/images/espol26-034-001.webp",
     gridStudents: 30,
     gridStartDate: "14/04/2026",
     gridEndDate: "13/05/2026",
@@ -2612,13 +2612,13 @@ export const courses: CourseData[] = [
     },
 
     collaborators: [
-      { name: "Agents Rurals", img: "/images/agents-rurals.jpg" },
-      { name: "Execució Penal", img: "/images/execucio-penal.jpg" },
-      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.jpg" },
-      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.jpg" },
-      { name: "CCOO Bombers", img: "/images/bombers-logo.png" },
-      { name: "GAMS", img: "/images/gams.jpg" },
-      { name: "ISO 9001", img: "/images/iso.png" },
+      { name: "Agents Rurals", img: "/images/agents-rurals.webp" },
+      { name: "Execució Penal", img: "/images/execucio-penal.webp" },
+      { name: "CCOO Policies Locals", img: "/images/ccoo-locals.webp" },
+      { name: "CCOO Mossos D'Esquadra", img: "/images/mossos-ccoo.webp" },
+      { name: "CCOO Bombers", img: "/images/bombers-logo.webp" },
+      { name: "GAMS", img: "/images/gams.webp" },
+      { name: "ISO 9001", img: "/images/iso.webp" },
     ],
   },
 

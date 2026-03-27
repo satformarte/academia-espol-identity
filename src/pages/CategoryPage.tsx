@@ -105,6 +105,26 @@ function useScrollReveal(ref: React.RefObject<HTMLElement>) {
     }, []);
 }
 
+// ── Preload hook: injecta un <link rel="preload"> a l'<head> per a la imatge hero ──
+// Això fa que el navegador descarregui la imatge hero en paral·lel amb el JS/CSS,
+// molt abans que el component es munti i el <img> aparegui al DOM.
+function usePreloadImage(src: string) {
+    useEffect(() => {
+        if (!src) return;
+        const existing = document.querySelector(`link[rel="preload"][href="${src}"]`);
+        if (existing) return; // ja precarregat
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "image";
+        link.href = src;
+        document.head.appendChild(link);
+        return () => {
+            // no eliminem el link: si l'usuari torna a la mateixa categoria
+            // volem que segueixi al caché del navegador
+        };
+    }, [src]);
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 const CategoryPage = () => {
     const { categoria } = useParams<{ categoria: string }>();
@@ -113,6 +133,9 @@ const CategoryPage = () => {
 
     const meta = categoryMeta[categoria ?? ""];
     if (!meta) return <Navigate to="/404" replace />;
+
+    // Precarrega la imatge hero tan aviat com es coneix la categoria
+    usePreloadImage(meta.img);
 
     const categoryCourses = courses.filter((c) => c.categoriaSlug === categoria);
 
@@ -137,10 +160,17 @@ const CategoryPage = () => {
             {/* ── Hero ──────────────────────────────────────────────────────────── */}
             <div className="relative bg-primary overflow-hidden">
                 <div className="absolute inset-0">
+                    {/*
+                        fetchPriority="high" — màxima prioritat de descàrrega (LCP)
+                        decoding="sync"      — decodifica síncronament per evitar flash buit
+                        No lazy aquí: és above-the-fold
+                    */}
                     <img
                         src={meta.img}
                         alt={meta.title}
                         className="w-full h-full object-cover opacity-25"
+                        fetchPriority="high"
+                        decoding="sync"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r via-primary/95 to-primary/70" />
                 </div>
@@ -171,8 +201,6 @@ const CategoryPage = () => {
                                         : `${categoryCourses.length} cursos disponibles`,
                                 },
                                 { icon: <Monitor size={13} />, label: "100% online" },
-                                // { icon: <Award size={13} />, label: "Certificat oficial" },
-                                // { icon: <BadgeCheck size={13} />, label: "Accés immediat" },
                             ].map(({ icon, label }) => (
                                 <div key={label} className="flex items-center gap-2 text-white/85 font-body font-semibold text-xs">
                                     <span className="text-accent">{icon}</span>
@@ -225,12 +253,29 @@ const CategoryPage = () => {
                                     style={{ transitionDelay: `${i * 60}ms` }}
                                 >
                                     {/* Image */}
-                                    <div className="relative h-[190px] overflow-hidden flex-shrink-0">
+                                    <div className="relative h-[190px] overflow-hidden flex-shrink-0 bg-muted">
+                                        {/*
+                                            Primeres 3 cards (above-the-fold a desktop):
+                                              - loading="eager"        → no espera a ser visible
+                                              - fetchPriority="high"   → alta prioritat al fetcher
+                                              - decoding="async"       → decodifica fora del main thread
+
+                                            Resta de cards (below-the-fold):
+                                              - loading="lazy"         → només es carrega quan s'apropa al viewport
+                                              - fetchPriority="low"    → baixa prioritat per no competir amb les primeres
+                                              - decoding="async"       → no bloqueja el render
+
+                                            sizes → indica al navegador quina mida tindrà la imatge
+                                            segons breakpoint, evitant descarregar resolucions innecessàries.
+                                        */}
                                         <img
                                             src={course.gridImg}
-                                            alt={`${course.titleBase} ${course.titleAccent}`}
+                                            alt={`${course.titleBase} ${course.titleAccent ?? ""}`}
                                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                                            loading="lazy"
+                                            loading={i < 3 ? "eager" : "lazy"}
+                                            decoding="async"
+                                            fetchPriority={i < 3 ? "high" : "low"}
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
@@ -242,12 +287,6 @@ const CategoryPage = () => {
                                                     Pròxima edició
                                                 </span>
                                             )}
-                                            {/* {course.isPopular && (
-                                                <span className="inline-flex items-center gap-1 bg-primary text-primary-foreground font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
-                                                    <Star size={9} className="fill-current" />
-                                                    Popular
-                                                </span>
-                                            )} */}
                                         </div>
 
                                         {/* Level badge */}
@@ -332,7 +371,7 @@ const CategoryPage = () => {
                                             </div>
                                         )}
 
-                                        {/* Preu + CTA */}
+                                        {/* CTA */}
                                         <div className="border-t border-border pt-4 flex items-center justify-between mt-auto">
                                             <span className="inline-flex items-center gap-1.5 font-body font-semibold text-accent text-xs group-hover:gap-2.5 transition-[gap] duration-150">
                                                 Més info <ArrowRight size={13} />
