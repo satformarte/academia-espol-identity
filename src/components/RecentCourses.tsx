@@ -14,6 +14,16 @@ import { courses } from "@/data/courses";
 
 const PAGE_SIZE = 6;
 
+const parseStartDate = (d?: string) => {
+    if (!d) return Infinity;
+    const [day, month, year] = d.split("/").map(Number);
+    return new Date(year, month - 1, day).getTime();
+};
+
+const sortedCourses = [...courses].sort(
+    (a, b) => parseStartDate(a.gridStartDate) - parseStartDate(b.gridStartDate)
+);
+
 const levelConfig: Record<string, string> = {
     Bàsic: "bg-emerald-100 text-emerald-700",
     Intermedi: "bg-amber-100 text-amber-700",
@@ -33,8 +43,8 @@ const RecentCourses = () => {
         }, 300);
     };
 
-    const visibleCourses = courses.slice(0, visible);
-    const hasMore = visible < courses.length;
+    const visibleCourses = sortedCourses.slice(0, visible);
+    const hasMore = visible < sortedCourses.length;
 
     return (
         <section className="py-16 bg-background">
@@ -49,7 +59,7 @@ const RecentCourses = () => {
                                 Cursos Recents
                             </h2>
                             <p className="font-body text-muted-foreground text-sm mt-0.5">
-                                {courses.length} cursos disponibles
+                                {sortedCourses.length} cursos disponibles
                             </p>
                         </div>
                     </div>
@@ -122,20 +132,20 @@ const RecentCourses = () => {
                                 )}
 
                                 {/* Meta row */}
-                                <div className="flex items-center gap-3 text-muted-foreground mb-3">
+                                <div className="flex items-center gap-3 text-foreground/80 mb-3">
                                     {course.gridHours && (
-                                        <span className="flex items-center gap-1 font-body text-[11px]">
-                                            <Clock size={11} className="text-accent" />
+                                        <span className="flex items-center gap-1 font-body text-xs">
+                                            <Clock size={12} className="text-accent" />
                                             {course.gridHours}
                                         </span>
                                     )}
-                                    <span className="flex items-center gap-1 font-body text-[11px]">
-                                        <Monitor size={11} className="text-accent" />
+                                    <span className="flex items-center gap-1 font-body text-xs">
+                                        <Monitor size={12} className="text-accent" />
                                         Online
                                     </span>
                                     {course.gridStudents && course.gridStudents > 0 && (
-                                        <span className="flex items-center gap-1 font-body text-[11px]">
-                                            <Users size={11} className="text-accent" />
+                                        <span className="flex items-center gap-1 font-body text-xs">
+                                            <Users size={12} className="text-accent" />
                                             {course.gridStudents.toLocaleString()}
                                         </span>
                                     )}
@@ -143,16 +153,16 @@ const RecentCourses = () => {
 
                                 {/* Dates */}
                                 {(course.gridStartDate || course.gridEndDate) && (
-                                    <div className="flex items-center gap-3 text-muted-foreground mb-3">
+                                    <div className="flex items-center gap-3 text-foreground/80 mb-3">
                                         {course.gridStartDate && (
-                                            <span className="flex items-center gap-1 font-body text-[11px]">
-                                                <CalendarDays size={11} className="text-accent" />
+                                            <span className="flex items-center gap-1 font-body text-xs">
+                                                <CalendarDays size={12} className="text-accent" />
                                                 Inici: {course.gridStartDate}
                                             </span>
                                         )}
                                         {course.gridEndDate && (
-                                            <span className="flex items-center gap-1 font-body text-[11px]">
-                                                <CalendarDays size={11} className="text-accent" />
+                                            <span className="flex items-center gap-1 font-body text-xs">
+                                                <CalendarDays size={12} className="text-accent" />
                                                 Fi: {course.gridEndDate}
                                             </span>
                                         )}
@@ -202,7 +212,7 @@ const RecentCourses = () => {
                             ) : (
                                 <>
                                     <ChevronDown size={16} className="text-accent" />
-                                    Veure més ({courses.length - visible} restants)
+                                    Veure més ({sortedCourses.length - visible} restants)
                                 </>
                             )}
                         </button>

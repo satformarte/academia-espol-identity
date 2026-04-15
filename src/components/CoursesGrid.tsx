@@ -11,15 +11,15 @@ const toSlug = (cat: string) =>
     .replace(/[^a-z0-9-]/g, "");
 
 const courses = [
-  { title: "Dret Penal", img: "/images/dret-penal.jpg" },
-  { title: "Criminologia", img: "/images/criminologia.jpg" },
-  { title: "Trànsit i Circulació", img: "/images/transit-circulacio.jpg" },
-  { title: "Seguretat Ciutadana", img: "/images/seguretat-ciutadana.jpg" },
-  { title: "Procediments Policials", img: "/images/procediments-policials.jpg" },
-  { title: "Ciberdelinqüència", img: "/images/ciberdelinquencia.jpg" },
-  { title: "Altres Temàtiques", img: "/images/altres-tematiques.jpg" },
-  { title: "ACTIC i Anglès", img: "/images/actic-angles.jpg" },
-  { title: "Criminalística", img: "/images/criminalistica.jpg" },
+  { title: "Dret Penal", img: "/images/dret-penal.webp" },
+  { title: "Criminologia", img: "/images/criminologia.webp" },
+  { title: "Trànsit i Circulació", img: "/images/transit-circulacio.webp" },
+  { title: "Seguretat Ciutadana", img: "/images/seguretat-ciutadana.webp" },
+  { title: "Procediments Policials", img: "/images/procediments-policials.webp" },
+  { title: "Ciberseguretat", img: "/images/ciberdelinquencia.webp" },
+  { title: "Altres Temàtiques", img: "/images/altres-tematiques.webp" },
+  { title: "ACTIC i Anglès", img: "/images/actic-angles.webp" },
+  { title: "Criminalística", img: "/images/criminalistica.webp" },
 ];
 
 const CoursesGrid = () => {

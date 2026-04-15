@@ -8,7 +8,7 @@ const slides = [
     desc: "Cursos especialitzats per a professionals de la seguretat pública i privada, amb certificació oficial i metodologia contrastada.",
     btn1: "Veure tots els cursos →",
     btn2: "Demana informació",
-    img: "/images/heroSlider1.png",
+    img: "/images/heroSlider1.webp",
   },
   {
     badge: "📋 Oposicions 2025",
@@ -16,15 +16,15 @@ const slides = [
     desc: "Temaris actualitzats, simulacres d'examen i professors en actiu que coneixen el procés selectiu de primera mà.",
     btn1: "Veure oposicions →",
     btn2: "Parla amb un assessor",
-    img: "/images/heroSlider2.png",
+    img: "/images/heroSlider2.webp",
   },
   {
     badge: "🎓 Formació especialitzada",
-    title: "Expertesa en <strong>dret penal</strong> i ciberdelinqüència",
+    title: "Expertesa en <strong>dret penal</strong> i ciberseguretat",
     desc: "Aprofundeix en les àrees més demandades del sector amb formació impartida per professionals en actiu.",
     btn1: "Explorar cursos →",
     btn2: "Saber-ne més",
-    img: "/images/heroSlider3.jpg",
+    img: "/images/heroSlider3.webp",
   },
 ];
 

@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Search } from "lucide-react";
 import espolLogo from "@/assets/espol-logo.png";
+import { courses } from "@/data/courses";
 
 const toSlug = (cat: string) =>
   cat
@@ -17,7 +18,7 @@ const cursosCategories = [
   "Trànsit i Circulació",
   "Seguretat Ciutadana",
   "Procediments Policials",
-  "Ciberdelinqüència",
+  "Ciberseguretat",
   "Altres Temàtiques",
   "ACTIC i Anglès",
   "Criminalística",
@@ -41,6 +42,11 @@ const Navbar = () => {
   const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
   const [mobileOposicionsOpen, setMobileOposicionsOpen] = useState(false);
 
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
   const cursosLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const oposicionsLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -49,6 +55,34 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setSearchOpen(false);
+        setSearchQuery("");
+      }
+    };
+    if (searchOpen) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [searchOpen]);
+
+  useEffect(() => {
+    if (searchOpen) searchInputRef.current?.focus();
+  }, [searchOpen]);
+
+  const closeSearch = () => { setSearchOpen(false); setSearchQuery(""); };
+
+  const searchResults = (searchOpen || mobileOpen) && searchQuery.trim().length > 1
+    ? courses.filter((c) => {
+      const q = searchQuery.toLowerCase();
+      return (
+        c.titleBase.toLowerCase().includes(q) ||
+        (c.titleAccent?.toLowerCase().includes(q) ?? false) ||
+        c.categoriaLabel.toLowerCase().includes(q)
+      );
+    })
+    : [];
 
   // Cursos handlers
   const handleCursosEnter = () => {
@@ -211,8 +245,69 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="hidden lg:block">
+        {/* Search + CTA */}
+        <div className="hidden lg:flex items-center gap-3">
+
+          {/* Search */}
+          <div ref={searchRef} className="relative">
+            <div className="flex items-center gap-2">
+              <div
+                className={`overflow-hidden transition-all duration-250 ease-in-out ${searchOpen ? "w-52 opacity-100" : "w-0 opacity-0"}`}
+              >
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Cerca cursos..."
+                  className="font-body text-sm text-foreground bg-muted border border-border rounded-xl px-4 py-2 w-52 outline-none focus:border-accent transition-colors"
+                  onKeyDown={(e) => e.key === "Escape" && closeSearch()}
+                />
+              </div>
+              <button
+                onClick={() => { setSearchOpen(!searchOpen); setSearchQuery(""); }}
+                className="w-9 h-9 rounded-xl bg-muted/60 hover:bg-accent/10 text-muted-foreground hover:text-accent flex items-center justify-center transition-all duration-150 cursor-pointer"
+                aria-label="Cercar"
+              >
+                {searchOpen ? <X size={16} /> : <Search size={16} />}
+              </button>
+            </div>
+
+            {/* Results dropdown */}
+            {searchResults.length > 0 && (
+              <div className="absolute top-[calc(100%+8px)] right-0 w-80 bg-card border border-border rounded-xl shadow-[0_8px_30px_rgba(27,48,136,0.12)] overflow-hidden z-50">
+                <div className="py-2 overflow-y-auto max-h-[340px]">
+                  {searchResults.map((c, i) => (
+                    <Link
+                      key={c.slug}
+                      to={`/curs/${c.slug}`}
+                      onClick={closeSearch}
+                      className={`flex items-center gap-3 px-4 py-2.5 hover:bg-accent/10 transition-colors group ${i !== searchResults.length - 1 ? "border-b border-border/40" : ""}`}
+                    >
+                      <div className="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-muted">
+                        <img src={c.gridImg} alt="" className="w-full h-full object-cover" loading="lazy" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-body font-bold text-xs text-foreground truncate group-hover:text-accent transition-colors">{c.titleBase} {c.titleAccent}</p>
+                        <p className="font-body text-[10px] text-muted-foreground uppercase tracking-wide mt-0.5">{c.categoriaLabel}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* No results */}
+            {searchOpen && searchQuery.trim().length > 1 && searchResults.length === 0 && (
+              <div className="absolute top-[calc(100%+8px)] right-0 w-72 bg-card border border-border rounded-xl shadow-[0_8px_30px_rgba(27,48,136,0.12)] overflow-hidden z-50">
+                <div className="px-4 py-5 text-center">
+                  <Search size={20} className="text-muted-foreground mx-auto mb-2 opacity-40" />
+                  <p className="font-body text-sm text-muted-foreground">Cap curs trobat per "<strong>{searchQuery}</strong>"</p>
+                </div>
+              </div>
+            )}
+          </div>
+
           <a
             href="#"
             className="btn-hover bg-accent text-accent-foreground font-body font-bold text-xs uppercase px-6 py-2.5 rounded-xl hover:shadow-lg inline-block transition-all"
@@ -224,7 +319,7 @@ const Navbar = () => {
         {/* Mobile hamburger */}
         <button
           className="lg:hidden text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => { setMobileOpen(!mobileOpen); setSearchQuery(""); }}
           aria-label="Menú"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -234,6 +329,56 @@ const Navbar = () => {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden bg-card border-t border-border px-4 py-5 space-y-1">
+
+          {/* Mobile Search */}
+          <div className="relative mb-3">
+            <div className="relative flex items-center">
+              <Search size={14} className="absolute left-3.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Cerca cursos..."
+                className="w-full font-body text-sm text-foreground bg-muted border border-border rounded-xl pl-9 pr-9 py-2.5 outline-none focus:border-accent transition-colors"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+            {searchQuery.trim().length > 1 && (
+              <div className="mt-2 bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+                {searchResults.length > 0 ? (
+                  <div className="overflow-y-auto max-h-[320px]">
+                    {searchResults.map((c, i) => (
+                      <Link
+                        key={c.slug}
+                        to={`/curs/${c.slug}`}
+                        onClick={() => { setMobileOpen(false); closeSearch(); }}
+                        className={`flex items-center gap-3 px-4 py-2.5 hover:bg-accent/10 transition-colors group ${i !== searchResults.length - 1 ? "border-b border-border/40" : ""}`}
+                      >
+                        <div className="flex-shrink-0 w-9 h-9 rounded-lg overflow-hidden bg-muted">
+                          <img src={c.gridImg} alt="" className="w-full h-full object-cover" loading="lazy" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-body font-bold text-xs text-foreground truncate group-hover:text-accent transition-colors">{c.titleBase} {c.titleAccent}</p>
+                          <p className="font-body text-[10px] text-muted-foreground uppercase tracking-wide mt-0.5">{c.categoriaLabel}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="px-4 py-4 text-center">
+                    <p className="font-body text-sm text-muted-foreground">Cap curs trobat</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           {/* ALUMNES ISPC */}
           <Link

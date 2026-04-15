@@ -6,9 +6,13 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
 import {
     ChevronRight,
+    ChevronDown,
     BookOpen,
+    BookMarked,
     Clock,
     Users,
+    User,
+    UserX,
     Award,
     CheckCircle2,
     Target,
@@ -21,6 +25,7 @@ import {
     Monitor,
     BadgeCheck,
     ShieldCheck,
+    ShieldAlert,
     Microscope,
     Brain,
     Scale,
@@ -30,22 +35,123 @@ import {
     Check,
     BadgeAlert,
     Flame,
+    AlertTriangle,
+    AlertOctagon,
+    Zap,
+    Package,
+    Layers,
+    Wrench,
+    Key,
+    Eye,
+    EyeOff,
+    Tag,
+    Truck,
+    Heart,
+    Gauge,
+    MapPin,
+    Cloud,
+    Globe,
+    Bug,
+    Lock,
+    Mail,
+    Building2,
+    Navigation,
+    Lightbulb,
+    TrendingUp,
+    Fingerprint,
+    PenLine,
 } from "lucide-react";
 import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { courses } from "@/data/courses";
 
-const MODULE_ICONS = [
-    <Brain size={18} />,
-    <Search size={18} />,
-    <Scale size={18} />,
-    <Microscope size={18} />,
-    <ShieldCheck size={18} />,
-    <Monitor size={18} />,
-    <BookOpen size={18} />,
-    <FileText size={18} />,
+const MODULE_ICON_MAP: { keys: string[]; icon: JSX.Element }[] = [
+    // ── Ciberseguretat (específics primer) ────────────────────────────────────
+    { keys: ['ciberespai', 'ciberesp'],                                            icon: <Globe size={18} /> },
+    { keys: ['ciberatac', 'atac inform'],                                          icon: <Bug size={18} /> },
+    { keys: ['ciberseg'],                                                          icon: <ShieldAlert size={18} /> },
+    { keys: ['dark web'],                                                          icon: <EyeOff size={18} /> },
+    { keys: ['màfia', 'similitud'],                                                icon: <UserX size={18} /> },
+    { keys: ['enginyeria social'],                                                 icon: <MessageCircle size={18} /> },
+    { keys: ['amenaça'],                                                           icon: <AlertOctagon size={18} /> },
+    { keys: ['consells', 'que faig front', 'recoman'],                             icon: <Lightbulb size={18} /> },
+    { keys: ['situació actual', 'tendència'],                                      icon: <TrendingUp size={18} /> },
+
+    // ── Àrea penitenciària ────────────────────────────────────────────────────
+    { keys: ['penitenci', 'presó', 'centre penit'],                                icon: <Building2 size={18} /> },
+    { keys: ['trasllat', 'custòd'],                                                icon: <Navigation size={18} /> },
+    { keys: ['drons'],                                                             icon: <Navigation size={18} /> },
+    { keys: ['vigilàn'],                                                           icon: <Eye size={18} /> },
+    { keys: ['jutjat', 'permís extrao'],                                           icon: <Scale size={18} /> },
+    { keys: ['coordinació interinstitucion', 'entorn penitenci'],                  icon: <Users size={18} /> },
+
+    // ── Criminalística ────────────────────────────────────────────────────────
+    { keys: ['empremtes'],                                                         icon: <Fingerprint size={18} /> },
+    { keys: ['balística'],                                                         icon: <Target size={18} /> },
+    { keys: ['biologia', 'genètica'],                                              icon: <Microscope size={18} /> },
+    { keys: ['escena del crim', "escena"],                                         icon: <Search size={18} /> },
+    { keys: ['peritatge'],                                                         icon: <FileText size={18} /> },
+
+    // ── Redacció de documents ─────────────────────────────────────────────────
+    { keys: ['vocabulari'],                                                        icon: <BookMarked size={18} /> },
+    { keys: ["criteris d'estil", 'estil en la red'],                               icon: <PenLine size={18} /> },
+    { keys: ['correu electr', 'ofici', 'missatge de'],                             icon: <Mail size={18} /> },
+    { keys: ['atestat'],                                                           icon: <FileText size={18} /> },
+
+    // ── Dret Penal ────────────────────────────────────────────────────────────
+    { keys: ['homicidi', 'assassinat'],                                            icon: <AlertOctagon size={18} /> },
+    { keys: ['detenci il·legal', 'segrest', 'indemnitat', 'agressió sexual'],      icon: <Lock size={18} /> },
+    { keys: ["tràfic d'éssers"],                                                   icon: <Users size={18} /> },
+    { keys: ['menor', 'menors'],                                                   icon: <User size={18} /> },
+    { keys: ['subjecte passiu', 'subjectes actiu', 'béns protegits'],              icon: <User size={18} /> },
+    { keys: ['mesures sancion'],                                                   icon: <Scale size={18} /> },
+    { keys: ['antijuridic', 'supòsit'],                                            icon: <Scale size={18} /> },
+    { keys: ['glossari'],                                                          icon: <BookMarked size={18} /> },
+    { keys: ['introducció'],                                                       icon: <BookOpen size={18} /> },
+
+    // ── Trànsit ───────────────────────────────────────────────────────────────
+    { keys: ['elèctric', 'electric'],                                              icon: <Zap size={18} /> },
+    { keys: ['incendi', 'fuita'],                                                  icon: <Flame size={18} /> },
+    { keys: ['classificació'],                                                     icon: <Layers size={18} /> },
+    { keys: ['accident', 'accidentabilitat'],                                      icon: <AlertTriangle size={18} /> },
+    { keys: ['risc', 'perill', 'adr'],                                             icon: <AlertTriangle size={18} /> },
+    { keys: ['tacògraf', 'stoneridge', 'siemens', 'vdo'],                         icon: <Gauge size={18} /> },
+    { keys: ['temps de conducció', 'descans'],                                     icon: <Clock size={18} /> },
+    { keys: ['conducció', 'posició en la conduc'],                                 icon: <Gauge size={18} /> },
+    { keys: ['meteorolog'],                                                        icon: <Cloud size={18} /> },
+    { keys: ['retenció infantil', 'cinturó'],                                      icon: <ShieldCheck size={18} /> },
+    { keys: ['rotond', 'circulació'],                                              icon: <MapPin size={18} /> },
+    { keys: ['fabricació', 'instal', 'assaig'],                                    icon: <Wrench size={18} /> },
+
+    // ── Genèrics (al final, menys específics) ─────────────────────────────────
+    { keys: ['legisla', 'reglament', 'normativa', 'sancions', 'obligacion', 'responsabilitat', 'exempcions', 'marc normatiu', 'llei orgàn', 'nomenclàtor', 'principis jur'], icon: <Scale size={18} /> },
+    { keys: ['drets i deures', 'drets i oblig'],                                   icon: <Scale size={18} /> },
+    { keys: ['etiquetatge'],                                                       icon: <Tag size={18} /> },
+    { keys: ['embalat', 'envasos', 'marcat', 'embalatge', 'homologac'],            icon: <Package size={18} /> },
+    { keys: ['càrrega', 'descàrrega', 'estiva', 'manipulació'],                    icon: <Truck size={18} /> },
+    { keys: ['pictograma', 'aparences'],                                           icon: <Eye size={18} /> },
+    { keys: ['accessos', 'manuals'],                                               icon: <Key size={18} /> },
+    { keys: ['emocions', 'reacci'],                                                icon: <Heart size={18} /> },
+    { keys: ['documentació policials', 'característiques generals'],               icon: <FileText size={18} /> },
+    { keys: ['protecció', 'protocol', 'equipament', 'prevenci', 'autoprotec'],     icon: <ShieldCheck size={18} /> },
+    { keys: ['seguretat viàr', 'seguretat en cond'],                               icon: <ShieldCheck size={18} /> },
+    { keys: ['negociac', 'passos', 'ritme', 'mediac', 'mediació', 'mediador', 'cooperar'], icon: <MessageCircle size={18} /> },
+    { keys: ['policia comunit', 'víctima', 'participants'],                        icon: <Users size={18} /> },
+    { keys: ['evidènc'],                                                           icon: <Microscope size={18} /> },
+    { keys: ['estratègi', 'resolució', 'simulac', 'casos pràctic'],                icon: <Target size={18} /> },
+    { keys: ['perspectiva', 'poder', 'fonament', 'valoració'],                     icon: <Brain size={18} /> },
+    { keys: ['delinqü', 'delict', 'crimin', 'problemes', 'identificació'],         icon: <Search size={18} /> },
+    { keys: ['procediment', 'actuació', 'post-accident'],                          icon: <CheckCircle2 size={18} /> },
+    { keys: ['coordinació', 'interinstitucion'],                                   icon: <Users size={18} /> },
+    { keys: ['conceptes bàsics', 'marc legislatiu', 'paquet mobilitat'],           icon: <BookOpen size={18} /> },
 ];
+
+const getModuleIcon = (title: string): JSX.Element => {
+    const t = title.toLowerCase();
+    const match = MODULE_ICON_MAP.find(({ keys }) => keys.some((k) => t.includes(k)));
+    return match ? match.icon : <BookOpen size={18} />;
+};
 
 const REQ_ICONS = [
     <GraduationCap size={16} />,
@@ -111,7 +217,7 @@ const EnrollmentModal = ({ url, title, onClose }: { url: string; title: string; 
     return (
         <div className="fixed inset-0 z-[500] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" onClick={onClose} />
-            <div className="relative w-[95vw] h-[95vh] bg-card rounded-2xl overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.25)] flex flex-col">
+            <div className="relative w-full h-full sm:w-[90vw] sm:h-[90vh] bg-card rounded-2xl overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.25)] flex flex-col">
                 <div className="flex items-center justify-between px-6 py-4 border-b border-border flex-shrink-0">
                     <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center">
@@ -160,6 +266,7 @@ const CourseDetail = () => {
 
     const [activeModule, setActiveModule] = useState<number | null>(null);
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
+    const [showAllModules, setShowAllModules] = useState(false);
     const [enrollOpen, setEnrollOpen] = useState(false);
     const { ref: sidebarRef } = useStickyCard();
     useScrollReveal();
@@ -249,32 +356,104 @@ const CourseDetail = () => {
                                     <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Continguts del Curs</h2>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {course.modules.map((mod, i) => (
-                                        <div key={i} className="c-card bg-card border border-border rounded-xl p-5 cursor-pointer group" onClick={() => setActiveModule(activeModule === i ? null : i)}>
-                                            <div className="flex items-start gap-3 mb-3">
-                                                <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                                                    {MODULE_ICONS[i % MODULE_ICONS.length]}
-                                                </div>
-                                                <div className="flex-1">
-                                                    <div className="flex items-center justify-between gap-2">
-                                                        <h3 className="font-display font-bold text-sm text-foreground leading-snug">{mod.title}</h3>
-                                                        <ChevronRight size={14} className={`flex-shrink-0 text-muted-foreground transition-transform duration-200 ${activeModule === i ? "rotate-90" : ""}`} />
+                                    {/* Primeros 4 módulos — siempre visibles */}
+                                    {course.modules.slice(0, 4).map((mod, i) => {
+                                        const hasTopics = mod.topics.length > 0;
+                                        return hasTopics ? (
+                                            <div key={i} className="c-card bg-card border border-border rounded-xl p-5 cursor-pointer group" onClick={() => setActiveModule(activeModule === i ? null : i)}>
+                                                <div className="flex items-start gap-3 mb-3">
+                                                    <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all duration-300">
+                                                        {getModuleIcon(mod.title)}
                                                     </div>
-                                                    <span className="font-body text-[11px] text-muted-foreground">Mòdul {i + 1} · {mod.topics.length} temes</span>
+                                                    <div className="flex-1">
+                                                        <div className="flex items-center justify-between gap-2">
+                                                            <h3 className="font-display font-bold text-sm text-foreground leading-snug">{mod.title}</h3>
+                                                            <ChevronRight size={14} className={`flex-shrink-0 text-muted-foreground transition-transform duration-200 ${activeModule === i ? "rotate-90" : ""}`} />
+                                                        </div>
+                                                        <span className="font-body text-[11px] text-muted-foreground">Mòdul {i + 1} · {mod.topics.length} temes</span>
+                                                    </div>
+                                                </div>
+                                                <div className={`overflow-hidden transition-all duration-300 ${activeModule === i ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
+                                                    <ul className="space-y-1.5 pt-2 border-t border-border/60">
+                                                        {mod.topics.map((topic, j) => (
+                                                            <li key={j} className="flex items-start gap-2 font-body text-xs text-muted-foreground">
+                                                                <CheckCircle2 size={12} className="text-accent flex-shrink-0 mt-0.5" />{topic}
+                                                            </li>
+                                                        ))}
+                                                    </ul>
                                                 </div>
                                             </div>
-                                            <div className={`overflow-hidden transition-all duration-300 ${activeModule === i ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
-                                                <ul className="space-y-1.5 pt-2 border-t border-border/60">
-                                                    {mod.topics.map((topic, j) => (
-                                                        <li key={j} className="flex items-start gap-2 font-body text-xs text-muted-foreground">
-                                                            <CheckCircle2 size={12} className="text-accent flex-shrink-0 mt-0.5" />{topic}
-                                                        </li>
-                                                    ))}
-                                                </ul>
+                                        ) : (
+                                            <div key={i} className="c-card bg-card border border-border rounded-xl p-5">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                                        {getModuleIcon(mod.title)}
+                                                    </div>
+                                                    <h3 className="font-display font-bold text-sm text-foreground leading-snug">{mod.title}</h3>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+
+                                    {/* Módulos extra — un único contenedor col-span-full con animación */}
+                                    {course.modules.length > 4 && (
+                                        <div className={`col-span-full overflow-hidden transition-all duration-500 ease-in-out ${showAllModules ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"}`}>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-0">
+                                                {course.modules.slice(4).map((mod, j) => {
+                                                    const i = j + 4;
+                                                    const hasTopics = mod.topics.length > 0;
+                                                    return hasTopics ? (
+                                                        <div key={i} className="c-card bg-card border border-border rounded-xl p-5 cursor-pointer group" onClick={() => setActiveModule(activeModule === i ? null : i)}>
+                                                            <div className="flex items-start gap-3 mb-3">
+                                                                <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all duration-300">
+                                                                    {getModuleIcon(mod.title)}
+                                                                </div>
+                                                                <div className="flex-1">
+                                                                    <div className="flex items-center justify-between gap-2">
+                                                                        <h3 className="font-display font-bold text-sm text-foreground leading-snug">{mod.title}</h3>
+                                                                        <ChevronRight size={14} className={`flex-shrink-0 text-muted-foreground transition-transform duration-200 ${activeModule === i ? "rotate-90" : ""}`} />
+                                                                    </div>
+                                                                    <span className="font-body text-[11px] text-muted-foreground">Mòdul {i + 1} · {mod.topics.length} temes</span>
+                                                                </div>
+                                                            </div>
+                                                            <div className={`overflow-hidden transition-all duration-300 ${activeModule === i ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
+                                                                <ul className="space-y-1.5 pt-2 border-t border-border/60">
+                                                                    {mod.topics.map((topic, k) => (
+                                                                        <li key={k} className="flex items-start gap-2 font-body text-xs text-muted-foreground">
+                                                                            <CheckCircle2 size={12} className="text-accent flex-shrink-0 mt-0.5" />{topic}
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div key={i} className="c-card bg-card border border-border rounded-xl p-5">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                                                    {getModuleIcon(mod.title)}
+                                                                </div>
+                                                                <h3 className="font-display font-bold text-sm text-foreground leading-snug">{mod.title}</h3>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
-                                    ))}
+                                    )}
                                 </div>
+                                {course.modules.length > 4 && (
+                                    <div className="flex justify-center mt-6">
+                                        <button
+                                            onClick={() => setShowAllModules(!showAllModules)}
+                                            className="inline-flex items-center gap-2 bg-card border border-border hover:border-accent/50 hover:shadow-md text-foreground font-body font-bold text-sm uppercase tracking-wider px-8 py-3.5 rounded-xl transition-all duration-150"
+                                        >
+                                            <ChevronDown size={16} className={`text-accent transition-transform duration-200 ${showAllModules ? "rotate-180" : ""}`} />
+                                            {showAllModules
+                                                ? "Veure menys"
+                                                : `Veure més (${course.modules.length - 4} restants)`}
+                                        </button>
+                                    </div>
+                                )}
                             </section>
                         )}
 
@@ -329,18 +508,18 @@ const CourseDetail = () => {
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-                                    {course.plans.map((plan) => (
+                                    {course.plans.map((plan) => {
+                                        const color = plan.highlight ? "#C42B36" : plan.name.toLowerCase().startsWith('no ') ? "#397DBA" : "#1B3088";
+                                        return (
                                         <div
                                             key={plan.name}
-                                            className={`relative rounded-2xl overflow-hidden flex flex-col transition-all duration-150 ${plan.highlight
-                                                ? "border-2 border-[#ee3034] shadow-[0_12px_40px_rgba(238,48,52,0.20)] -my-3"
-                                                : "border-2 border-primary shadow-[0_8px_24px_rgba(27,48,136,0.13)]"
-                                                }`}
+                                            className={`relative rounded-2xl overflow-hidden flex flex-col transition-all duration-150 ${plan.highlight ? "-my-3" : ""}`}
+                                            style={{ border: `2px solid ${color}`, boxShadow: plan.highlight ? `0 12px 40px ${color}33` : `0 8px 24px ${color}22` }}
                                         >
                                             {/* Badge superior — tots els plans */}
                                             <div
                                                 className="text-white font-body font-bold text-[10px] uppercase tracking-widest text-center py-2"
-                                                style={{ backgroundColor: plan.highlight ? "#ee3034" : "#1b3088" }}
+                                                style={{ backgroundColor: color }}
                                             >
                                                 {plan.badge ?? plan.name}
                                             </div>
@@ -348,7 +527,7 @@ const CourseDetail = () => {
                                             {/* Capçalera */}
                                             <div
                                                 className="px-5 pt-4 pb-4 text-center"
-                                                style={{ backgroundColor: plan.highlight ? "#ee3034" : "#1b3088" }}
+                                                style={{ backgroundColor: color }}
                                             >
                                                 <p className="font-body font-bold text-[11px] text-white/60 uppercase tracking-widest mb-2">
                                                     {plan.name}
@@ -387,13 +566,14 @@ const CourseDetail = () => {
                                                 <button
                                                     onClick={() => setEnrollOpen(true)}
                                                     className="mt-auto w-full font-body font-bold text-xs uppercase tracking-[0.06em] px-4 py-2.5 rounded-xl transition-all duration-150 cursor-pointer text-white hover:opacity-90 hover:shadow-lg"
-                                                    style={{ backgroundColor: plan.highlight ? "#ee3034" : "#1b3088" }}
+                                                    style={{ backgroundColor: color }}
                                                 >
                                                     Matricular-me
                                                 </button>
                                             </div>
                                         </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </section>
                         )}
@@ -716,26 +896,83 @@ const CourseDetail = () => {
                 </section>
             )}
 
+            {/* Et pot interessar */}
+            {(() => {
+                const related = courses
+                    .filter((c) => c.slug !== course.slug && c.categoriaSlug === course.categoriaSlug)
+                    .slice(0, 3);
+                const fill = related.length < 3
+                    ? courses.filter((c) => c.slug !== course.slug && c.categoriaSlug !== course.categoriaSlug).slice(0, 3 - related.length)
+                    : [];
+                const suggestions = [...related, ...fill];
+                if (suggestions.length === 0) return null;
+                return (
+                    <section className="py-12 bg-muted/40 border-t border-border scroll-reveal">
+                        <div className="container mx-auto px-4 max-w-[1400px]">
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="w-1 h-7 bg-accent rounded-full" />
+                                <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Et pot interessar</h2>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                                {suggestions.map((c) => (
+                                    <Link
+                                        key={c.slug}
+                                        to={`/curs/${c.slug}`}
+                                        className="group bg-card rounded-2xl border border-border overflow-hidden flex flex-col hover:border-accent/40 hover:shadow-[0_8px_32px_rgba(27,48,136,0.10)] transition-all duration-150"
+                                    >
+                                        <div className="relative h-40 overflow-hidden flex-shrink-0 bg-muted">
+                                            <img
+                                                src={c.gridImg}
+                                                alt={`${c.titleBase} ${c.titleAccent ?? ""}`}
+                                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                                                loading="lazy"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                                        </div>
+                                        <div className="p-4 flex flex-col flex-1">
+                                            <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-1.5">{c.categoriaLabel}</span>
+                                            <h3 className="font-display font-bold text-sm text-foreground leading-snug mb-2 line-clamp-2">{c.titleBase} {c.titleAccent}</h3>
+                                            {c.gridShortDesc && (
+                                                <p className="font-body text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-3">{c.gridShortDesc}</p>
+                                            )}
+                                            <div className="mt-auto border-t border-border pt-3 flex items-center justify-between">
+                                                {c.gridStartDate && (
+                                                    <span className="flex items-center gap-1 font-body text-xs text-foreground/80">
+                                                        <CalendarDays size={11} className="text-accent" />
+                                                        {c.gridStartDate}
+                                                    </span>
+                                                )}
+                                                <span className="ml-auto inline-flex items-center gap-1 font-body font-semibold text-accent text-xs group-hover:gap-2 transition-[gap] duration-150">
+                                                    Més info <ChevronRight size={12} />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                );
+            })()}
+
             {/* WhatsApp CTA */}
-            {course.whatsappText && (
-                <a
-                    href={`https://wa.me/34694234416?text=${course.whatsappText}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="fixed bottom-6 right-6 z-[300] group flex items-center gap-3"
-                    aria-label="Contacta per WhatsApp"
-                >
-                    <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 bg-foreground text-background font-body font-bold text-xs uppercase tracking-wide px-3 py-2 rounded-xl shadow-lg whitespace-nowrap">
-                        Consulta pel curs
-                    </span>
-                    <div className="relative w-14 h-14 rounded-full bg-espol-whatsapp flex items-center justify-center shadow-[0_4px_20px_rgba(34,197,94,0.5)] hover:shadow-[0_6px_28px_rgba(34,197,94,0.7)] transition-all duration-300 hover:-translate-y-1">
-                        <span className="absolute inset-0 rounded-full bg-espol-whatsapp animate-ping opacity-30" />
-                        <svg viewBox="0 0 24 24" fill="white" className="w-7 h-7 relative z-10">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                        </svg>
-                    </div>
-                </a>
-            )}
+            <a
+                href={`https://wa.me/34694234416?text=${encodeURIComponent(`Hola! Estic interessat/ada en el curs: ${course.titleBase}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fixed bottom-6 right-6 z-[300] group flex items-center gap-3"
+                aria-label="Contacta per WhatsApp"
+            >
+                <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 bg-foreground text-background font-body font-bold text-xs uppercase tracking-wide px-3 py-2 rounded-xl shadow-lg whitespace-nowrap">
+                    Consulta pel curs
+                </span>
+                <div className="relative w-14 h-14 rounded-full bg-espol-whatsapp flex items-center justify-center shadow-[0_4px_20px_rgba(34,197,94,0.5)] hover:shadow-[0_6px_28px_rgba(34,197,94,0.7)] transition-all duration-300 hover:-translate-y-1">
+                    <span className="absolute inset-0 rounded-full bg-espol-whatsapp animate-ping opacity-30" />
+                    <svg viewBox="0 0 24 24" fill="white" className="w-7 h-7 relative z-10">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                </div>
+            </a>
 
             <Footer />
         </div>

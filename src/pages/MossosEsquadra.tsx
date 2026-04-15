@@ -30,7 +30,7 @@ const cursos = [
         startDate: "Abril 2026",
         level: "Intermedi" as const,
         isNew: true,
-        img: "/images/altres-tematiques.jpg",
+        img: "/images/altres-tematiques.webp",
     },
     {
         slug: "psicotecnics-mossos-esquadra",
@@ -44,7 +44,7 @@ const cursos = [
         startDate: "Abril 2026",
         level: "Bàsic" as const,
         isNew: false,
-        img: "/images/armament.jpg",
+        img: "/images/armament.webp",
     },
     {
         slug: "proves-fisiques-mossos-esquadra",
@@ -58,7 +58,7 @@ const cursos = [
         startDate: "Abril 2026",
         level: "Intermedi" as const,
         isNew: false,
-        img: "/images/criminalistica.jpg",
+        img: "/images/criminalistica.webp",
     },
 ];
 
@@ -114,7 +114,7 @@ const MossosEsquadra = () => {
             <div className="relative bg-primary overflow-hidden">
                 <div className="absolute inset-0">
                     <img
-                        src="/images/heroSlider3.jpg"
+                        src="/images/heroSlider3.webp"
                         alt="Mossos d'Esquadra"
                         className="w-full h-full object-cover opacity-25"
                     />

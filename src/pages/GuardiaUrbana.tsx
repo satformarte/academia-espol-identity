@@ -31,7 +31,7 @@ const cursos = [
         startDate: "Abril 2026",
         level: "Intermedi" as const,
         isNew: true,
-        img: "/images/altres-tematiques.jpg",
+        img: "/images/altres-tematiques.webp",
     },
     {
         slug: "psicotecnics-guardia-urbana",
@@ -45,7 +45,7 @@ const cursos = [
         startDate: "Abril 2026",
         level: "Bàsic" as const,
         isNew: false,
-        img: "/images/armament.jpg",
+        img: "/images/armament.webp",
     },
     {
         slug: "proves-fisiques-guardia-urbana",
@@ -59,7 +59,7 @@ const cursos = [
         startDate: "Abril 2026",
         level: "Intermedi" as const,
         isNew: false,
-        img: "/images/criminalistica.jpg",
+        img: "/images/criminalistica.webp",
     },
 ];
 

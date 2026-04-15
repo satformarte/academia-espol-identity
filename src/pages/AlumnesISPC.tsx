@@ -28,7 +28,7 @@ const cursos = [
         durada: "6 sessions (18 hores)",
         preu: "180 €",
         afiliats: "150 €",
-        img: "/images/bulevard.jpg",
+        img: "/images/bulevard.webp",
     },
     {
         slug: "procediments-intervencio",
@@ -37,7 +37,7 @@ const cursos = [
         durada: "3 sessions (4,5 hores)",
         preu: "75 €",
         afiliats: "–",
-        img: "/images/procediments.jpg",
+        img: "/images/procediments.webp",
     },
     {
         slug: "trafic-i-transport",
@@ -46,7 +46,7 @@ const cursos = [
         durada: "3 sessions (4,5 hores)",
         preu: "75 €",
         afiliats: "–",
-        img: "/images/transit-transport.jpg",
+        img: "/images/transit-transport.webp",
     },
     {
         slug: "armament",
@@ -55,7 +55,7 @@ const cursos = [
         durada: "2 sessions (4 hores)",
         preu: "50 €",
         afiliats: "–",
-        img: "/images/armament.jpg",
+        img: "/images/armament.webp",
     },
 ];
 

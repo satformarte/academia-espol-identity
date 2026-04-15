@@ -36,47 +36,47 @@ const categoryMeta: Record<string, CategoryMeta> = {
     "criminologia": {
         title: "Criminologia",
         description: "Formació especialitzada en l'estudi científic del delicte, la conducta criminal i els sistemes de justícia. Tots els cursos compten amb certificació oficial reconeguda.",
-        img: "/images/criminologia.jpg",
+        img: "/images/criminologia.webp",
     },
     "dret-penal": {
         title: "Dret Penal",
         description: "Formació en dret penal per a professionals de la seguretat pública. Coneix el marc legal que regula els delictes i les penes.",
-        img: "/images/dret-penal.jpg",
+        img: "/images/dret-penal.webp",
     },
     "transit-i-circulacio": {
         title: "Trànsit i Circulació",
         description: "Cursos especialitzats en normativa de trànsit, accidents de circulació i investigació viària per a agents i professionals del sector.",
-        img: "/images/transit-circulacio.jpg",
+        img: "/images/transit-circulacio.webp",
     },
     "seguretat-ciutadana": {
         title: "Seguretat Ciutadana",
         description: "Formació en seguretat pública, gestió de conflictes i ordre públic per a policies i professionals de la seguretat.",
-        img: "/images/seguretat-ciutadana.jpg",
+        img: "/images/seguretat-ciutadana.webp",
     },
     "procediments-policials": {
         title: "Procediments Policials",
         description: "Cursos pràctics sobre actuació policial, protocols d'intervenció i procediments operatius per a cossos de seguretat.",
-        img: "/images/procediments-policials.jpg",
+        img: "/images/procediments-policials.webp",
     },
-    "ciberdelinquencia": {
-        title: "Ciberdelinqüència",
+    "ciberseguretat": {
+        title: "Ciberseguretat",
         description: "Formació en ciberseguretat, investigació digital i delictes informàtics per a agents i professionals del sector tecnològic.",
-        img: "/images/ciberdelinquencia.jpg",
+        img: "/images/ciberdelinquencia.webp",
     },
     "altres-tematiques": {
         title: "Altres Temàtiques",
         description: "Formació complementària en àmbits relacionats amb la seguretat, el dret i l'administració pública.",
-        img: "/images/altres-tematiques.jpg",
+        img: "/images/altres-tematiques.webp",
     },
     "actic-i-angles": {
         title: "ACTIC i Anglès",
         description: "Preparació per a les certificacions oficials d'informàtica ACTIC i d'idiomes en anglès per a l'accés a la funció pública.",
-        img: "/images/actic-angles.jpg",
+        img: "/images/actic-angles.webp",
     },
     "criminalistica": {
         title: "Criminalística",
         description: "Formació en tècniques d'investigació forense, anàlisi de proves i escena del crim per a professionals de la seguretat.",
-        img: "/images/criminalistica.jpg",
+        img: "/images/criminalistica.webp",
     },
 };
 
@@ -137,7 +137,15 @@ const CategoryPage = () => {
     // Precarrega la imatge hero tan aviat com es coneix la categoria
     usePreloadImage(meta.img);
 
-    const categoryCourses = courses.filter((c) => c.categoriaSlug === categoria);
+    const parseStartDate = (d?: string) => {
+        if (!d) return Infinity;
+        const [day, month, year] = d.split("/").map(Number);
+        return new Date(year, month - 1, day).getTime();
+    };
+
+    const categoryCourses = courses
+        .filter((c) => c.categoriaSlug === categoria)
+        .sort((a, b) => parseStartDate(a.gridStartDate) - parseStartDate(b.gridStartDate));
 
     return (
         <div className="min-h-screen bg-background" ref={ref}>
@@ -318,20 +326,20 @@ const CategoryPage = () => {
                                         )}
 
                                         {/* Meta row — hores, modalitat, alumnes */}
-                                        <div className="flex items-center gap-3 text-muted-foreground mb-3">
+                                        <div className="flex items-center gap-3 text-foreground/80 mb-3">
                                             {course.gridHours && (
-                                                <span className="flex items-center gap-1 font-body text-[11px]">
-                                                    <Clock size={11} className="text-accent" />
+                                                <span className="flex items-center gap-1 font-body text-xs">
+                                                    <Clock size={12} className="text-accent" />
                                                     {course.gridHours}
                                                 </span>
                                             )}
-                                            <span className="flex items-center gap-1 font-body text-[11px]">
-                                                <Monitor size={11} className="text-accent" />
+                                            <span className="flex items-center gap-1 font-body text-xs">
+                                                <Monitor size={12} className="text-accent" />
                                                 Online
                                             </span>
                                             {course.gridStudents > 0 && (
-                                                <span className="flex items-center gap-1 font-body text-[11px]">
-                                                    <Users size={11} className="text-accent" />
+                                                <span className="flex items-center gap-1 font-body text-xs">
+                                                    <Users size={12} className="text-accent" />
                                                     {course.gridStudents.toLocaleString()}
                                                 </span>
                                             )}
@@ -339,16 +347,16 @@ const CategoryPage = () => {
 
                                         {/* Dates — inici i fi, només si existeixen */}
                                         {(course.gridStartDate || course.gridEndDate) && (
-                                            <div className="flex items-center gap-3 text-muted-foreground mb-3">
+                                            <div className="flex items-center gap-3 text-foreground/80 mb-3">
                                                 {course.gridStartDate && (
-                                                    <span className="flex items-center gap-1 font-body text-[11px]">
-                                                        <CalendarDays size={11} className="text-accent" />
+                                                    <span className="flex items-center gap-1 font-body text-xs">
+                                                        <CalendarDays size={12} className="text-accent" />
                                                         Inici: {course.gridStartDate}
                                                     </span>
                                                 )}
                                                 {course.gridEndDate && (
-                                                    <span className="flex items-center gap-1 font-body text-[11px]">
-                                                        <CalendarDays size={11} className="text-accent" />
+                                                    <span className="flex items-center gap-1 font-body text-xs">
+                                                        <CalendarDays size={12} className="text-accent" />
                                                         Fi: {course.gridEndDate}
                                                     </span>
                                                 )}
