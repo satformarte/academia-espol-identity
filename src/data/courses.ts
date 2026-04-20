@@ -172,6 +172,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250140963"),
 
     gridImg: "/images/espol26-002-001.webp",
+    gridHours: "30h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -257,6 +258,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250140975"),
 
     gridImg: "/images/espol26-004-001.webp",
+    gridHours: "30h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -342,6 +344,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141153"),
 
     gridImg: "/images/espol26-029-001.webp",
+    gridHours: "35h",
     gridStudents: 30,
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
@@ -440,6 +443,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141155"),
 
     gridImg: "/images/espol26-031-001.webp",
+    gridHours: "35h",
     gridStudents: 30,
     gridStartDate: "21/07/2026",
     gridEndDate: "20/09/2026",
@@ -541,6 +545,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141176"),
 
     gridImg: "/images/espol26-028-002.webp",
+    gridHours: "20h",
     gridStudents: 30,
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
@@ -628,6 +633,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141001"),
 
     gridImg: "/images/espol26-006-001.webp",
+    gridHours: "30h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -690,6 +696,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141036"),
 
     gridImg: "/images/espol26-013-001.webp",
+    gridHours: "20h",
     gridStudents: 30,
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
@@ -757,6 +764,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141067"),
 
     gridImg: "/images/espol26-042-001.webp",
+    gridHours: "50h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -825,6 +833,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141150"),
 
     gridImg: "/images/espol26-016-001.webp",
+    gridHours: "30h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -899,6 +908,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141203"),
 
     gridImg: "/images/espol26-034-001.webp",
+    gridHours: "25h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -968,6 +978,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141030"),
 
     gridImg: "/images/espol26-010-001.webp",
+    gridHours: "20h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -1053,6 +1064,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141204"),
 
     gridImg: "/images/espol26-033-001.webp",
+    gridHours: "25h",
     gridStudents: 30,
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
@@ -1126,6 +1138,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141152"),
 
     gridImg: "/images/espol26-026-001.webp",
+    gridHours: "25h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -1190,6 +1203,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141193"),
 
     gridImg: "/images/espol26-039-001.webp",
+    gridHours: "20h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -1264,6 +1278,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141205"),
 
     gridImg: "/images/espol26-032-001.webp",
+    gridHours: "25h",
     gridStudents: 30,
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
@@ -1332,6 +1347,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141194"),
 
     gridImg: "/images/espol26-036-001.webp",
+    gridHours: "25h",
     gridStudents: 30,
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
@@ -1397,6 +1413,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141207"),
 
     gridImg: "/images/espol26-043-001.webp",
+    gridHours: "25h",
     gridStudents: 30,
     gridStartDate: "12/05/2026",
     gridEndDate: "12/06/2026",
@@ -1484,6 +1501,7 @@ export const courses: CourseData[] = [
     metaItems: metaItemsFor("RP20250141218"),
 
     gridImg: "/images/espol26-046-001.webp",
+    gridHours: "20h",
     gridStudents: 30,
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
@@ -1533,6 +1551,183 @@ export const courses: CourseData[] = [
     ],
     audience: audienceEstandard,
     faq: faqEstandard,
+    collaborators: collaboratorsEstandard,
+  },
+
+  // ACTIC I ANGLÈS ──────────────────────────────────────────────────────────────
+
+  // espol26-053-001
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: "espol26-053-001",
+    categoriaLabel: "ACTIC i Anglès",
+    categoriaSlug: "actic-i-angles",
+    titleBase: "Curs ACTIC MITJÀ",
+    img: "/images/espol26-053-001.webp",
+    heroStats: [
+      { label: "100% online" },
+      { label: "Matrícula oberta" },
+    ],
+
+    price: 30,
+    originalPrice: null,
+    sidebarCategoryLabel: "ACTIC i Anglès",
+    totalPlaces: 35,
+    remainingPlaces: 35,
+    enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=25H+cKmYGuU=&return=no&returnurl=",
+    whatsappText: "Hola!%20M'interessa%20el%20curs%20ACTIC%20Mitj%C3%A0",
+    metaItems: [
+      { label: "Modalitat", value: "100% online" },
+      { label: "Inici", value: "Accés immediat" },
+    ],
+
+    gridImg: "/images/espol26-053-001.webp",
+    gridHours: "60h",
+    gridStudents: 30,
+    gridStartDate: "12/05/2026",
+    gridEndDate: "12/11/2026",
+    isNew: true,
+
+    modules: [
+      { title: "C1 - Cultura, participació i civisme digital", topics: [] },
+      { title: "C2 - Tecnologia digital, ús de l'ordinador i del sistema operatiu", topics: [] },
+      { title: "C3 - Navegació, cerca i comunicació en el món digital", topics: [] },
+      { title: "C4 - Tractament de la informació escrita", topics: [] },
+      { title: "C5 - Tractament de la informació gràfica, sonora i de la imatge en moviment", topics: [] },
+      { title: "C6 - Tractament de la informació numèrica", topics: [] },
+      { title: "C7 - Tractament de les dades", topics: [] },
+      { title: "C8 - Presentació de continguts", topics: [] },
+    ],
+
+    requirements: [],
+    plans: [
+      {
+        name: "Nou afiliat/ada",
+        price: 50,
+        originalPrice: null,
+        highlight: false,
+        badge: null,
+        features: [
+          { text: "Accés a tots els mòduls", included: true },
+          { text: "Material didàctic PDF", included: true },
+          { text: "Tutories en línea", included: true },
+          { text: "Accés il·limitat", included: true },
+        ],
+      },
+      {
+        name: "Afiliat/ada + 6 mesos i alumnes en pràctiques afiliats",
+        price: 30,
+        originalPrice: null,
+        highlight: true,
+        badge: "Afiliats/ades",
+        features: [
+          { text: "Accés a tots els mòduls", included: true },
+          { text: "Material didàctic PDF", included: true },
+          { text: "Tutories en línea", included: true },
+          { text: "Accés il·limitat", included: true },
+        ],
+      },
+      {
+        name: "No afiliat/ada",
+        price: 75,
+        originalPrice: null,
+        highlight: false,
+        badge: null,
+        features: [
+          { text: "Accés a tots els mòduls", included: true },
+          { text: "Material didàctic PDF", included: true },
+          { text: "Tutories en línea", included: true },
+          { text: "Accés il·limitat", included: true },
+        ],
+      },
+    ],
+    audience: audienceEstandard,
+    collaborators: collaboratorsEstandard,
+  },
+
+  // espol26-054-001
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: "espol26-054-001",
+    categoriaLabel: "ACTIC i Anglès",
+    categoriaSlug: "actic-i-angles",
+    titleBase: "Curs ACTIC AVANÇAT",
+    img: "/images/espol26-054-001.webp",
+    heroStats: [
+      { label: "100% online" },
+      { label: "Matrícula oberta" },
+    ],
+
+    price: 30,
+    originalPrice: null,
+    sidebarCategoryLabel: "ACTIC i Anglès",
+    totalPlaces: 35,
+    remainingPlaces: 35,
+    enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=g0Fu9EIW+9k=&return=no&returnurl=",
+    whatsappText: "Hola!%20M'interessa%20el%20curs%20ACTIC%20Avan%C3%A7at",
+    metaItems: [
+      { label: "Modalitat", value: "100% online" },
+      { label: "Inici", value: "Accés immediat" },
+    ],
+
+    gridImg: "/images/espol26-054-001.webp",
+    gridHours: "90h",
+    gridStudents: 30,
+    gridStartDate: "12/05/2026",
+    gridEndDate: "12/11/2026",
+    isNew: true,
+
+    modules: [
+      { title: "C4 - Tractament de la informació escrita", topics: [] },
+      { title: "C5 - Tractament de la informació gràfica, sonora i de la imatge en moviment", topics: [] },
+      { title: "C6 - Tractament de la informació numèrica", topics: [] },
+      { title: "C7 - Tractament de les dades", topics: [] },
+      { title: "C8 - Presentació de continguts", topics: [] },
+    ],
+
+    requirements: [],
+    plans: [
+      {
+        name: "Nou afiliat/ada",
+        price: 50,
+        originalPrice: null,
+        highlight: false,
+        badge: null,
+        features: [
+          { text: "Accés a tots els mòduls", included: true },
+          { text: "Material didàctic PDF", included: true },
+          { text: "Tutories en línea", included: true },
+          { text: "Accés il·limitat", included: true },
+        ],
+      },
+      {
+        name: "Afiliat/ada + 6 mesos i alumnes en pràctiques afiliats",
+        price: 30,
+        originalPrice: null,
+        highlight: true,
+        badge: "Afiliats/ades",
+        features: [
+          { text: "Accés a tots els mòduls", included: true },
+          { text: "Material didàctic PDF", included: true },
+          { text: "Tutories en línea", included: true },
+          { text: "Accés il·limitat", included: true },
+        ],
+      },
+      {
+        name: "No afiliat/ada",
+        price: 75,
+        originalPrice: null,
+        highlight: false,
+        badge: null,
+        features: [
+          { text: "Accés a tots els mòduls", included: true },
+          { text: "Material didàctic PDF", included: true },
+          { text: "Tutories en línea", included: true },
+          { text: "Accés il·limitat", included: true },
+        ],
+      },
+    ],
+    audience: audienceEstandard,
     collaborators: collaboratorsEstandard,
   },
 

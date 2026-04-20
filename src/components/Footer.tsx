@@ -1,9 +1,29 @@
+import { Link } from "react-router-dom";
 import espolLogo from "@/assets/espol-logo.png";
+
+const formacioLinks = [
+  { label: "Alumnes ISPC",           to: "/alumnes-ispc" },
+  { label: "Dret Penal",             to: "/dret-penal" },
+  { label: "Criminologia",           to: "/criminologia" },
+  { label: "Ciberseguretat",         to: "/ciberseguretat" },
+  { label: "Trànsit i Circulació",   to: "/transit-i-circulacio" },
+  { label: "Criminalística",         to: "/criminalistica" },
+  { label: "Seguretat Ciutadana",    to: "/seguretat-ciutadana" },
+  { label: "Procediments Policials", to: "/procediments-policials" },
+  { label: "ACTIC i Anglès",         to: "/actic-i-angles" },
+];
+
+const academiaLinks = [
+  { label: "Nosaltres",              to: "/nosaltres" },
+  { label: "Contacte",               to: "/contacte" },
+  { label: "Campus Virtual",         to: null, href: "#" },
+];
 
 const Footer = () => (
   <footer className="bg-foreground text-primary-foreground/60 pt-20 pb-8">
     <div className="container mx-auto px-4 max-w-[1400px]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-14">
+
         {/* Brand */}
         <div>
           <div className="mb-6">
@@ -38,8 +58,12 @@ const Footer = () => (
         <div>
           <h4 className="font-display font-bold text-primary-foreground text-sm uppercase tracking-[0.1em] mb-5">Formació</h4>
           <ul className="space-y-2.5 font-body text-sm">
-            {["Alumnes ISPC", "Cursos Puntuables", "Oposicions", "Dret Penal", "Criminologia", "Ciberdelinqüència"].map((l) => (
-              <li key={l}><a href="#" className="hover:text-primary-foreground transition-colors">{l}</a></li>
+            {formacioLinks.map(({ label, to }) => (
+              <li key={label}>
+                <Link to={to} className="hover:text-primary-foreground transition-colors">
+                  {label}
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
@@ -48,8 +72,14 @@ const Footer = () => (
         <div>
           <h4 className="font-display font-bold text-primary-foreground text-sm uppercase tracking-[0.1em] mb-5">Acadèmia</h4>
           <ul className="space-y-2.5 font-body text-sm">
-            {["Nosaltres", "Resultats", "Campus Virtual", "Blog", "Preguntes freqüents", "Contacte"].map((l) => (
-              <li key={l}><a href="#" className="hover:text-primary-foreground transition-colors">{l}</a></li>
+            {academiaLinks.map(({ label, to, href }) => (
+              <li key={label}>
+                {to ? (
+                  <Link to={to} className="hover:text-primary-foreground transition-colors">{label}</Link>
+                ) : (
+                  <a href={href} className="hover:text-primary-foreground transition-colors">{label}</a>
+                )}
+              </li>
             ))}
           </ul>
         </div>
@@ -58,10 +88,26 @@ const Footer = () => (
         <div>
           <h4 className="font-display font-bold text-primary-foreground text-sm uppercase tracking-[0.1em] mb-5">Contacte</h4>
           <ul className="space-y-3 font-body text-sm">
-            <li>📞 93 606 10 32</li>
-            <li>💬 694 234 416</li>
-            <li>✉ cursos@academiaespol.es</li>
-            <li>📷 @academiaespol</li>
+            <li>
+              <a href="tel:936061032" className="hover:text-primary-foreground transition-colors">
+                93 606 10 32
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/34694234416" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground transition-colors">
+                694 234 416 (WhatsApp)
+              </a>
+            </li>
+            <li>
+              <a href="mailto:cursos@academiaespol.es" className="hover:text-primary-foreground transition-colors">
+                cursos@academiaespol.es
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/academiaespol/" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground transition-colors">
+                @academiaespol
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -70,9 +116,10 @@ const Footer = () => (
       <div className="border-t border-primary-foreground/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
         <span>© 2025 Acadèmia ESPOL. Tots els drets reservats.</span>
         <div className="flex gap-5">
-          <a href="#" className="hover:text-primary-foreground transition-colors">Avís Legal</a>
-          <a href="#" className="hover:text-primary-foreground transition-colors">Privacitat</a>
-          <a href="#" className="hover:text-primary-foreground transition-colors">Cookies</a>
+          <Link to="/avis-legal" className="hover:text-primary-foreground transition-colors">Avís Legal</Link>
+          <Link to="/privacitat" className="hover:text-primary-foreground transition-colors">Privacitat</Link>
+          <Link to="/cookies" className="hover:text-primary-foreground transition-colors">Cookies</Link>
+          <Link to="/devolucions" className="hover:text-primary-foreground transition-colors">Devolucions</Link>
         </div>
       </div>
     </div>

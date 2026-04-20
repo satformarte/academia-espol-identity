@@ -830,8 +830,17 @@ const CourseDetail = () => {
                                 )}
 
                                 {/* Meta items */}
-                                {((course.metaItems && course.metaItems.length > 0) || course.gridStartDate || course.gridEndDate) && (
+                                {((course.metaItems && course.metaItems.length > 0) || course.gridHours || course.gridStartDate || course.gridEndDate) && (
                                     <div className="space-y-3 pt-2 border-t border-border">
+                                        {course.gridHours && (
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2 text-muted-foreground">
+                                                    <span className="text-accent"><Clock size={14} /></span>
+                                                    <span className="font-body text-xs">Durada</span>
+                                                </div>
+                                                <span className="font-body font-bold text-xs text-foreground">{course.gridHours}</span>
+                                            </div>
+                                        )}
                                         {course.metaItems && course.metaItems.map(({ label, value }) => {
                                             const iconMap: Record<string, React.ReactNode> = {
                                                 "Durada": <Clock size={14} />,
