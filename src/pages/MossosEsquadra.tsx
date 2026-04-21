@@ -25,10 +25,7 @@ const cursos = [
         shortDesc: "Preparació exhaustiva de tots els blocs temàtics del procés selectiu dels Mossos d'Esquadra de la Generalitat de Catalunya.",
         hours: "150 h",
         modality: "Online + Presencial",
-        students: 520,
-        rating: 4.9,
-        startDate: "Abril 2026",
-        level: "Intermedi" as const,
+        startDate: "Pròximament",
         isNew: true,
         img: "/images/altres-tematiques.webp",
     },
@@ -36,14 +33,11 @@ const cursos = [
         slug: "psicotecnics-mossos-esquadra",
         titleBase: "Psicotècnics",
         titleAccent: "Mossos d'Esquadra",
-        shortDesc: "Entrenament intensiu de les proves psicotècniques específiques del procés selectiu dels Mossos d'Esquadra.",
+        shortDesc: "Psicotècnics, tests de personalitat i preparació de l’entrevista",
         hours: "40 h",
         modality: "Online",
-        students: 380,
-        rating: 4.7,
-        startDate: "Abril 2026",
-        level: "Bàsic" as const,
-        isNew: false,
+        startDate: "Pròximament",
+        isNew: true,
         img: "/images/armament.webp",
     },
     {
@@ -53,11 +47,8 @@ const cursos = [
         shortDesc: "Pla d'entrenament personalitzat per superar les proves físiques del procés selectiu dels Mossos d'Esquadra.",
         hours: "60 h",
         modality: "Presencial",
-        students: 290,
-        rating: 4.8,
-        startDate: "Abril 2026",
-        level: "Intermedi" as const,
-        isNew: false,
+        startDate: "Pròximament",
+        isNew: true,
         img: "/images/criminalistica.webp",
     },
 ];
@@ -133,7 +124,7 @@ const MossosEsquadra = () => {
                         </h1>
 
                         <p className="font-body text-white/75 text-sm lg:text-base leading-relaxed mb-7 max-w-xl">
-                            Preparació completa per a les oposicions dels Mossos d'Esquadra. Temari actualitzat, professors en actiu i metodologia contrastada per maximitzar les teves possibilitats d'èxit.
+                            Preparació completa per a les oposicions del Cos de Mossos d'Esquadra. Temari actualitzat, professors en actiu i metodologia contrastada per maximitzar les teves possibilitats d'èxit.
                         </p>
 
                         <div className="flex flex-wrap gap-5">
@@ -208,33 +199,33 @@ const MossosEsquadra = () => {
                                 <div className="p-5 flex flex-col flex-1">
 
                                     {/* Categoria label */}
-                                    <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-2">
+                                    <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-1.5">
                                         Mossos d'Esquadra
                                     </span>
 
                                     {/* Títol */}
-                                    <h3 className="font-display font-bold text-[14px] text-foreground leading-snug mb-2 line-clamp-2">
+                                    <h3 className="font-display font-bold text-[14px] text-foreground leading-snug mb-1.5 line-clamp-2">
                                         {course.titleBase} {course.titleAccent}
                                     </h3>
 
                                     {/* Descripció curta */}
                                     {course.shortDesc && (
-                                        <p className="font-body text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-2">
+                                        <p className="font-body text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-2">
                                             {course.shortDesc}
                                         </p>
                                     )}
 
                                     {/* Meta row */}
-                                    <div className="flex items-center gap-3 text-muted-foreground mb-3">
+                                    <div className="flex items-center gap-3 text-foreground/80 mb-2">
                                         {course.hours && (
-                                            <span className="flex items-center gap-1 font-body text-[11px]">
-                                                <Clock size={11} className="text-accent" />
+                                            <span className="flex items-center gap-1 font-body text-xs">
+                                                <Clock size={12} className="text-accent" />
                                                 {course.hours}
                                             </span>
                                         )}
                                         {course.students > 0 && (
-                                            <span className="flex items-center gap-1 font-body text-[11px]">
-                                                <Users size={11} className="text-accent" />
+                                            <span className="flex items-center gap-1 font-body text-xs">
+                                                <Users size={12} className="text-accent" />
                                                 {course.students.toLocaleString()}
                                             </span>
                                         )}
@@ -242,9 +233,9 @@ const MossosEsquadra = () => {
 
                                     {/* Data inici */}
                                     {course.startDate && (
-                                        <div className="flex items-center gap-3 text-muted-foreground mb-3">
-                                            <span className="flex items-center gap-1 font-body text-[11px]">
-                                                <CalendarDays size={11} className="text-accent" />
+                                        <div className="flex items-center gap-3 text-foreground/80 mb-2">
+                                            <span className="flex items-center gap-1 font-body text-xs">
+                                                <CalendarDays size={12} className="text-accent" />
                                                 Inici: {course.startDate}
                                             </span>
                                         </div>

@@ -64,8 +64,8 @@ const cursos = [
         ],
     },
     {
-        slug: "trafic-i-transport",
-        nom: "Tràfic i Transport",
+        slug: "transit-i-transport",
+        nom: "Trànsit i Transport",
         subtitol: "Normativa, procediments i protocols de trànsit per a agents en actiu.",
         durada: "3 sessions (4,5 hores)",
         sessions: 3,

@@ -66,7 +66,7 @@ const ContactePage = () => {
                                 Escriu-nos per correu
                             </h2>
                             <p className="font-body text-muted-foreground text-sm max-w-md mx-auto mb-6 leading-relaxed">
-                                Per a qualsevol consulta sobre cursos, oposicions, preus o inscripcions, envia'ns un correu i et respondrem en menys de 24 hores.
+                                Per a qualsevol consulta sobre cursos, oposicions, preus o inscripcions, envia'ns un correu i et respondrem en menys de 24 hores hàbils.
                             </p>
                             <a
                                 href={`mailto:${EMAIL_CONTACT}`}
@@ -88,7 +88,7 @@ const ContactePage = () => {
                             <div className="space-y-2.5">
                                 {[
                                     { dia: "Dilluns – Divendres", hora: "9:00 – 18:00 h" },
-                                    { dia: "Dissabte", hora: "10:00 – 14:00 h" },
+                                    { dia: "Dissabte", hora: "Tancat" },
                                     { dia: "Diumenge", hora: "Tancat" },
                                 ].map(({ dia, hora }) => (
                                     <div key={dia} className="flex items-center justify-between border-b border-border/50 last:border-0 pb-2.5 last:pb-0">

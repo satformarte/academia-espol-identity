@@ -26,10 +26,7 @@ const cursos = [
         shortDesc: "Preparació exhaustiva de tots els blocs temàtics del procés selectiu de la Guàrdia Urbana de Barcelona i altres municipis.",
         hours: "120 h",
         modality: "Online + Presencial",
-        students: 340,
-        rating: 4.8,
-        startDate: "Abril 2026",
-        level: "Intermedi" as const,
+        startDate: "Pròximament",
         isNew: true,
         img: "/images/altres-tematiques.webp",
     },
@@ -40,11 +37,8 @@ const cursos = [
         shortDesc: "Entrenament intensiu de les proves psicotècniques: raonament abstracte, numèric, verbal i test de personalitat.",
         hours: "40 h",
         modality: "Online",
-        students: 210,
-        rating: 4.7,
-        startDate: "Abril 2026",
-        level: "Bàsic" as const,
-        isNew: false,
+        startDate: "Pròximament",
+        isNew: true,
         img: "/images/armament.webp",
     },
     {
@@ -54,11 +48,8 @@ const cursos = [
         shortDesc: "Pla d'entrenament personalitzat per superar les proves físiques del procés selectiu amb garanties.",
         hours: "60 h",
         modality: "Presencial",
-        students: 180,
-        rating: 4.9,
-        startDate: "Abril 2026",
-        level: "Intermedi" as const,
-        isNew: false,
+        startDate: "Pròximament",
+        isNew: true,
         img: "/images/criminalistica.webp",
     },
 ];
@@ -115,7 +106,7 @@ const GuardiaUrbana = () => {
             <div className="relative bg-primary overflow-hidden">
                 <div className="absolute inset-0">
                     <img
-                        src="/images/guardia-urbana.png"
+                        src="/images/guardia-urbana.webp"
                         alt="Guàrdia Urbana"
                         className="w-full h-full object-cover opacity-25"
                     />
@@ -209,33 +200,33 @@ const GuardiaUrbana = () => {
                                 <div className="p-5 flex flex-col flex-1">
 
                                     {/* Categoria label */}
-                                    <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-2">
+                                    <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-1.5">
                                         Guàrdia Urbana
                                     </span>
 
                                     {/* Títol */}
-                                    <h3 className="font-display font-bold text-[14px] text-foreground leading-snug mb-2 line-clamp-2">
+                                    <h3 className="font-display font-bold text-[14px] text-foreground leading-snug mb-1.5 line-clamp-2">
                                         {course.titleBase} {course.titleAccent}
                                     </h3>
 
                                     {/* Descripció curta */}
                                     {course.shortDesc && (
-                                        <p className="font-body text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-2">
+                                        <p className="font-body text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-2">
                                             {course.shortDesc}
                                         </p>
                                     )}
 
                                     {/* Meta row */}
-                                    <div className="flex items-center gap-3 text-muted-foreground mb-3">
+                                    <div className="flex items-center gap-3 text-foreground/80 mb-2">
                                         {course.hours && (
-                                            <span className="flex items-center gap-1 font-body text-[11px]">
-                                                <Clock size={11} className="text-accent" />
+                                            <span className="flex items-center gap-1 font-body text-xs">
+                                                <Clock size={12} className="text-accent" />
                                                 {course.hours}
                                             </span>
                                         )}
                                         {course.students > 0 && (
-                                            <span className="flex items-center gap-1 font-body text-[11px]">
-                                                <Users size={11} className="text-accent" />
+                                            <span className="flex items-center gap-1 font-body text-xs">
+                                                <Users size={12} className="text-accent" />
                                                 {course.students.toLocaleString()}
                                             </span>
                                         )}
@@ -243,9 +234,9 @@ const GuardiaUrbana = () => {
 
                                     {/* Data inici */}
                                     {course.startDate && (
-                                        <div className="flex items-center gap-3 text-muted-foreground mb-3">
-                                            <span className="flex items-center gap-1 font-body text-[11px]">
-                                                <CalendarDays size={11} className="text-accent" />
+                                        <div className="flex items-center gap-3 text-foreground/80 mb-2">
+                                            <span className="flex items-center gap-1 font-body text-xs">
+                                                <CalendarDays size={12} className="text-accent" />
                                                 Inici: {course.startDate}
                                             </span>
                                         </div>

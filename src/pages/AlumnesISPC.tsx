@@ -33,16 +33,16 @@ const cursos = [
     {
         slug: "procediments-intervencio",
         nom: "Procediments d'intervenció",
-        subtitol: "Identificació, Esposar, Maneig de Persones Agressives/Conflictives",
+        subtitol: "Emmanillament, intervenció amb persones agressives",
         durada: "3 sessions (4,5 hores)",
         preu: "75 €",
         afiliats: "–",
         img: "/images/procediments.webp",
     },
     {
-        slug: "trafic-i-transport",
-        nom: "Tràfic i Transport",
-        subtitol: "Normativa, procediments i protocols de trànsit per a agents en actiu.",
+        slug: "transit-i-transport",
+        nom: "Trànsit i Transport",
+        subtitol: "Normativa, procediments i protocols de trànsit i transports.",
         durada: "3 sessions (4,5 hores)",
         preu: "75 €",
         afiliats: "–",
@@ -61,11 +61,11 @@ const cursos = [
 
 const packs2 = [
     { descripcio: "Bulevard + Procediments policials d'intervenció", preu: "210 €" },
-    { descripcio: "Bulevard + Tràfic i Transport", preu: "210 €" },
+    { descripcio: "Bulevard + Trànsit i Transport", preu: "210 €" },
     { descripcio: "Bulevard + Armament", preu: "210 €" },
-    { descripcio: "Procediments + Tràfic i Transport", preu: "125 €" },
+    { descripcio: "Procediments + Trànsit i Transport", preu: "125 €" },
     { descripcio: "Procediments + Armament", preu: "110 €" },
-    { descripcio: "Tràfic i Transport + Armament", preu: "110 €" },
+    { descripcio: "Trànsit i Transport + Armament", preu: "110 €" },
 ];
 
 const packComplet = [
@@ -114,7 +114,7 @@ const AlumnesISPC = () => {
             <div className="relative bg-primary overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/70" />
                 <div className="relative container mx-auto px-4 max-w-[1400px] py-14 lg:py-20">
-                    <div className="max-w-3xl">
+                    <div className="max-w-5xl">
                         <span className="inline-flex items-center gap-1.5 bg-accent/20 border border-accent/30 text-accent-foreground font-body font-bold text-[10px] uppercase tracking-[0.1em] px-3 py-1 rounded-full mb-5">
                             <GraduationCap size={11} />
                             Inscripcions obertes!
@@ -123,7 +123,7 @@ const AlumnesISPC = () => {
                             Cursos Alumnes ISPC
                         </h1>
                         <p className="font-body text-primary-foreground/80 text-sm lg:text-base leading-relaxed max-w-2xl mb-8">
-                            Aprofita els nostres cursos especialitzats per a completar la teva formació amb coneixements pràctics i adaptats a les necessitats reals del servei policial. Apunta't ara!
+                            Aprofita els nostres cursos especialitzats per a superar la fase de formació del procés selectiu. Apunta't ara!
                         </p>
 
                         {/* Info pills — data, lloc i horaris en la mateixa fila */}
@@ -132,7 +132,7 @@ const AlumnesISPC = () => {
                                 <CalendarDays size={15} className="text-accent" />
                                 <div>
                                     <span className="block font-body text-[10px] uppercase tracking-wider text-primary-foreground/60">Data d'inici</span>
-                                    <span className="font-display font-bold text-sm text-primary-foreground">16 de març de 2026</span>
+                                    <span className="font-display font-bold text-sm text-primary-foreground">Pròxima edició al 2027</span>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/15 rounded-xl px-4 py-2.5">
@@ -300,7 +300,7 @@ const AlumnesISPC = () => {
                                     Pack Complet
                                 </h2>
                                 <p className="font-body text-primary-foreground/70 text-sm max-w-md mx-auto">
-                                    Inclou Bulevard + Procediments + Tràfic i Transport + Armament
+                                    Inclou Bulevard + Procediments + Trànsit i Transport + Armament
                                 </p>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-xl mx-auto">
