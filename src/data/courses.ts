@@ -68,6 +68,7 @@ export interface CourseData {
   gridEndDate?: string;
   isNew?: boolean;
   isPopular?: boolean;
+  comingSoon?: boolean;
 
   // ── Seccions opcionals ────────────────────────────────────────────────────
   modules?: CourseModule[];
@@ -85,7 +86,7 @@ export interface CourseData {
 const faqEstandard = [
   {
     q: "El certificat és vàlid per a les oposicions dels Mossos d'Esquadra?",
-    a: "Sí. El certificat emès per ESPOL és reconegut com a mèrit en els processos selectius dels Mossos d'Esquadra, Policia Nacional i policies locals de Catalunya. Puntua dins l'apartat de formació complementària.",
+    a: "En el procés selectiu no però sí en els processos de promoció interna i concursos de trasllat- mobilitat horitzontal.",
   },
   {
     q: "Hi ha examen final?",
@@ -101,11 +102,11 @@ const faqEstandard = [
   },
   {
     q: "Quan rebo el certificat un cop acabat el curs?",
-    a: "El certificat s'emet automàticament en format digital en un termini de 5 dies hàbils des que es completa l'última activitat i s'aprova el curs. El document té validesa legal i inclou codi de verificació.",
+    a: "El certificat s'emet automàticament en format digital en un termini de cinc dies hàbils des que finalitza el curs. El document té validesa legal i inclou codi de verificació.",
   },
   {
     q: "Es pot sol·licitar factura per a empresa o organisme públic?",
-    a: "Sí, en el moment de la matrícula pots indicar les dades fiscals de l'empresa o organisme. La factura s'envia al correu electrònic en un termini de 48 hores.",
+    a: "Sí, en el moment de la matrícula pots indicar les dades fiscals de l'empresa o organisme. La factura s'envia al correu electrònic en un termini de 48 hores hàbils.",
   },
 ];
 
@@ -135,7 +136,6 @@ const heroStatsFor = (code: string): { label: string }[] => [
 
 const metaItemsFor = (code: string): { label: string; value: string }[] => [
   { label: "Modalitat", value: "100% online" },
-  { label: "Inici", value: "Accés immediat" },
   { label: "Certificat reconegust ISPC", value: code },
 ];
 
@@ -174,8 +174,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-002-001.webp",
     gridHours: "30h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -260,8 +260,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-004-001.webp",
     gridHours: "30h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -346,8 +346,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-029-001.webp",
     gridHours: "35h",
     gridStudents: 30,
-    gridStartDate: "16/06/2026",
-    gridEndDate: "17/07/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -445,8 +445,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-031-001.webp",
     gridHours: "35h",
     gridStudents: 30,
-    gridStartDate: "21/07/2026",
-    gridEndDate: "20/09/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -547,8 +547,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-028-002.webp",
     gridHours: "20h",
     gridStudents: 30,
-    gridStartDate: "16/06/2026",
-    gridEndDate: "17/07/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -635,8 +635,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-006-001.webp",
     gridHours: "30h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -698,8 +698,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-013-001.webp",
     gridHours: "20h",
     gridStudents: 30,
-    gridStartDate: "16/06/2026",
-    gridEndDate: "17/07/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -766,8 +766,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-042-001.webp",
     gridHours: "50h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -835,8 +835,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-016-001.webp",
     gridHours: "30h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -910,8 +910,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-034-001.webp",
     gridHours: "25h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -980,8 +980,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-010-001.webp",
     gridHours: "20h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -1066,8 +1066,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-033-001.webp",
     gridHours: "25h",
     gridStudents: 30,
-    gridStartDate: "16/06/2026",
-    gridEndDate: "17/07/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -1140,8 +1140,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-026-001.webp",
     gridHours: "25h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -1205,8 +1205,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-039-001.webp",
     gridHours: "20h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -1280,8 +1280,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-032-001.webp",
     gridHours: "25h",
     gridStudents: 30,
-    gridStartDate: "16/06/2026",
-    gridEndDate: "17/07/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -1349,8 +1349,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-036-001.webp",
     gridHours: "25h",
     gridStudents: 30,
-    gridStartDate: "16/06/2026",
-    gridEndDate: "17/07/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -1415,8 +1415,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-043-001.webp",
     gridHours: "25h",
     gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/06/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -1503,8 +1503,8 @@ export const courses: CourseData[] = [
     gridImg: "/images/espol26-046-001.webp",
     gridHours: "20h",
     gridStudents: 30,
-    gridStartDate: "16/06/2026",
-    gridEndDate: "17/07/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
     isPopular: true,
 
@@ -1578,14 +1578,12 @@ export const courses: CourseData[] = [
     whatsappText: "Hola!%20M'interessa%20el%20curs%20ACTIC%20Mitj%C3%A0",
     metaItems: [
       { label: "Modalitat", value: "100% online" },
-      { label: "Inici", value: "Accés immediat" },
     ],
 
     gridImg: "/images/espol26-053-001.webp",
     gridHours: "60h",
-    gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/11/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
 
     modules: [
@@ -1661,20 +1659,16 @@ export const courses: CourseData[] = [
     price: 30,
     originalPrice: null,
     sidebarCategoryLabel: "ACTIC i Anglès",
-    totalPlaces: 35,
-    remainingPlaces: 35,
     enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=g0Fu9EIW+9k=&return=no&returnurl=",
     whatsappText: "Hola!%20M'interessa%20el%20curs%20ACTIC%20Avan%C3%A7at",
     metaItems: [
       { label: "Modalitat", value: "100% online" },
-      { label: "Inici", value: "Accés immediat" },
     ],
 
     gridImg: "/images/espol26-054-001.webp",
     gridHours: "90h",
-    gridStudents: 30,
-    gridStartDate: "12/05/2026",
-    gridEndDate: "12/11/2026",
+    gridStartDate: "12/06/2026",
+    gridEndDate: "12/07/2026",
     isNew: true,
 
     modules: [
@@ -1727,6 +1721,38 @@ export const courses: CourseData[] = [
         ],
       },
     ],
+    audience: audienceEstandard,
+    collaborators: collaboratorsEstandard,
+  },
+
+  // espol26-055-001
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: "espol26-055-001",
+    categoriaLabel: "ACTIC i Anglès",
+    categoriaSlug: "actic-i-angles",
+    titleBase: "Curs Anglès Nivell B2",
+    img: "/images/espol26-055-001.webp",
+    heroStats: [
+      { label: "100% online" },
+      { label: "Pròximament" },
+    ],
+    price: 25,
+    originalPrice: null,
+    sidebarCategoryLabel: "ACTIC i Anglès",
+    totalPlaces: 35,
+    remainingPlaces: 35,
+    enrollmentUrl:"https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=krCi0kRbjSg=&return=no&returnurl=",
+    whatsappText: "Hola!%20M'interessa%20el%20curs%20d'Angl%C3%A8s%20Nivell%20B2",
+    metaItems: [
+      { label: "Modalitat", value: "100% online" },
+    ],
+
+    gridImg: "/images/espol26-055-001.webp",
+    gridHours: "90h",
+    gridStartDate: "Pròximament",
+    comingSoon: true,
+
     audience: audienceEstandard,
     collaborators: collaboratorsEstandard,
   },

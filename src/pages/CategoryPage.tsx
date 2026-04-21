@@ -295,6 +295,12 @@ const CategoryPage = () => {
                                                     Pròxima edició
                                                 </span>
                                             )}
+                                            {course.comingSoon && (
+                                                <span className="inline-flex items-center gap-1 bg-primary text-white font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
+                                                    <Sparkles size={9} />
+                                                    Pròximament
+                                                </span>
+                                            )}
                                         </div>
 
                                         {/* Level badge */}
@@ -309,9 +315,11 @@ const CategoryPage = () => {
                                     <div className="p-5 flex flex-col flex-1">
 
                                         {/* Categoria label */}
-                                        <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-2">
-                                            {course.categoriaLabel}
-                                        </span>
+                                        {course.categoriaSlug !== "actic-i-angles" && (
+                                            <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-2">
+                                                {course.categoriaLabel}
+                                            </span>
+                                        )}
 
                                         {/* Títol */}
                                         <h3 className="font-display font-bold text-[14px] text-foreground leading-snug mb-2 line-clamp-2">

@@ -646,7 +646,7 @@ const CourseDetail = () => {
                                     </div>
                                     <div className="p-6 space-y-4">
                                         <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                                            Aquest curs compta amb el reconeixement oficial de l'<strong className="text-foreground">Institut de Seguretat Pública de Catalunya (ISPC)</strong>, l'organisme responsable de la formació dels cossos de seguretat a Catalunya.
+                                            Aquest curs compta amb el reconeixement oficial de l'<strong className="text-foreground">Institut de Seguretat Pública de Catalunya (ISPC)</strong>, responsable de la formació dels cossos de seguretat de Catalunya.
                                         </p>
                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                             {[
@@ -666,7 +666,7 @@ const CourseDetail = () => {
                                     <div className="border-t border-border px-6 py-4 bg-muted/40 flex items-center gap-2">
                                         <BadgeAlert size={13} className="text-accent flex-shrink-0" />
                                         <p className="font-body text-[11px] text-muted-foreground">
-                                            El reconeixement ISPC és vàlid per als processos selectius dels <strong className="text-foreground">Mossos d'Esquadra</strong> i <strong className="text-foreground">policies locals</strong> de Catalunya.
+                                            El reconeixement ISPC és vàlid per als processos de promoció interna i mobilitat dels <strong className="text-foreground">Mossos d'Esquadra</strong> i <strong className="text-foreground">policies locals</strong> de Catalunya.
                                         </p>
                                     </div>
                                 </div>
