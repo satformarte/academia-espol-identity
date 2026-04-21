@@ -140,12 +140,17 @@ const CategoryPage = () => {
     const parseStartDate = (d?: string) => {
         if (!d) return Infinity;
         const [day, month, year] = d.split("/").map(Number);
+        if (isNaN(day) || isNaN(month) || isNaN(year)) return Infinity;
         return new Date(year, month - 1, day).getTime();
     };
 
     const categoryCourses = courses
         .filter((c) => c.categoriaSlug === categoria)
-        .sort((a, b) => parseStartDate(a.gridStartDate) - parseStartDate(b.gridStartDate));
+        .sort((a, b) => {
+            if (a.comingSoon && !b.comingSoon) return -1;
+            if (!a.comingSoon && b.comingSoon) return 1;
+            return parseStartDate(a.gridStartDate) - parseStartDate(b.gridStartDate);
+        });
 
     return (
         <div className="min-h-screen bg-background" ref={ref}>

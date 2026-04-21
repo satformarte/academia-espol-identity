@@ -17,12 +17,15 @@ const PAGE_SIZE = 6;
 const parseStartDate = (d?: string) => {
     if (!d) return Infinity;
     const [day, month, year] = d.split("/").map(Number);
+    if (isNaN(day) || isNaN(month) || isNaN(year)) return Infinity;
     return new Date(year, month - 1, day).getTime();
 };
 
-const sortedCourses = [...courses].sort(
-    (a, b) => parseStartDate(a.gridStartDate) - parseStartDate(b.gridStartDate)
-);
+const sortedCourses = [...courses].sort((a, b) => {
+    if (a.comingSoon && !b.comingSoon) return -1;
+    if (!a.comingSoon && b.comingSoon) return 1;
+    return parseStartDate(a.gridStartDate) - parseStartDate(b.gridStartDate);
+});
 
 const levelConfig: Record<string, string> = {
     Bàsic: "bg-emerald-100 text-emerald-700",

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
     ChevronRight,
@@ -12,6 +12,9 @@ import {
     GraduationCap,
     Star,
     ArrowRight,
+    BookOpen,
+    X,
+    UserCheck,
 } from "lucide-react";
 import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
@@ -60,17 +63,66 @@ const cursos = [
 ];
 
 const packs2 = [
-    { descripcio: "Bulevard + Procediments policials d'intervenció", preu: "210 €" },
-    { descripcio: "Bulevard + Trànsit i Transport", preu: "210 €" },
-    { descripcio: "Bulevard + Armament", preu: "210 €" },
-    { descripcio: "Procediments + Trànsit i Transport", preu: "125 €" },
-    { descripcio: "Procediments + Armament", preu: "110 €" },
-    { descripcio: "Trànsit i Transport + Armament", preu: "110 €" },
+    { descripcio: "Bulevard + Procediments policials d'intervenció", preu: "210 €", enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=S1KIu1x7N/M=&return=no&returnurl=" },
+    { descripcio: "Bulevard + Trànsit i Transport", preu: "210 €", enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=fMDolMWiGk8=&return=no&returnurl=" },
+    { descripcio: "Bulevard + Armament", preu: "210 €", enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=tgsuWqUR34Q=&return=no&returnurl=" },
+    { descripcio: "Procediments + Trànsit i Transport", preu: "125 €", enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=y2FAlfUxiWc=&return=no&returnurl=" },
+    { descripcio: "Procediments + Armament", preu: "110 €", enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=a9m37okhmBM=&return=no&returnurl=" },
+    { descripcio: "Trànsit i Transport + Armament", preu: "110 €", enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=oah3Bohah/Y=&return=no&returnurl=" },
 ];
 
+const EnrollmentModal = ({ url, title, onClose }: { url: string; title: string; onClose: () => void }) => {
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+        document.addEventListener("keydown", handleKey);
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.removeEventListener("keydown", handleKey);
+            document.body.style.overflow = "";
+        };
+    }, [onClose]);
+
+    return (
+        <div className="fixed inset-0 z-[500] flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" onClick={onClose} />
+            <div className="relative w-full h-full sm:w-[90vw] sm:h-[90vh] bg-card rounded-2xl overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.25)] flex flex-col">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-border flex-shrink-0">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center">
+                            <BookOpen size={15} />
+                        </div>
+                        <div>
+                            <h3 className="font-display font-black text-sm text-foreground uppercase tracking-tight">Matriculació</h3>
+                            <p className="font-body text-[11px] text-muted-foreground">{title}</p>
+                        </div>
+                    </div>
+                    <button onClick={onClose} className="w-8 h-8 rounded-lg bg-muted hover:bg-accent hover:text-white text-muted-foreground flex items-center justify-center transition-all duration-150 cursor-pointer" aria-label="Tancar">
+                        <X size={15} />
+                    </button>
+                </div>
+                <div className="relative flex-1 overflow-hidden">
+                    {!loaded && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-card z-10">
+                            <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+                            <span className="font-body text-xs text-muted-foreground">Carregant formulari...</span>
+                        </div>
+                    )}
+                    <iframe src={url} title="Formulari de matriculació" className="w-full h-full border-0" onLoad={() => setLoaded(true)} allow="fullscreen" />
+                </div>
+                <div className="flex items-center gap-2 px-6 py-3 border-t border-border bg-muted/50 flex-shrink-0">
+                    <UserCheck size={13} className="text-accent flex-shrink-0" />
+                    <p className="font-body text-[11px] text-muted-foreground">Formulari oficial · Les teves dades estan protegides</p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const packComplet = [
-    { label: "Afiliats/des", preu: "275 €" },
-    { label: "Preu general", preu: "350 €" },
+    { label: "Afiliats/des", preu: "275 €", enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=PW/K4QqzccA=&return=no&returnurl=" },
+    { label: "Preu general", preu: "350 €", enrollmentUrl: "https://formar-te.iformalia.es/Publico/Portal/FormacionFormulario.aspx?idg=PW/K4QqzccA=&return=no&returnurl=" },
 ];
 
 function useScrollReveal(ref: React.RefObject<HTMLElement>) {
@@ -93,9 +145,17 @@ function useScrollReveal(ref: React.RefObject<HTMLElement>) {
 const AlumnesISPC = () => {
     const ref = useRef<HTMLDivElement>(null);
     useScrollReveal(ref as React.RefObject<HTMLElement>);
+    const [enrollPack, setEnrollPack] = useState<{ url: string; title: string } | null>(null);
 
     return (
         <div className="min-h-screen bg-background" ref={ref}>
+            {enrollPack && (
+                <EnrollmentModal
+                    url={enrollPack.url}
+                    title={enrollPack.title}
+                    onClose={() => setEnrollPack(null)}
+                />
+            )}
             <Topbar />
             <Navbar />
 
@@ -308,14 +368,12 @@ const AlumnesISPC = () => {
                                     <div key={i} className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/15 rounded-xl p-6 text-center">
                                         <span className="font-body text-[10px] uppercase tracking-[0.12em] text-primary-foreground/60 font-semibold">{p.label}</span>
                                         <p className="font-display font-black text-3xl text-primary-foreground my-2">{p.preu}</p>
-                                        <a
-                                            href={WHATSAPP_LINK}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1.5 bg-accent hover:bg-accent/90 text-accent-foreground font-body font-bold text-[11px] uppercase tracking-wider px-5 py-2.5 rounded-lg transition-colors w-full justify-center mt-2"
+                                        <button
+                                            onClick={() => setEnrollPack({ url: p.enrollmentUrl, title: `Pack Complet · ${p.label}` })}
+                                            className="inline-flex items-center gap-1.5 bg-accent hover:bg-accent/90 text-accent-foreground font-body font-bold text-[11px] uppercase tracking-wider px-5 py-2.5 rounded-lg transition-colors w-full justify-center mt-2 cursor-pointer"
                                         >
                                             Inscripció <ExternalLink size={11} />
-                                        </a>
+                                        </button>
                                     </div>
                                 ))}
                             </div>
@@ -347,14 +405,12 @@ const AlumnesISPC = () => {
                                     <p className="font-body font-semibold text-sm text-foreground mb-4 min-h-[40px]">{p.descripcio}</p>
                                     <div className="border-t border-border pt-4 flex items-center justify-between">
                                         <span className="font-display font-black text-xl text-primary">{p.preu}</span>
-                                        <a
-                                            href={WHATSAPP_LINK}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1.5 bg-accent hover:bg-accent/90 text-accent-foreground font-body font-bold text-[11px] uppercase tracking-wider px-4 py-2 rounded-lg transition-colors"
+                                        <button
+                                            onClick={() => setEnrollPack({ url: p.enrollmentUrl, title: p.descripcio })}
+                                            className="inline-flex items-center gap-1.5 bg-accent hover:bg-accent/90 text-accent-foreground font-body font-bold text-[11px] uppercase tracking-wider px-4 py-2 rounded-lg transition-colors cursor-pointer"
                                         >
                                             Inscripció <ExternalLink size={11} />
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             ))}

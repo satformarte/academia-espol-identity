@@ -44,61 +44,6 @@ const DevolucionsPage = () => (
         {/* Content */}
         <div className="container mx-auto px-4 max-w-[900px] py-14 space-y-10">
 
-            {/* Titular */}
-            <section>
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-1 h-7 bg-accent rounded-full" />
-                    <h2 className="font-display font-black text-xl text-foreground uppercase tracking-tight">Titular del servei</h2>
-                </div>
-                <div className="bg-card border border-border rounded-2xl overflow-hidden">
-                    <div className="bg-primary px-6 py-5 flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
-                            <Building2 size={22} className="text-white" />
-                        </div>
-                        <div>
-                            <p className="font-body text-white/70 text-xs uppercase tracking-widest font-semibold mb-0.5">Titular del servei</p>
-                            <h3 className="font-display font-black text-white text-base leading-tight">Acadèmia ESPOL</h3>
-                            <p className="font-body text-white/60 text-xs mt-0.5">www.academiaespol.com</p>
-                        </div>
-                    </div>
-                    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div className="bg-muted/50 rounded-xl p-4">
-                            <p className="font-body font-bold text-[10px] text-muted-foreground uppercase tracking-wide mb-1">Domicili fiscal</p>
-                            <p className="font-body text-sm text-foreground font-semibold">C/ Entença 40, baixos · 08015 Barcelona</p>
-                        </div>
-                        <div className="bg-muted/50 rounded-xl p-4">
-                            <p className="font-body font-bold text-[10px] text-muted-foreground uppercase tracking-wide mb-1">NIF</p>
-                            <p className="font-body text-sm text-foreground font-semibold">B66381252</p>
-                        </div>
-                        <a href="tel:+34936061032" className="bg-muted/50 rounded-xl p-4 flex items-start gap-2 hover:bg-accent/5 transition-colors group">
-                            <Phone size={14} className="text-accent mt-0.5 flex-shrink-0" />
-                            <div>
-                                <p className="font-body font-bold text-[10px] text-muted-foreground uppercase tracking-wide mb-1">Telèfon</p>
-                                <p className="font-body text-sm text-foreground font-semibold group-hover:text-accent transition-colors">+34 936 061 032</p>
-                            </div>
-                        </a>
-                        <a href="mailto:academiaespol@academiaespol.es" className="bg-muted/50 rounded-xl p-4 flex items-start gap-2 hover:bg-accent/5 transition-colors group">
-                            <Mail size={14} className="text-accent mt-0.5 flex-shrink-0" />
-                            <div>
-                                <p className="font-body font-bold text-[10px] text-muted-foreground uppercase tracking-wide mb-1">Correu electrònic</p>
-                                <p className="font-body text-sm text-foreground font-semibold group-hover:text-accent transition-colors break-all">academiaespol@academiaespol.es</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div className="border-t border-border px-6 py-4 bg-muted/30">
-                        <div className="flex items-center gap-2 mb-2">
-                            <Clock size={13} className="text-accent flex-shrink-0" />
-                            <p className="font-body font-bold text-[10px] text-muted-foreground uppercase tracking-wide">Horari d'atenció al client</p>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-body">
-                            <div className="flex justify-between gap-2"><span className="text-muted-foreground">Dl – Dj</span><span className="font-semibold text-foreground">09–14h · 16–19h</span></div>
-                            <div className="flex justify-between gap-2"><span className="text-muted-foreground">Divendres</span><span className="font-semibold text-foreground">09–14h</span></div>
-                            <div className="flex justify-between gap-2"><span className="text-muted-foreground">Agost / Festius</span><span className="font-semibold text-foreground">Tancat</span></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Política de pagaments */}
             <section>
                 <div className="flex items-center gap-3 mb-6">
