@@ -9,7 +9,6 @@ import {
     Star,
     ArrowRight,
     BookOpen,
-    Users,
     Sparkles,
     CalendarDays,
 } from "lucide-react";
@@ -350,12 +349,6 @@ const CategoryPage = () => {
                                                 <Monitor size={12} className="text-accent" />
                                                 Online
                                             </span>
-                                            {course.gridStudents > 0 && (
-                                                <span className="flex items-center gap-1 font-body text-xs">
-                                                    <Users size={12} className="text-accent" />
-                                                    {course.gridStudents.toLocaleString()}
-                                                </span>
-                                            )}
                                         </div>
 
                                         {/* Dates — inici i fi, només si existeixen */}

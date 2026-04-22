@@ -816,19 +816,6 @@ const CourseDetail = () => {
                                     Matricular-me ara
                                 </button>
 
-                                {/* Badge ISPC */}
-                                {ispcCode && (
-                                    <div className="flex items-center gap-2.5 bg-primary/5 border border-primary/15 rounded-xl px-3 py-2.5">
-                                        <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                                            <Award size={14} />
-                                        </div>
-                                        <div>
-                                            <p className="font-body font-bold text-[10px] text-primary uppercase tracking-wide">Reconegut ISPC</p>
-                                            <p className="font-body text-[10px] text-muted-foreground">{ispcCode}</p>
-                                        </div>
-                                    </div>
-                                )}
-
                                 {/* Meta items */}
                                 {((course.metaItems && course.metaItems.length > 0) || course.gridHours || course.gridStartDate || course.gridEndDate) && (
                                     <div className="space-y-3 pt-2 border-t border-border">
