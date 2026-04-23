@@ -29,14 +29,6 @@ const Topbar = () => (
           <Phone size={12} />
           93 606 10 32
         </span>
-        <a
-          href="https://wa.me/34694234416"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-accent text-accent-foreground px-3 py-1 rounded-lg text-[11px] font-semibold hover:brightness-110 transition-all"
-        >
-          WhatsApp 694 234 416
-        </a>
       </div>
     </div>
   </div>

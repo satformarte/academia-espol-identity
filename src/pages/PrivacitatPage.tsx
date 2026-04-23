@@ -7,10 +7,9 @@ import Footer from "@/components/Footer";
 const rights = [
     "Accés a les vostres dades personals",
     "Rectificació de les dades inexactes o incompletes",
-    "Supressió de les dades quan ja no siguin necessàries",
+    "Supressió de les dades",
     "Oposició al tractament de les vostres dades",
     "Limitació del tractament en determinades circumstàncies",
-    "Portabilitat de les vostres dades",
 ];
 
 const purposes = [
@@ -21,14 +20,6 @@ const purposes = [
 ];
 
 const dataTypes = [
-    {
-        title: "Comentaris",
-        desc: "Quan els visitants deixen comentaris al web, recollim les dades del formulari, la direcció IP i les dades del navegador per a la detecció de correu no desitjat.",
-    },
-    {
-        title: "Imatges",
-        desc: "Si pengeu imatges, eviteu que continguin dades de localització (GPS EXIF), ja que poden ser descarregades i extretes per tercers.",
-    },
     {
         title: "Formularis de contacte",
         desc: "Les dades facilitades a través dels formularis s'utilitzen exclusivament per atendre la vostra sol·licitud.",
@@ -85,7 +76,7 @@ const PrivacitatPage = () => (
                         </div>
                         <div>
                             <p className="font-body text-white/70 text-xs uppercase tracking-widest font-semibold mb-0.5">Responsable del tractament</p>
-                            <h3 className="font-display font-black text-white text-base leading-tight">Acadèmia de Seguretat Policial ESPOL</h3>
+                            <h3 className="font-display font-black text-white text-base leading-tight">FORMAR-TE ESPAI DE FUTUR, S.L.</h3>
                             <p className="font-body text-white/60 text-xs mt-0.5">NIF: B66381252</p>
                         </div>
                     </div>
@@ -98,7 +89,7 @@ const PrivacitatPage = () => (
                             <Phone size={14} className="text-accent mt-0.5 flex-shrink-0" />
                             <div>
                                 <p className="font-body font-bold text-[10px] text-muted-foreground uppercase tracking-wide mb-1">Telèfon</p>
-                                <p className="font-body text-sm text-foreground font-semibold group-hover:text-accent transition-colors">+34 936 061 032</p>
+                                <p className="font-body text-sm text-foreground font-semibold group-hover:text-accent transition-colors">936 061 032</p>
                             </div>
                         </a>
                         <a href="mailto:cursos@academiaespol.es" className="bg-muted/50 rounded-xl p-4 flex items-start gap-2 hover:bg-accent/5 transition-colors group">
@@ -195,7 +186,7 @@ const PrivacitatPage = () => (
                         <Scale size={16} />
                     </div>
                     <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                        La base legal principal per al tractament de les dades és l'execució del contracte de prestació de serveis sol·licitat. Només es demanen les dades estrictament necessàries. Si no es faciliten, no es podrà prestar el servei.
+                        La base legal del tractament de les dades és l'execució del contracte de prestació de serveis sol·licitat. Només es demanen les dades estrictament necessàries. Si no es faciliten, no es podrà prestar el servei.
                     </p>
                 </div>
             </section>

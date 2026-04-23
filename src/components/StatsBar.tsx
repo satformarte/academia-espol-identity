@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: 1500, prefix: "+", suffix: "+", label: "Alumnes formats" },
+  { value: 3000, prefix: "+", label: "Alumnes formats" },
   { value: 98, prefix: "", suffix: "%", label: "Satisfacció" },
-  { value: 40, prefix: "+", suffix: "", label: "Cursos disponibles" },
-  { value: 12, prefix: "", suffix: "+", label: "Anys d'experiència" },
-  { value: 500, prefix: "+", suffix: "", label: "Aprovats" },
+  { value: 40, prefix: "+", suffix: "", label: "Cursos" },
+  { value: 12, prefix: "+", suffix: "", label: "Anys d'experiència" },
 ];
 
 const useCountUp = (target: number, trigger: boolean) => {
@@ -63,7 +62,7 @@ const StatsBar = () => {
   return (
     <div ref={ref} className="bg-card border-b border-border">
       <div className="container mx-auto px-4 max-w-[1400px]">
-        <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-border">
+        <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-border">
           {stats.map((stat, i) => (
             <StatItem key={i} stat={stat} visible={visible} />
           ))}

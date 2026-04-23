@@ -14,6 +14,7 @@ import AlumnesISPC from "./pages/AlumnesISPC.tsx";
 import AlumnesISPCDetail from "./pages/Alumnesispcdetail.tsx";
 import GuardiaUrbana from "./pages/GuardiaUrbana.tsx";
 import MossosEsquadra from "./pages/MossosEsquadra.tsx";
+import CourseComingSoon from "./pages/CourseComingSoon.tsx";
 import ContactePage from "./pages/ContactePage.tsx";
 import AvisLegalPage from "./pages/AvisLegalPage.tsx";
 import PrivacitatPage from "./pages/PrivacitatPage.tsx";
@@ -33,12 +34,15 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/alumnes-ispc" element={<AlumnesISPC />} />
           <Route path="/alumnes-ispc/:slug" element={<AlumnesISPCDetail />} />
+          <Route path="/curs/espol26-055-001" element={<CourseComingSoon />} />
           <Route path="/curs/:slug" element={<CourseDetail />} />
           <Route path="/alumnes-ispc" element={<AlumnesISPCPage />} />
           <Route path="/:categoria" element={<CategoryPage />} />
           <Route path="/nosaltres" element={<NosaltresPage />} />
           <Route path="/oposicions/guardia-urbana" element={<GuardiaUrbana />} />
+          <Route path="/oposicions/guardia-urbana/:slug" element={<CourseComingSoon />} />
           <Route path="/oposicions/mossos-desquadra" element={<MossosEsquadra />} />
+          <Route path="/oposicions/mossos-desquadra/:slug" element={<CourseComingSoon />} />
           <Route path="/contacte" element={<ContactePage />} />
           <Route path="/avis-legal" element={<AvisLegalPage />} />
           <Route path="/privacitat" element={<PrivacitatPage />} />

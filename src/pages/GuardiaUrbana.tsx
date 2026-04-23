@@ -165,6 +165,11 @@ const GuardiaUrbana = () => {
                             <Link
                                 key={course.slug}
                                 to={`/oposicions/guardia-urbana/${course.slug}`}
+                                state={{
+                                    courseName: `${course.titleBase} ${course.titleAccent}`,
+                                    categoryLabel: "Guàrdia Urbana",
+                                    categoryPath: "/oposicions/guardia-urbana",
+                                }}
                                 className="scroll-reveal group bg-card rounded-2xl border border-border overflow-hidden flex flex-col transition-[border-color,box-shadow] duration-150 hover:border-accent/40 hover:shadow-[0_8px_32px_rgba(27,48,136,0.10)]"
                                 style={{ transitionDelay: `${i * 60}ms` }}
                             >
@@ -183,17 +188,10 @@ const GuardiaUrbana = () => {
                                         <div className="absolute top-3 left-3">
                                             <span className="inline-flex items-center gap-1 bg-accent text-accent-foreground font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
                                                 <GraduationCap size={9} />
-                                                Pròxima edició
+                                                Pròximament
                                             </span>
                                         </div>
                                     )}
-
-                                    {/* Level badge */}
-                                    <div className="absolute bottom-3 right-3">
-                                        <span className={`font-body font-bold text-[10px] uppercase tracking-wide px-2.5 py-1 rounded-lg ${levelConfig[course.level]}`}>
-                                            {course.level}
-                                        </span>
-                                    </div>
                                 </div>
 
                                 {/* Body */}

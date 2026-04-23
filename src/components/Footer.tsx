@@ -2,21 +2,21 @@ import { Link } from "react-router-dom";
 import espolLogo from "@/assets/espol-logo.png";
 
 const formacioLinks = [
-  { label: "Alumnes ISPC",           to: "/alumnes-ispc" },
-  { label: "Dret Penal",             to: "/dret-penal" },
-  { label: "Criminologia",           to: "/criminologia" },
-  { label: "Ciberseguretat",         to: "/ciberseguretat" },
-  { label: "Trànsit i Circulació",   to: "/transit-i-circulacio" },
-  { label: "Criminalística",         to: "/criminalistica" },
-  { label: "Seguretat Ciutadana",    to: "/seguretat-ciutadana" },
+  { label: "Alumnes ISPC", to: "/alumnes-ispc" },
+  { label: "Dret Penal", to: "/dret-penal" },
+  { label: "Criminologia", to: "/criminologia" },
+  { label: "Ciberseguretat", to: "/ciberseguretat" },
+  { label: "Trànsit i Circulació", to: "/transit-i-circulacio" },
+  { label: "Criminalística", to: "/criminalistica" },
+  { label: "Seguretat Ciutadana", to: "/seguretat-ciutadana" },
   { label: "Procediments Policials", to: "/procediments-policials" },
-  { label: "ACTIC i Anglès",         to: "/actic-i-angles" },
+  { label: "ACTIC i Anglès", to: "/actic-i-angles" },
 ];
 
 const academiaLinks = [
-  { label: "Nosaltres",              to: "/nosaltres" },
-  { label: "Contacte",               to: "/contacte" },
-  { label: "Campus Virtual",         to: null, href: "#" },
+  { label: "Nosaltres", to: "/nosaltres" },
+  { label: "Contacte", to: "/contacte" },
+  { label: "Campus Virtual", to: null, href: "#" },
 ];
 
 const Footer = () => (
@@ -29,9 +29,6 @@ const Footer = () => (
           <div className="mb-6">
             <img src={espolLogo} alt="Acadèmia ESPOL" className="h-16 w-auto brightness-0 invert" />
           </div>
-          <p className="font-body text-sm leading-relaxed mb-5">
-            Centre de formació especialitzat en seguretat, criminologia i forces de l'ordre des de 2012.
-          </p>
           <div className="flex gap-3">
             <a
               href="https://www.instagram.com/academiaespol/"
@@ -91,11 +88,6 @@ const Footer = () => (
             <li>
               <a href="tel:936061032" className="hover:text-primary-foreground transition-colors">
                 93 606 10 32
-              </a>
-            </li>
-            <li>
-              <a href="https://wa.me/34694234416" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground transition-colors">
-                694 234 416 (WhatsApp)
               </a>
             </li>
             <li>

@@ -22,7 +22,7 @@ const cursos = [
         slug: "bulevard",
         nom: "Bulevard",
         subtitol: "Formació pràctica en tècniques policials de control i contenció.",
-        durada: "6 sessions (18 hores)",
+        durada: "18 hores",
         sessions: 6,
         hores: 18,
         preu: "180 €",
@@ -37,37 +37,36 @@ const cursos = [
             "Simulacres d'intervenció real",
         ],
         requisits: [
-            "Ser alumne/a de l'ISPC en actiu",
-            "Disposar d'equipament de protecció bàsic",
+            "Ser alumne/a de l'ISPC",
         ],
     },
     {
         slug: "procediments-intervencio",
         nom: "Procediments d'intervenció",
-        subtitol: "Identificació, Esposar, Maneig de Persones Agressives/Conflictives",
-        durada: "3 sessions (4,5 hores)",
+        subtitol: "Emmanillament, intervenció amb persones agressives",
+        durada: "4,5 hores",
         sessions: 3,
         hores: 4.5,
         preu: "75 €",
         afiliats: "–",
         img: "/images/procediments.webp",
-        descripcio: "Curs orientat als procediments bàsics d'intervenció policial: identificació de persones, ús d'esposar i maneig de persones agressives o conflictives. Formació pràctica i directa per a l'aplicació immediata en servei.",
+        descripcio: "Curs orientat als procediments bàsics d'intervenció policial: identificació de persones, ús d'emmanillament i maneig de persones agressives o conflictives. Formació pràctica i directa per a l'aplicació immediata en servei.",
         continguts: [
             "Procediments d'identificació policial",
-            "Tècnica correcta d'ús d'esposar",
+            "Tècnica correcta d'ús d'emmanillament",
             "Estratègies de desescalada verbal",
             "Maneig de persones agressives",
             "Actuació davant de persones conflictives",
         ],
         requisits: [
-            "Ser alumne/a de l'ISPC en actiu",
+            "Ser alumne/a de l'ISPC",
         ],
     },
     {
         slug: "transit-i-transport",
         nom: "Trànsit i Transport",
         subtitol: "Normativa, procediments i protocols de trànsit per a agents en actiu.",
-        durada: "3 sessions (4,5 hores)",
+        durada: "4,5 hores",
         sessions: 3,
         hores: 4.5,
         preu: "75 €",
@@ -82,14 +81,14 @@ const cursos = [
             "Documentació i infraccions",
         ],
         requisits: [
-            "Ser alumne/a de l'ISPC en actiu",
+            "Ser alumne/a de l'ISPC",
         ],
     },
     {
         slug: "armament",
         nom: "Armament",
         subtitol: "Formació en ús i manteniment d'armament policial reglamentari.",
-        durada: "2 sessions (4 hores)",
+        durada: "4 hores",
         sessions: 2,
         hores: 4,
         preu: "50 €",
@@ -104,8 +103,7 @@ const cursos = [
             "Pràctiques de manipulació segura",
         ],
         requisits: [
-            "Ser alumne/a de l'ISPC en actiu",
-            "Acreditació de port d'armes vigent",
+            "Ser alumne/a de l'ISPC",
         ],
     },
 ];
@@ -160,7 +158,7 @@ const AlumnesISPCDetail = () => {
                                 <MapPin size={14} className="text-accent" />Instal·lacions GAMS (Martorelles)
                             </div>
                             <div className="flex items-center gap-2 text-white/90 font-body font-semibold text-sm">
-                                <CalendarDays size={14} className="text-accent" />Inici: 16 de març de 2026
+                                <CalendarDays size={14} className="text-accent" />Inici: 2027
                             </div>
                         </div>
                     </div>
@@ -284,7 +282,7 @@ const AlumnesISPCDetail = () => {
                                             <CalendarDays size={14} className="text-accent" />
                                             <span className="font-body text-xs">Inici</span>
                                         </div>
-                                        <span className="font-body font-bold text-xs text-foreground">16 de març de 2026</span>
+                                        <span className="font-body font-bold text-xs text-foreground">2027</span>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-2 text-muted-foreground">

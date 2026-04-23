@@ -123,7 +123,7 @@ const collaboratorsEstandard = [
 const audienceEstandard = [
   {
     title: "Cossos de Seguretat",
-    desc: "Agents dels Mossos d'Esquadra, Policia Nacional, Guàrdia Civil, alumnes de l'ISPC i policies locals que volen ampliar la seva formació.",
+    desc: "Agents del Cos de Mossos d'Esquadra, Policia Nacional, Guàrdia Civil, alumnes de l'ISPC i policies locals que volen ampliar la seva formació.",
   },
 ];
 
@@ -144,7 +144,7 @@ const planFeaturesFor = (code: string): { text: string; included: boolean }[] =>
   { text: "Material didàctic PDF", included: true },
   { text: `Certificat reconegust ISPC: ${code}`, included: true },
   { text: "Tutories en línea", included: true },
-  { text: "Accés il·limitat", included: true },
+  { text: "Accés il·limitat dins de la durada del curs", included: true },
 ];
 
 // ── Cursos ────────────────────────────────────────────────────────────────────

@@ -49,7 +49,7 @@ const CoursesGrid = () => {
             Troba el teu curs
           </h2>
           <p className="font-body text-muted-foreground max-w-lg mx-auto text-[15px] leading-relaxed">
-            Formació especialitzada en seguretat, dret i criminologia per a professionals del sector.
+            Formació especialitzada en seguretat, dret i criminologia per a cossos i forces de seguretat
           </p>
         </div>
 

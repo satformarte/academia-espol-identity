@@ -20,8 +20,8 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 // ── Data ─────────────────────────────────────────────────────────────────────
 
 const stats = [
-    { value: "+15", label: "Anys d'experiència" },
-    { value: "+1.200", label: "Alumnes formats" },
+    { value: "+12", label: "Anys d'experiència" },
+    { value: "+3.000", label: "Alumnes formats" },
     { value: "5", label: "Aules homologades" },
     { value: "100%", label: "Online i presencial" },
 ];

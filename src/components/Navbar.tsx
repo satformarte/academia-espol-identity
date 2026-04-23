@@ -275,7 +275,7 @@ const Navbar = () => {
 
             {/* Results dropdown */}
             {searchResults.length > 0 && (
-              <div className="absolute top-[calc(100%+8px)] right-0 w-80 bg-card border border-border rounded-xl shadow-[0_8px_30px_rgba(27,48,136,0.12)] overflow-hidden z-50">
+              <div className="absolute top-[calc(100%+8px)] right-0 w-[354px] bg-card border border-border rounded-xl shadow-[0_8px_30px_rgba(27,48,136,0.12)] overflow-hidden z-50">
                 <div className="py-2 overflow-y-auto max-h-[340px]">
                   {searchResults.map((c, i) => (
                     <Link

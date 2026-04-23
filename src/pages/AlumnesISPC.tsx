@@ -28,7 +28,7 @@ const cursos = [
         slug: "bulevard",
         nom: "Bulevard",
         subtitol: "Formació pràctica en tècniques policials de control i contenció.",
-        durada: "6 sessions (18 hores)",
+        durada: "18 hores",
         preu: "180 €",
         afiliats: "150 €",
         img: "/images/bulevard.webp",
@@ -37,7 +37,7 @@ const cursos = [
         slug: "procediments-intervencio",
         nom: "Procediments d'intervenció",
         subtitol: "Emmanillament, intervenció amb persones agressives",
-        durada: "3 sessions (4,5 hores)",
+        durada: "4,5 hores",
         preu: "75 €",
         afiliats: "–",
         img: "/images/procediments.webp",
@@ -46,7 +46,7 @@ const cursos = [
         slug: "transit-i-transport",
         nom: "Trànsit i Transport",
         subtitol: "Normativa, procediments i protocols de trànsit i transports.",
-        durada: "3 sessions (4,5 hores)",
+        durada: "4,5 hores",
         preu: "75 €",
         afiliats: "–",
         img: "/images/transit-transport.webp",
@@ -55,7 +55,7 @@ const cursos = [
         slug: "armament",
         nom: "Armament",
         subtitol: "Formació en ús i manteniment d'armament policial reglamentari.",
-        durada: "2 sessions (4 hores)",
+        durada: "4 hores",
         preu: "50 €",
         afiliats: "–",
         img: "/images/armament.webp",
@@ -320,15 +320,8 @@ const AlumnesISPC = () => {
                                 Gaudeix dels següents avantatges exclusius:
                             </p>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 scroll-reveal">
-                            <div className="flex items-start gap-3 bg-muted rounded-2xl p-5">
-                                <CheckCircle2 size={20} className="text-accent mt-0.5 flex-shrink-0" />
-                                <div>
-                                    <p className="font-display font-bold text-sm text-foreground">1 sessió de Bulevard GRATIS</p>
-                                    <p className="font-body text-xs text-muted-foreground mt-1">Per a tots els afiliats/des de CCOO.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3 bg-muted rounded-2xl p-5">
+                        <div className="flex justify-center scroll-reveal">
+                            <div className="flex items-start gap-3 bg-muted rounded-2xl p-5 w-full max-w-sm">
                                 <CheckCircle2 size={20} className="text-accent mt-0.5 flex-shrink-0" />
                                 <div>
                                     <p className="font-display font-bold text-sm text-foreground">15% de descompte en packs</p>
@@ -341,7 +334,7 @@ const AlumnesISPC = () => {
             </section>
 
             {/* Pack Complet */}
-            <section className="py-16 bg-muted">
+            {/* <section className="py-16 bg-muted">
                 <div className="container mx-auto px-4 max-w-[1400px]">
                     <div className="max-w-4xl mx-auto scroll-reveal">
                         <div className="relative bg-gradient-to-br from-primary via-secondary to-primary rounded-2xl overflow-hidden border-2 border-accent p-8 md:p-12">
@@ -380,10 +373,10 @@ const AlumnesISPC = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Pack 2 Cursos */}
-            <section className="py-16 bg-card">
+            {/* <section className="py-16 bg-card">
                 <div className="container mx-auto px-4 max-w-[1400px]">
                     <div className="max-w-4xl mx-auto">
                         <div className="text-center mb-10 scroll-reveal">
@@ -417,7 +410,7 @@ const AlumnesISPC = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             <Footer />
             <WhatsAppButton />

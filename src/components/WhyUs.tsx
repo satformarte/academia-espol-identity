@@ -15,7 +15,7 @@ const features = [
   {
     icon: <Users size={28} />,
     title: "Professors especialistes",
-    desc: "Professionals en actiu amb experiència real al sector de la seguretat i les forces de l'ordre.",
+    desc: "Professionals en actiu amb experiència real al sector de la seguretat i les forces de l'ordre i mon jurídic.",
   },
   {
     icon: <FileText size={28} />,

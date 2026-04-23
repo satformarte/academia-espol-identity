@@ -17,7 +17,6 @@ const WhatsAppButton = () => {
             </div>
             <div className="flex-1">
               <p className="text-white font-body font-bold text-sm">ESPOL Formació</p>
-              <p className="text-white/70 font-body text-xs">Normalment respon en minuts</p>
             </div>
             <button
               onClick={() => setIsOpen(false)}

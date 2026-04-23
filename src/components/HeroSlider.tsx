@@ -5,7 +5,7 @@ const slides = [
   {
     badge: "✦ Matrícula oberta 2025",
     title: "La teva formació en <strong>seguretat</strong> i forces de l'ordre",
-    desc: "Cursos especialitzats per a professionals de la seguretat pública i privada, amb certificació oficial i metodologia contrastada.",
+    desc: "Cursos especialitzats per a professionals de la seguretat pública, amb certificació oficial i metodologia contrastada.",
     btn1: "Veure tots els cursos →",
     btn2: "Demana informació",
     img: "/images/heroSlider1.webp",
@@ -17,14 +17,6 @@ const slides = [
     btn1: "Veure oposicions →",
     btn2: "Parla amb un assessor",
     img: "/images/heroSlider2.webp",
-  },
-  {
-    badge: "🎓 Formació especialitzada",
-    title: "Expertesa en <strong>dret penal</strong> i ciberseguretat",
-    desc: "Aprofundeix en les àrees més demandades del sector amb formació impartida per professionals en actiu.",
-    btn1: "Explorar cursos →",
-    btn2: "Saber-ne més",
-    img: "/images/heroSlider3.webp",
   },
 ];
 

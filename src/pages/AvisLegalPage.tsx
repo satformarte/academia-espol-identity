@@ -86,7 +86,7 @@ const AvisLegalPage = () => (
                         </div>
                         <div>
                             <p className="font-body font-bold text-[10px] text-muted-foreground uppercase tracking-wide mb-1">Telèfon</p>
-                            <p className="font-body text-sm text-foreground font-semibold group-hover:text-accent transition-colors">+34 936 061 032</p>
+                            <p className="font-body text-sm text-foreground font-semibold group-hover:text-accent transition-colors">936 061 032</p>
                         </div>
                     </a>
                     <a href="mailto:academiaespol@academiaespol.es" className="bg-card border border-border rounded-xl p-5 flex items-start gap-3 hover:border-accent/40 transition-colors group">
