@@ -1,30 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const slides = [
-  {
-    badge: "✦ Matrícula oberta 2025",
-    title: "La teva formació en <strong>seguretat</strong> i forces de l'ordre",
-    desc: "Cursos especialitzats per a professionals de la seguretat pública, amb certificació oficial i metodologia contrastada.",
-    btn1: "Veure tots els cursos →",
-    btn2: "Demana informació",
-    img: "/images/heroSlider1.webp",
-  },
-  {
-    badge: "📋 Oposicions 2025",
-    title: "Prepara les <strong>oposicions</strong> amb garanties reals",
-    desc: "Temaris actualitzats, simulacres d'examen i professors en actiu que coneixen el procés selectiu de primera mà.",
-    btn1: "Veure oposicions →",
-    btn2: "Parla amb un assessor",
-    img: "/images/heroSlider2.webp",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroSlider = () => {
+  const { t } = useLanguage();
+  const slides = t.hero.slides;
+
   const [current, setCurrent] = useState(0);
 
-  const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
-  const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), []);
+  const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), [slides.length]);
+  const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), [slides.length]);
 
   useEffect(() => {
     const timer = setInterval(next, 5500);
@@ -83,14 +68,14 @@ const HeroSlider = () => {
       {/* Navigation arrows */}
       <button
         onClick={prev}
-        aria-label="Anterior"
+        aria-label={t.hero.prevLabel}
         className="absolute left-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-xl bg-primary-foreground/10 backdrop-blur-md flex items-center justify-center text-primary-foreground hover:bg-accent transition-all z-10 border border-primary-foreground/10"
       >
         <ChevronLeft size={20} />
       </button>
       <button
         onClick={next}
-        aria-label="Següent"
+        aria-label={t.hero.nextLabel}
         className="absolute right-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-xl bg-primary-foreground/10 backdrop-blur-md flex items-center justify-center text-primary-foreground hover:bg-accent transition-all z-10 border border-primary-foreground/10"
       >
         <ChevronRight size={20} />

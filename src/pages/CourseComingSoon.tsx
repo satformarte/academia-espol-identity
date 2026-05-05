@@ -10,11 +10,12 @@ import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import { courses } from "@/data/courses";
+import { useCourses } from "@/hooks/useCourses";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const WHATSAPP_LINK = "https://wa.me/34694234416";
 const WHATSAPP_TEXT = "Hola!%20M'agradaria%20rebre%20informaci%C3%B3%20sobre%20un%20curs%20que%20est%C3%A0%20en%20preparaci%C3%B3.";
-const CONTACT_EMAIL = "iaformarte@formar-te.es";
+const CONTACT_EMAIL = "cursos@academiaespol.es";
 
 interface LocationState {
     courseName?: string;
@@ -23,15 +24,18 @@ interface LocationState {
 }
 
 const staticCourses: Record<string, { name: string; categoryLabel: string; categoryPath: string }> = {
-    "temari-guardia-urbana":          { name: "Temari Complet Guàrdia Urbana",      categoryLabel: "Guàrdia Urbana",    categoryPath: "/oposicions/guardia-urbana" },
-    "psicotecnics-guardia-urbana":    { name: "Psicotècnics Guàrdia Urbana",        categoryLabel: "Guàrdia Urbana",    categoryPath: "/oposicions/guardia-urbana" },
-    "proves-fisiques-guardia-urbana": { name: "Proves Físiques Guàrdia Urbana",     categoryLabel: "Guàrdia Urbana",    categoryPath: "/oposicions/guardia-urbana" },
-    "temari-mossos-esquadra":         { name: "Temari Complet Mossos d'Esquadra",   categoryLabel: "Mossos d'Esquadra", categoryPath: "/oposicions/mossos-desquadra" },
-    "psicotecnics-mossos-esquadra":   { name: "Psicotècnics Mossos d'Esquadra",     categoryLabel: "Mossos d'Esquadra", categoryPath: "/oposicions/mossos-desquadra" },
-    "proves-fisiques-mossos-esquadra":{ name: "Proves Físiques Mossos d'Esquadra",  categoryLabel: "Mossos d'Esquadra", categoryPath: "/oposicions/mossos-desquadra" },
+    "temari-guardia-urbana":           { name: "Temari Complet Guàrdia Urbana",      categoryLabel: "Guàrdia Urbana",    categoryPath: "/oposicions/guardia-urbana" },
+    "psicotecnics-guardia-urbana":     { name: "Psicotècnics Guàrdia Urbana",        categoryLabel: "Guàrdia Urbana",    categoryPath: "/oposicions/guardia-urbana" },
+    "proves-fisiques-guardia-urbana":  { name: "Proves Físiques Guàrdia Urbana",     categoryLabel: "Guàrdia Urbana",    categoryPath: "/oposicions/guardia-urbana" },
+    "temari-mossos-esquadra":          { name: "Temari Complet Mossos d'Esquadra",   categoryLabel: "Mossos d'Esquadra", categoryPath: "/oposicions/mossos-desquadra" },
+    "psicotecnics-mossos-esquadra":    { name: "Psicotècnics Mossos d'Esquadra",     categoryLabel: "Mossos d'Esquadra", categoryPath: "/oposicions/mossos-desquadra" },
+    "proves-fisiques-mossos-esquadra": { name: "Proves Físiques Mossos d'Esquadra",  categoryLabel: "Mossos d'Esquadra", categoryPath: "/oposicions/mossos-desquadra" },
 };
 
 const CourseComingSoon = () => {
+    const { t } = useLanguage();
+    const { courses } = useCourses();
+    const cs = t.courseComingSoon;
     const { slug: slugParam } = useParams<{ slug: string }>();
     const location = useLocation();
     const state = (location.state ?? {}) as LocationState;
@@ -40,10 +44,11 @@ const CourseComingSoon = () => {
     const course = courses.find((c) => c.slug === slug);
     const staticData = staticCourses[slug];
 
+    // Course names always stay in their original Catalan form
     const courseName = state.courseName
         ?? staticData?.name
-        ?? (course ? `${course.titleBase}${course.titleAccent ? ` ${course.titleAccent}` : ""}` : "Curs en preparació");
-    const categoryLabel = state.categoryLabel ?? staticData?.categoryLabel ?? course?.categoriaLabel ?? "Cursos";
+        ?? (course ? `${course.titleBase}${course.titleAccent ? ` ${course.titleAccent}` : ""}` : cs.defaultCourseName);
+    const categoryLabel = state.categoryLabel ?? staticData?.categoryLabel ?? course?.categoriaLabel ?? cs.cursosLabel;
     const categoryPath = state.categoryPath ?? staticData?.categoryPath ?? (course ? `/${course.categoriaSlug}` : "/");
 
     return (
@@ -55,7 +60,7 @@ const CourseComingSoon = () => {
             <div className="bg-card border-b border-border">
                 <div className="container mx-auto px-4 max-w-[1400px] py-3">
                     <nav className="flex items-center gap-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.06em] text-muted-foreground">
-                        <Link to="/" className="hover:text-accent transition-colors duration-150">Inici</Link>
+                        <Link to="/" className="hover:text-accent transition-colors duration-150">{cs.breadcrumbHome}</Link>
                         <ChevronRight size={12} className="opacity-40" />
                         <Link to={categoryPath} className="hover:text-accent transition-colors duration-150">{categoryLabel}</Link>
                         <ChevronRight size={12} className="opacity-40" />
@@ -74,7 +79,7 @@ const CourseComingSoon = () => {
                         </h1>
                         <span className="inline-flex items-center gap-1.5 bg-accent/20 border border-accent/30 text-accent-foreground font-body font-bold text-[10px] uppercase tracking-[0.1em] px-3 py-1 rounded-full">
                             <TrafficCone size={11} />
-                            Curs en preparació
+                            {cs.badge}
                         </span>
                     </div>
                 </div>
@@ -85,13 +90,12 @@ const CourseComingSoon = () => {
                 <div className="container mx-auto px-4 max-w-[1400px]">
                     <div className="max-w-2xl mx-auto">
 
-                        {/* Text */}
                         <div className="mb-8">
                             <p className="font-body text-sm text-muted-foreground leading-relaxed mb-3">
-                                Aquest curs s'està preparant i estarà disponible aviat. El nostre equip de formadors està treballant per dissenyar un programa de màxima qualitat, complet i actualitzat a les últimes convocatòries.
+                                {cs.p1}
                             </p>
                             <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                                Si estàs interessat/da en aquest curs, posa't en contacte amb nosaltres. Et podrem informar sobre la data de llançament prevista, el programa, el preu i totes les condicions de matriculació.
+                                {cs.p2}
                             </p>
                         </div>
 
@@ -100,7 +104,7 @@ const CourseComingSoon = () => {
                             <div className="flex items-center gap-2 mb-4">
                                 <BellRing size={15} className="text-accent" />
                                 <h3 className="font-display font-bold text-sm text-foreground uppercase tracking-wide">
-                                    Vol·les rebre informació quan estigui disponible?
+                                    {cs.ctaTitle}
                                 </h3>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -116,12 +120,12 @@ const CourseComingSoon = () => {
                                         <MessageCircle size={20} />
                                     </div>
                                     <div>
-                                        <p className="font-display font-bold text-sm text-foreground">WhatsApp</p>
-                                        <p className="font-body text-xs text-muted-foreground mt-0.5">Escriu-nos i et responem aviat</p>
+                                        <p className="font-display font-bold text-sm text-foreground">{cs.whatsappTitle}</p>
+                                        <p className="font-body text-xs text-muted-foreground mt-0.5">{cs.whatsappDesc}</p>
                                     </div>
                                 </a>
 
-                                {/* Email / Contacte */}
+                                {/* Email */}
                                 <Link
                                     to="/contacte"
                                     className="group flex items-center gap-4 bg-card border border-border hover:border-accent/40 rounded-2xl p-5 transition-all duration-200 hover:shadow-[0_4px_20px_rgba(27,48,136,0.10)]"
@@ -130,7 +134,7 @@ const CourseComingSoon = () => {
                                         <Mail size={20} />
                                     </div>
                                     <div>
-                                        <p className="font-display font-bold text-sm text-foreground">Formulari de contacte</p>
+                                        <p className="font-display font-bold text-sm text-foreground">{cs.contactFormTitle}</p>
                                         <p className="font-body text-xs text-muted-foreground mt-0.5">{CONTACT_EMAIL}</p>
                                     </div>
                                 </Link>
@@ -144,7 +148,7 @@ const CourseComingSoon = () => {
                                 className="inline-flex items-center gap-1.5 font-body font-semibold text-sm text-muted-foreground hover:text-accent transition-colors duration-150"
                             >
                                 <ChevronRight size={14} className="rotate-180" />
-                                Tornar a {categoryLabel}
+                                {cs.backTo} {categoryLabel}
                             </Link>
                         </div>
                     </div>

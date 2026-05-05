@@ -4,9 +4,12 @@ import { Home } from "lucide-react";
 import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const NotFound = () => {
   const location = useLocation();
+  const { t } = useLanguage();
+  const nf = t.notFound;
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
@@ -20,18 +23,15 @@ const NotFound = () => {
       <div className="flex-1 flex items-center justify-center bg-muted py-20">
         <div className="text-center max-w-lg px-4">
 
-          {/* 404 number */}
           <span className="font-display font-black text-[120px] md:text-[160px] leading-none text-border/60 select-none block mb-6">
             404
           </span>
 
-          {/* Message */}
           <h1 className="font-display font-black text-2xl md:text-3xl text-foreground mb-3">
-            Pàgina no disponible
+            {nf.title}
           </h1>
           <p className="font-body text-muted-foreground text-sm md:text-base leading-relaxed mb-8">
-            La pàgina que estàs cercant no existeix o ha estat eliminada.<br />
-            Comprova l'adreça o torna a l'inici.
+            {nf.desc}
           </p>
 
           <Link
@@ -39,7 +39,7 @@ const NotFound = () => {
             className="inline-flex items-center gap-2 bg-accent text-accent-foreground font-body font-bold text-sm uppercase tracking-wider px-6 py-3 rounded-xl hover:shadow-lg transition-all"
           >
             <Home size={15} />
-            Anar a l'inici
+            {nf.btn}
           </Link>
 
         </div>

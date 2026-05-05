@@ -1,11 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-
-const stats = [
-  { value: 3000, prefix: "+", label: "Alumnes formats" },
-  { value: 98, prefix: "", suffix: "%", label: "Satisfacció" },
-  { value: 40, prefix: "+", suffix: "", label: "Cursos" },
-  { value: 12, prefix: "+", suffix: "", label: "Anys d'experiència" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const useCountUp = (target: number, trigger: boolean) => {
   const [count, setCount] = useState(0);
@@ -28,7 +22,7 @@ const useCountUp = (target: number, trigger: boolean) => {
   return count;
 };
 
-const StatItem = ({ stat, visible }: { stat: typeof stats[0]; visible: boolean }) => {
+const StatItem = ({ stat, visible }: { stat: { value: number; prefix: string; suffix: string; label: string }; visible: boolean }) => {
   const count = useCountUp(stat.value, visible);
   return (
     <div className="text-center px-4 py-7">
@@ -45,6 +39,7 @@ const StatItem = ({ stat, visible }: { stat: typeof stats[0]; visible: boolean }
 };
 
 const StatsBar = () => {
+  const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -63,7 +58,7 @@ const StatsBar = () => {
     <div ref={ref} className="bg-card border-b border-border">
       <div className="container mx-auto px-4 max-w-[1400px]">
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-border">
-          {stats.map((stat, i) => (
+          {t.stats.items.map((stat, i) => (
             <StatItem key={i} stat={stat} visible={visible} />
           ))}
         </div>

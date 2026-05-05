@@ -2,17 +2,20 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import espolLogo from "@/assets/espol-logo.png";
-import { courses } from "@/data/courses";
+import { useCourses } from "@/hooks/useCourses";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const toSlug = (cat: string) =>
   cat
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/\s+/g, "-")
     .replace(/[^a-z0-9-]/g, "");
 
-const cursosCategories = [
+// Catalan slug bases — URLs never change regardless of UI language
+const CURSOS_SLUG_BASES = [
   "Dret Penal",
   "Criminologia",
   "Trànsit i Circulació",
@@ -24,17 +27,15 @@ const cursosCategories = [
   "Criminalística",
 ];
 
-const oposicionsCategories = [
+const OPOSICIONS_SLUG_BASES = [
   "Guardia Urbana",
   "Mossos d'Esquadra",
 ];
 
-const navItems = [
-  { label: "CONTACTE", href: "/contacte" },
-  { label: "NOSALTRES", href: "/nosaltres" },
-];
-
 const Navbar = () => {
+  const { t } = useLanguage();
+  const { courses } = useCourses();
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -84,7 +85,6 @@ const Navbar = () => {
     })
     : [];
 
-  // Cursos handlers
   const handleCursosEnter = () => {
     if (cursosLeaveTimer.current) clearTimeout(cursosLeaveTimer.current);
     setDropdownOpen(true);
@@ -95,7 +95,6 @@ const Navbar = () => {
     cursosLeaveTimer.current = setTimeout(() => setDropdownOpen(false), 120);
   };
 
-  // Oposicions handlers
   const handleOposicionsEnter = () => {
     if (oposicionsLeaveTimer.current) clearTimeout(oposicionsLeaveTimer.current);
     setOposicionsDropdownOpen(true);
@@ -126,7 +125,7 @@ const Navbar = () => {
             to="/alumnes-ispc"
             className="nav-link relative font-body font-bold text-[12px] text-muted-foreground uppercase tracking-[0.05em] hover:text-foreground transition-colors"
           >
-            ALUMNES ISPC
+            {t.nav.alumnesISPC}
           </Link>
 
           {/* OPOSICIONS — dropdown */}
@@ -141,14 +140,13 @@ const Navbar = () => {
               aria-expanded={oposicionsDropdownOpen}
               aria-haspopup="true"
             >
-              OPOSICIONS
+              {t.nav.oposicions}
               <ChevronDown
                 size={13}
                 className={`transition-transform duration-200 ${oposicionsDropdownOpen ? "rotate-180" : ""}`}
               />
             </button>
 
-            {/* Invisible bridge to prevent gap triggering mouseLeave */}
             <div className="absolute top-full left-0 w-full h-4" />
 
             <div
@@ -160,21 +158,21 @@ const Navbar = () => {
             >
               <div className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-card border-l border-t border-border rotate-45" />
               <div className="py-2">
-                {oposicionsCategories.map((cat, i) => (
+                {t.nav.oposicionsCategories.map((label, i) => (
                   <Link
-                    key={cat}
-                    to={`/oposicions/${toSlug(cat)}`}
+                    key={i}
+                    to={`/oposicions/${toSlug(OPOSICIONS_SLUG_BASES[i])}`}
                     onClick={() => setOposicionsDropdownOpen(false)}
                     className={`
                       group flex items-center gap-2 px-4 py-2.5
                       font-body font-semibold text-[11px] uppercase tracking-[0.05em]
                       text-muted-foreground hover:text-foreground hover:bg-accent/10
                       transition-all duration-150
-                      ${i !== oposicionsCategories.length - 1 ? "border-b border-border/40" : ""}
+                      ${i !== t.nav.oposicionsCategories.length - 1 ? "border-b border-border/40" : ""}
                     `}
                   >
                     <span className="w-1 h-1 rounded-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex-shrink-0" />
-                    {cat}
+                    {label}
                   </Link>
                 ))}
               </div>
@@ -193,14 +191,13 @@ const Navbar = () => {
               aria-expanded={dropdownOpen}
               aria-haspopup="true"
             >
-              CURSOS PUNTUABLES
+              {t.nav.cursosPuntuables}
               <ChevronDown
                 size={13}
                 className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
               />
             </button>
 
-            {/* Invisible bridge to prevent gap triggering mouseLeave */}
             <div className="absolute top-full left-0 w-full h-4" />
 
             <div
@@ -212,21 +209,21 @@ const Navbar = () => {
             >
               <div className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-card border-l border-t border-border rotate-45" />
               <div className="py-2">
-                {cursosCategories.map((cat, i) => (
+                {t.nav.cursosCategories.map((label, i) => (
                   <Link
-                    key={cat}
-                    to={`/${toSlug(cat)}`}
+                    key={i}
+                    to={`/${toSlug(CURSOS_SLUG_BASES[i])}`}
                     onClick={() => setDropdownOpen(false)}
                     className={`
                       group flex items-center gap-2 px-4 py-2.5
                       font-body font-semibold text-[11px] uppercase tracking-[0.05em]
                       text-muted-foreground hover:text-foreground hover:bg-accent/10
                       transition-all duration-150
-                      ${i !== cursosCategories.length - 1 ? "border-b border-border/40" : ""}
+                      ${i !== t.nav.cursosCategories.length - 1 ? "border-b border-border/40" : ""}
                     `}
                   >
                     <span className="w-1 h-1 rounded-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex-shrink-0" />
-                    {cat}
+                    {label}
                   </Link>
                 ))}
               </div>
@@ -234,18 +231,21 @@ const Navbar = () => {
           </div>
 
           {/* CONTACTE, NOSALTRES */}
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              to={item.href}
-              className="nav-link relative font-body font-bold text-[12px] text-muted-foreground uppercase tracking-[0.05em] hover:text-foreground transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
+          <Link
+            to="/contacte"
+            className="nav-link relative font-body font-bold text-[12px] text-muted-foreground uppercase tracking-[0.05em] hover:text-foreground transition-colors"
+          >
+            {t.nav.contacte}
+          </Link>
+          <Link
+            to="/nosaltres"
+            className="nav-link relative font-body font-bold text-[12px] text-muted-foreground uppercase tracking-[0.05em] hover:text-foreground transition-colors"
+          >
+            {t.nav.nosaltres}
+          </Link>
         </div>
 
-        {/* Search + CTA */}
+        {/* Search + Language switcher + CTA */}
         <div className="hidden lg:flex items-center gap-3">
 
           {/* Search */}
@@ -259,7 +259,7 @@ const Navbar = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Cerca cursos..."
+                  placeholder={t.nav.searchPlaceholder}
                   className="font-body text-sm text-foreground bg-muted border border-border rounded-xl px-4 py-2 w-52 outline-none focus:border-accent transition-colors"
                   onKeyDown={(e) => e.key === "Escape" && closeSearch()}
                 />
@@ -267,7 +267,7 @@ const Navbar = () => {
               <button
                 onClick={() => { setSearchOpen(!searchOpen); setSearchQuery(""); }}
                 className="w-9 h-9 rounded-xl bg-muted/60 hover:bg-accent/10 text-muted-foreground hover:text-accent flex items-center justify-center transition-all duration-150 cursor-pointer"
-                aria-label="Cercar"
+                aria-label={t.nav.searchLabel}
               >
                 {searchOpen ? <X size={16} /> : <Search size={16} />}
               </button>
@@ -302,28 +302,34 @@ const Navbar = () => {
               <div className="absolute top-[calc(100%+8px)] right-0 w-72 bg-card border border-border rounded-xl shadow-[0_8px_30px_rgba(27,48,136,0.12)] overflow-hidden z-50">
                 <div className="px-4 py-5 text-center">
                   <Search size={20} className="text-muted-foreground mx-auto mb-2 opacity-40" />
-                  <p className="font-body text-sm text-muted-foreground">Cap curs trobat per "<strong>{searchQuery}</strong>"</p>
+                  <p className="font-body text-sm text-muted-foreground">{t.nav.noResults} "<strong>{searchQuery}</strong>"</p>
                 </div>
               </div>
             )}
           </div>
 
+          {/* Language switcher */}
+          <LanguageSwitcher />
+
           <a
-            href="#"
+            href="/campus/login/index.php"
             className="btn-hover bg-accent text-accent-foreground font-body font-bold text-xs uppercase px-6 py-2.5 rounded-xl hover:shadow-lg inline-block transition-all"
           >
-            CAMPUS
+            {t.nav.campus}
           </a>
         </div>
 
         {/* Mobile hamburger */}
-        <button
-          className="lg:hidden text-foreground"
-          onClick={() => { setMobileOpen(!mobileOpen); setSearchQuery(""); }}
-          aria-label="Menú"
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="lg:hidden flex items-center gap-2">
+          <LanguageSwitcher />
+          <button
+            className="text-foreground"
+            onClick={() => { setMobileOpen(!mobileOpen); setSearchQuery(""); }}
+            aria-label={t.nav.menuLabel}
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -338,7 +344,7 @@ const Navbar = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Cerca cursos..."
+                placeholder={t.nav.searchPlaceholder}
                 className="w-full font-body text-sm text-foreground bg-muted border border-border rounded-xl pl-9 pr-9 py-2.5 outline-none focus:border-accent transition-colors"
               />
               {searchQuery && (
@@ -373,7 +379,7 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <div className="px-4 py-4 text-center">
-                    <p className="font-body text-sm text-muted-foreground">Cap curs trobat</p>
+                    <p className="font-body text-sm text-muted-foreground">{t.nav.noResultsMobile}</p>
                   </div>
                 )}
               </div>
@@ -386,7 +392,7 @@ const Navbar = () => {
             className="block font-body font-bold text-sm text-foreground uppercase tracking-wide hover:text-accent transition-colors py-2"
             onClick={() => setMobileOpen(false)}
           >
-            ALUMNES ISPC
+            {t.nav.alumnesISPC}
           </Link>
 
           {/* OPOSICIONS accordion */}
@@ -395,7 +401,7 @@ const Navbar = () => {
               className="w-full flex items-center justify-between font-body font-bold text-sm text-foreground uppercase tracking-wide hover:text-accent transition-colors py-2 bg-transparent border-none cursor-pointer"
               onClick={() => setMobileOposicionsOpen(!mobileOposicionsOpen)}
             >
-              OPOSICIONS
+              {t.nav.oposicions}
               <ChevronDown
                 size={16}
                 className={`transition-transform duration-200 ${mobileOposicionsOpen ? "rotate-180" : ""}`}
@@ -406,14 +412,14 @@ const Navbar = () => {
                 }`}
             >
               <div className="pl-4 pb-2 space-y-0 border-l-2 border-accent/30 ml-1 mt-1">
-                {oposicionsCategories.map((cat) => (
+                {t.nav.oposicionsCategories.map((label, i) => (
                   <Link
-                    key={cat}
-                    to={`/oposicions/${toSlug(cat)}`}
+                    key={i}
+                    to={`/oposicions/${toSlug(OPOSICIONS_SLUG_BASES[i])}`}
                     className="block font-body font-semibold text-xs text-muted-foreground uppercase tracking-wide hover:text-accent transition-colors py-2 border-b border-border/30 last:border-0"
                     onClick={() => { setMobileOpen(false); setMobileOposicionsOpen(false); }}
                   >
-                    {cat}
+                    {label}
                   </Link>
                 ))}
               </div>
@@ -426,7 +432,7 @@ const Navbar = () => {
               className="w-full flex items-center justify-between font-body font-bold text-sm text-foreground uppercase tracking-wide hover:text-accent transition-colors py-2 bg-transparent border-none cursor-pointer"
               onClick={() => setMobileCoursesOpen(!mobileCoursesOpen)}
             >
-              CURSOS PUNTUABLES
+              {t.nav.cursosPuntuables}
               <ChevronDown
                 size={16}
                 className={`transition-transform duration-200 ${mobileCoursesOpen ? "rotate-180" : ""}`}
@@ -437,14 +443,14 @@ const Navbar = () => {
                 }`}
             >
               <div className="pl-4 pb-2 space-y-0 border-l-2 border-accent/30 ml-1 mt-1">
-                {cursosCategories.map((cat) => (
+                {t.nav.cursosCategories.map((label, i) => (
                   <Link
-                    key={cat}
-                    to={`/${toSlug(cat)}`}
+                    key={i}
+                    to={`/${toSlug(CURSOS_SLUG_BASES[i])}`}
                     className="block font-body font-semibold text-xs text-muted-foreground uppercase tracking-wide hover:text-accent transition-colors py-2 border-b border-border/30 last:border-0"
                     onClick={() => { setMobileOpen(false); setMobileCoursesOpen(false); }}
                   >
-                    {cat}
+                    {label}
                   </Link>
                 ))}
               </div>
@@ -452,23 +458,27 @@ const Navbar = () => {
           </div>
 
           {/* CONTACTE, NOSALTRES */}
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              to={item.href}
-              className="block font-body font-bold text-sm text-foreground uppercase tracking-wide hover:text-accent transition-colors py-2"
-              onClick={() => setMobileOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
+          <Link
+            to="/contacte"
+            className="block font-body font-bold text-sm text-foreground uppercase tracking-wide hover:text-accent transition-colors py-2"
+            onClick={() => setMobileOpen(false)}
+          >
+            {t.nav.contacte}
+          </Link>
+          <Link
+            to="/nosaltres"
+            className="block font-body font-bold text-sm text-foreground uppercase tracking-wide hover:text-accent transition-colors py-2"
+            onClick={() => setMobileOpen(false)}
+          >
+            {t.nav.nosaltres}
+          </Link>
 
           <a
-            href="#"
+            href="/campus/login/index.php"
             className="block bg-accent text-accent-foreground font-body font-bold text-sm uppercase px-4 py-2.5 rounded-xl text-center mt-3"
             onClick={() => setMobileOpen(false)}
           >
-            CAMPUS
+            {t.nav.campus}
           </a>
         </div>
       )}

@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const WhatsAppButton = () => {
+  const { t } = useLanguage();
+  const w = t.whatsapp;
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -21,7 +25,7 @@ const WhatsAppButton = () => {
             <button
               onClick={() => setIsOpen(false)}
               className="text-white/70 hover:text-white text-xl leading-none"
-              aria-label="Tancar"
+              aria-label={w.tancar}
             >
               ×
             </button>
@@ -31,22 +35,22 @@ const WhatsAppButton = () => {
           <div className="p-4 bg-[#ece5dd]">
             <div className="bg-white rounded-lg p-3 shadow-sm max-w-[85%]">
               <p className="font-body text-sm text-gray-800">
-                Hola! 👋 Tens alguna pregunta sobre els nostres cursos? Estem aquí per ajudar-te.
+                {w.pregunta}
               </p>
-              <span className="font-body text-[10px] text-gray-400 mt-1 block text-right">Ara</span>
+              <span className="font-body text-[10px] text-gray-400 mt-1 block text-right">{w.ara}</span>
             </div>
           </div>
 
           {/* CTA */}
           <div className="p-3 bg-card border-t border-border">
             <a
-              href="https://wa.me/34694234416?text=Hola!%20Voldria%20informaci%C3%B3%20sobre%20els%20cursos."
+              href={`https://wa.me/34694234416?text=${encodeURIComponent(w.msgGeneral)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center font-body font-bold text-sm py-2.5 rounded-lg text-white transition-colors"
               style={{ background: "#25d366" }}
             >
-              Inicia una conversa →
+              {w.inicia}
             </a>
           </div>
         </div>
@@ -57,7 +61,7 @@ const WhatsAppButton = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="w-[60px] h-[60px] rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110"
         style={{ background: "#25d366" }}
-        aria-label="Obrir xat de WhatsApp"
+        aria-label={w.obrirXat}
       >
         {isOpen ? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">

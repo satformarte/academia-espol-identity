@@ -4,8 +4,6 @@ import {
     ChevronRight,
     Clock,
     Monitor,
-    Award,
-    BadgeCheck,
     Star,
     ArrowRight,
     BookOpen,
@@ -15,78 +13,31 @@ import {
 import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { courses } from "@/data/courses";
+import { useCourses } from "@/hooks/useCourses";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { COURSE_TITLES_ES, translateHeroStat } from "@/i18n/courseTranslations";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Per afegir una categoria nova:
-//  1. Afegeix una entrada a categoryMeta amb el slug, títol, descripció i imatge
-//  2. Afegeix cursos a courses.ts amb el categoriaSlug corresponent
-//  3. No cal tocar res més — la pàgina es genera automàticament
-// ─────────────────────────────────────────────────────────────────────────────
-
-interface CategoryMeta {
-    title: string;
-    description: string;
-    img: string;
-}
-
-const categoryMeta: Record<string, CategoryMeta> = {
-    "criminologia": {
-        title: "Criminologia",
-        description: "Formació especialitzada en l'estudi científic del delicte, la conducta criminal i els sistemes de justícia. Tots els cursos compten amb certificació oficial reconeguda.",
-        img: "/images/criminologia.webp",
-    },
-    "dret-penal": {
-        title: "Dret Penal",
-        description: "Formació en dret penal per a professionals de la seguretat pública. Coneix el marc legal que regula els delictes i les penes.",
-        img: "/images/dret-penal.webp",
-    },
-    "transit-i-circulacio": {
-        title: "Trànsit i Circulació",
-        description: "Cursos especialitzats en normativa de trànsit, accidents de circulació i investigació viària per a agents i professionals del sector.",
-        img: "/images/transit-circulacio.webp",
-    },
-    "seguretat-ciutadana": {
-        title: "Seguretat Ciutadana",
-        description: "Formació en seguretat pública, gestió de conflictes i ordre públic per a policies i professionals de la seguretat.",
-        img: "/images/seguretat-ciutadana.webp",
-    },
-    "procediments-policials": {
-        title: "Procediments Policials",
-        description: "Cursos pràctics sobre actuació policial, protocols d'intervenció i procediments operatius per a cossos de seguretat.",
-        img: "/images/procediments-policials.webp",
-    },
-    "ciberseguretat": {
-        title: "Ciberseguretat",
-        description: "Formació en ciberseguretat, investigació digital i delictes informàtics per a agents i professionals del sector tecnològic.",
-        img: "/images/ciberdelinquencia.webp",
-    },
-    "altres-tematiques": {
-        title: "Altres Temàtiques",
-        description: "Formació complementària en àmbits relacionats amb la seguretat, el dret i l'administració pública.",
-        img: "/images/altres-tematiques.webp",
-    },
-    "actic-i-angles": {
-        title: "ACTIC i Anglès",
-        description: "Preparació per a les certificacions oficials d'informàtica ACTIC i d'idiomes en anglès per a l'accés a la funció pública.",
-        img: "/images/actic-angles.webp",
-    },
-    "criminalistica": {
-        title: "Criminalística",
-        description: "Formació en tècniques d'investigació forense, anàlisi de proves i escena del crim per a professionals de la seguretat.",
-        img: "/images/criminalistica.webp",
-    },
+// Images are fixed regardless of language
+const CATEGORY_IMGS: Record<string, string> = {
+    criminologia: "/images/criminologia.webp",
+    "dret-penal": "/images/dret-penal.webp",
+    "transit-i-circulacio": "/images/transit-circulacio.webp",
+    "seguretat-ciutadana": "/images/seguretat-ciutadana.webp",
+    "procediments-policials": "/images/procediments-policials.webp",
+    ciberseguretat: "/images/ciberdelinquencia.webp",
+    "altres-tematiques": "/images/altres-tematiques.webp",
+    "actic-i-angles": "/images/actic-angles.webp",
+    criminalistica: "/images/criminalistica.webp",
 };
 
-// ── Level badge colors ────────────────────────────────────────────────────────
-const levelConfig = {
+// CSS classes keyed by Catalan level name (from data)
+const levelConfig: Record<string, string> = {
     Bàsic: "bg-emerald-100 text-emerald-700",
     Intermedi: "bg-amber-100 text-amber-700",
     Avançat: "bg-rose-100 text-rose-700",
 };
 
-// ── Scroll reveal hook ────────────────────────────────────────────────────────
 function useScrollReveal(ref: React.RefObject<HTMLElement>) {
     useEffect(() => {
         const el = ref.current;
@@ -104,37 +55,33 @@ function useScrollReveal(ref: React.RefObject<HTMLElement>) {
     }, []);
 }
 
-// ── Preload hook: injecta un <link rel="preload"> a l'<head> per a la imatge hero ──
-// Això fa que el navegador descarregui la imatge hero en paral·lel amb el JS/CSS,
-// molt abans que el component es munti i el <img> aparegui al DOM.
+// Injects a <link rel="preload"> for the hero image to improve LCP
 function usePreloadImage(src: string) {
     useEffect(() => {
         if (!src) return;
         const existing = document.querySelector(`link[rel="preload"][href="${src}"]`);
-        if (existing) return; // ja precarregat
+        if (existing) return;
         const link = document.createElement("link");
         link.rel = "preload";
         link.as = "image";
         link.href = src;
         document.head.appendChild(link);
-        return () => {
-            // no eliminem el link: si l'usuari torna a la mateixa categoria
-            // volem que segueixi al caché del navegador
-        };
     }, [src]);
 }
 
-// ── Main component ────────────────────────────────────────────────────────────
 const CategoryPage = () => {
+    const { t, lang } = useLanguage();
+    const { courses } = useCourses();
+    const cp = t.categoryPage;
     const { categoria } = useParams<{ categoria: string }>();
     const ref = useRef<HTMLDivElement>(null);
     useScrollReveal(ref as React.RefObject<HTMLElement>);
 
-    const meta = categoryMeta[categoria ?? ""];
-    if (!meta) return <Navigate to="/404" replace />;
+    const catData = (cp.categories as Record<string, { title: string; description: string }>)[categoria ?? ""];
+    const img = CATEGORY_IMGS[categoria ?? ""];
+    if (!catData || !img) return <Navigate to="/404" replace />;
 
-    // Precarrega la imatge hero tan aviat com es coneix la categoria
-    usePreloadImage(meta.img);
+    usePreloadImage(img);
 
     const parseStartDate = (d?: string) => {
         if (!d) return Infinity;
@@ -151,6 +98,10 @@ const CategoryPage = () => {
             return parseStartDate(a.gridStartDate) - parseStartDate(b.gridStartDate);
         });
 
+    const countLabel = categoryCourses.length === 1
+        ? cp.oneCursDisponible
+        : `${categoryCourses.length} ${cp.cursosDisponibles}`;
+
     return (
         <div className="min-h-screen bg-background" ref={ref}>
             <Topbar />
@@ -160,11 +111,11 @@ const CategoryPage = () => {
             <div className="bg-card border-b border-border">
                 <div className="container mx-auto px-4 max-w-[1400px] py-3">
                     <nav className="flex items-center gap-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.06em] text-muted-foreground">
-                        <Link to="/" className="hover:text-accent transition-colors duration-150">Inici</Link>
+                        <Link to="/" className="hover:text-accent transition-colors duration-150">{cp.breadcrumbHome}</Link>
                         <ChevronRight size={12} className="opacity-40" />
-                        <Link to="/" className="hover:text-accent transition-colors duration-150">Cursos Puntuables</Link>
+                        <Link to="/" className="hover:text-accent transition-colors duration-150">{cp.breadcrumbCursos}</Link>
                         <ChevronRight size={12} className="opacity-40" />
-                        <span className="text-foreground">{meta.title}</span>
+                        <span className="text-foreground">{catData.title}</span>
                     </nav>
                 </div>
             </div>
@@ -172,14 +123,9 @@ const CategoryPage = () => {
             {/* ── Hero ──────────────────────────────────────────────────────────── */}
             <div className="relative bg-primary overflow-hidden">
                 <div className="absolute inset-0">
-                    {/*
-                        fetchPriority="high" — màxima prioritat de descàrrega (LCP)
-                        decoding="sync"      — decodifica síncronament per evitar flash buit
-                        No lazy aquí: és above-the-fold
-                    */}
                     <img
-                        src={meta.img}
-                        alt={meta.title}
+                        src={img}
+                        alt={catData.title}
                         className="w-full h-full object-cover opacity-25"
                         fetchPriority="high"
                         decoding="sync"
@@ -191,28 +137,23 @@ const CategoryPage = () => {
                     <div className="max-w-2xl">
                         <span className="inline-flex items-center gap-1.5 bg-accent/20 border border-accent/30 text-accent-foreground font-body font-bold text-[10px] uppercase tracking-[0.1em] px-3 py-1 rounded-full mb-5">
                             <BookOpen size={10} />
-                            Cursos Puntuables
+                            {cp.heroBadge}
                         </span>
 
                         <h1 className="font-display font-black text-3xl lg:text-4xl text-white leading-tight mb-3">
-                            {meta.title}
+                            {catData.title}
                         </h1>
 
-                        {meta.description && (
+                        {catData.description && (
                             <p className="font-body text-white/75 text-sm lg:text-base leading-relaxed mb-7 max-w-xl">
-                                {meta.description}
+                                {catData.description}
                             </p>
                         )}
 
                         <div className="flex flex-wrap gap-5">
                             {[
-                                {
-                                    icon: <BookOpen size={13} />,
-                                    label: categoryCourses.length === 1
-                                        ? "1 curs disponible"
-                                        : `${categoryCourses.length} cursos disponibles`,
-                                },
-                                { icon: <Monitor size={13} />, label: "100% online" },
+                                { icon: <BookOpen size={13} />, label: countLabel },
+                                { icon: <Monitor size={13} />, label: cp.online },
                             ].map(({ icon, label }) => (
                                 <div key={label} className="flex items-center gap-2 text-white/85 font-body font-semibold text-xs">
                                     <span className="text-accent">{icon}</span>
@@ -232,29 +173,25 @@ const CategoryPage = () => {
                         <div className="flex items-center gap-3">
                             <div className="w-1 h-7 bg-accent rounded-full" />
                             <h2 className="font-display font-black text-xl text-foreground uppercase tracking-tight">
-                                {categoryCourses.length === 1
-                                    ? "1 Curs disponible"
-                                    : `${categoryCourses.length} Cursos disponibles`}
+                                {countLabel}
                             </h2>
                         </div>
                     </div>
 
-                    {/* Missatge si no hi ha cursos encara */}
                     {categoryCourses.length === 0 && (
                         <div className="text-center py-20">
                             <div className="w-14 h-14 rounded-2xl bg-muted-foreground/10 flex items-center justify-center mx-auto mb-4">
                                 <BookOpen size={24} className="text-muted-foreground/40" />
                             </div>
                             <h3 className="font-display font-black text-lg text-foreground mb-2">
-                                Pròximament
+                                {cp.emptyTitle}
                             </h3>
                             <p className="font-body text-sm text-muted-foreground max-w-sm mx-auto">
-                                Estem preparant els cursos d'aquesta categoria. Torna aviat o contacta'ns per més informació.
+                                {cp.emptyDesc}
                             </p>
                         </div>
                     )}
 
-                    {/* Grid */}
                     {categoryCourses.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {categoryCourses.map((course, i) => (
@@ -266,20 +203,6 @@ const CategoryPage = () => {
                                 >
                                     {/* Image */}
                                     <div className="relative h-[190px] overflow-hidden flex-shrink-0 bg-muted">
-                                        {/*
-                                            Primeres 3 cards (above-the-fold a desktop):
-                                              - loading="eager"        → no espera a ser visible
-                                              - fetchPriority="high"   → alta prioritat al fetcher
-                                              - decoding="async"       → decodifica fora del main thread
-
-                                            Resta de cards (below-the-fold):
-                                              - loading="lazy"         → només es carrega quan s'apropa al viewport
-                                              - fetchPriority="low"    → baixa prioritat per no competir amb les primeres
-                                              - decoding="async"       → no bloqueja el render
-
-                                            sizes → indica al navegador quina mida tindrà la imatge
-                                            segons breakpoint, evitant descarregar resolucions innecessàries.
-                                        */}
                                         <img
                                             src={course.gridImg}
                                             alt={`${course.titleBase} ${course.titleAccent ?? ""}`}
@@ -291,53 +214,48 @@ const CategoryPage = () => {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
-                                        {/* Badges */}
                                         <div className="absolute top-3 left-3 flex gap-2">
                                             {course.isNew && (
                                                 <span className="inline-flex items-center gap-1 bg-accent text-accent-foreground font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
                                                     <Sparkles size={9} />
-                                                    Pròxima edició
+                                                    {cp.proximaEdicio}
                                                 </span>
                                             )}
                                             {course.comingSoon && (
                                                 <span className="inline-flex items-center gap-1 bg-primary text-white font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
                                                     <Sparkles size={9} />
-                                                    Pròximament
+                                                    {cp.proximament}
                                                 </span>
                                             )}
                                         </div>
 
-                                        {/* Level badge */}
                                         <div className="absolute bottom-3 right-3">
-                                            <span className={`font-body font-bold text-[10px] uppercase tracking-wide px-2.5 py-1 rounded-lg ${levelConfig[course.gridLevel]}`}>
-                                                {course.gridLevel}
+                                            <span className={`font-body font-bold text-[10px] uppercase tracking-wide px-2.5 py-1 rounded-lg ${levelConfig[course.gridLevel] ?? ""}`}>
+                                                {(cp.nivells as Record<string, string>)[course.gridLevel] ?? course.gridLevel}
                                             </span>
                                         </div>
                                     </div>
 
                                     {/* Body */}
                                     <div className="p-5 flex flex-col flex-1">
-
-                                        {/* Categoria label */}
                                         {course.categoriaSlug !== "actic-i-angles" && (
                                             <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-2">
-                                                {course.categoriaLabel}
+                                                {lang === "es"
+                                                    ? ((cp.categories as Record<string, { title: string }>)[course.categoriaSlug]?.title ?? course.categoriaLabel)
+                                                    : course.categoriaLabel}
                                             </span>
                                         )}
 
-                                        {/* Títol */}
                                         <h3 className="font-display font-bold text-[14px] text-foreground leading-snug mb-2 line-clamp-2">
-                                            {course.titleBase} {course.titleAccent}
+                                            {lang === "es" ? (COURSE_TITLES_ES[course.slug] ?? `${course.titleBase} ${course.titleAccent ?? ""}`.trim()) : `${course.titleBase} ${course.titleAccent ?? ""}`.trim()}
                                         </h3>
 
-                                        {/* Descripció curta — només si té contingut */}
                                         {course.gridShortDesc && (
                                             <p className="font-body text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-2">
                                                 {course.gridShortDesc}
                                             </p>
                                         )}
 
-                                        {/* Meta row — hores, modalitat, alumnes */}
                                         <div className="flex items-center gap-3 text-foreground/80 mb-3">
                                             {course.gridHours && (
                                                 <span className="flex items-center gap-1 font-body text-xs">
@@ -347,29 +265,27 @@ const CategoryPage = () => {
                                             )}
                                             <span className="flex items-center gap-1 font-body text-xs">
                                                 <Monitor size={12} className="text-accent" />
-                                                Online
+                                                {cp.online}
                                             </span>
                                         </div>
 
-                                        {/* Dates — inici i fi, només si existeixen */}
                                         {(course.gridStartDate || course.gridEndDate) && (
                                             <div className="flex items-center gap-3 text-foreground/80 mb-3">
                                                 {course.gridStartDate && (
                                                     <span className="flex items-center gap-1 font-body text-xs">
                                                         <CalendarDays size={12} className="text-accent" />
-                                                        Inici: {course.gridStartDate}
+                                                        {cp.inici} {lang === "es" ? translateHeroStat(course.gridStartDate) : course.gridStartDate}
                                                     </span>
                                                 )}
                                                 {course.gridEndDate && (
                                                     <span className="flex items-center gap-1 font-body text-xs">
                                                         <CalendarDays size={12} className="text-accent" />
-                                                        Fi: {course.gridEndDate}
+                                                        {cp.fi} {course.gridEndDate}
                                                     </span>
                                                 )}
                                             </div>
                                         )}
 
-                                        {/* Rating — només si té valor */}
                                         {course.gridRating > 0 && (
                                             <div className="flex items-center gap-1.5 mb-4">
                                                 <div className="flex items-center gap-0.5">
@@ -385,10 +301,9 @@ const CategoryPage = () => {
                                             </div>
                                         )}
 
-                                        {/* CTA */}
                                         <div className="border-t border-border pt-4 flex items-center justify-between mt-auto">
                                             <span className="inline-flex items-center gap-1.5 font-body font-semibold text-accent text-xs group-hover:gap-2.5 transition-[gap] duration-150">
-                                                Més info <ArrowRight size={13} />
+                                                {cp.moreInfo} <ArrowRight size={13} />
                                             </span>
                                         </div>
                                     </div>

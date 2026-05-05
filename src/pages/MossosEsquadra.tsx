@@ -4,7 +4,6 @@ import {
     ChevronRight,
     Clock,
     BookOpen,
-    Users,
     ArrowRight,
     CalendarDays,
     ShieldCheck,
@@ -15,62 +14,22 @@ import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
-const cursos = [
-    {
-        slug: "temari-mossos-esquadra",
-        titleBase: "Temari Complet",
-        titleAccent: "Mossos d'Esquadra",
-        shortDesc: "Preparació exhaustiva de tots els blocs temàtics del procés selectiu dels Mossos d'Esquadra de la Generalitat de Catalunya.",
-        hours: "150 h",
-        modality: "Online + Presencial",
-        startDate: "Pròximament",
-        isNew: true,
-        img: "/images/altres-tematiques.webp",
-    },
-    {
-        slug: "psicotecnics-mossos-esquadra",
-        titleBase: "Psicotècnics",
-        titleAccent: "Mossos d'Esquadra",
-        shortDesc: "Psicotècnics, tests de personalitat i preparació de l’entrevista",
-        hours: "40 h",
-        modality: "Online",
-        startDate: "Pròximament",
-        isNew: true,
-        img: "/images/armament.webp",
-    },
-    {
-        slug: "proves-fisiques-mossos-esquadra",
-        titleBase: "Proves Físiques",
-        titleAccent: "Mossos d'Esquadra",
-        shortDesc: "Pla d'entrenament personalitzat per superar les proves físiques del procés selectiu dels Mossos d'Esquadra.",
-        hours: "60 h",
-        modality: "Presencial",
-        startDate: "Pròximament",
-        isNew: true,
-        img: "/images/criminalistica.webp",
-    },
+// Slugs and images are fixed — never change
+const COURSE_META = [
+    { slug: "temari-mossos-esquadra", img: "/images/altres-tematiques.webp", hours: "150 h" },
+    { slug: "psicotecnics-mossos-esquadra", img: "/images/armament.webp", hours: "40 h" },
+    { slug: "proves-fisiques-mossos-esquadra", img: "/images/criminalistica.webp", hours: "60 h" },
 ];
 
-// ── Level badge colors ────────────────────────────────────────────────────────
-const levelConfig = {
-    Bàsic: "bg-emerald-100 text-emerald-700",
-    Intermedi: "bg-amber-100 text-amber-700",
-    Avançat: "bg-rose-100 text-rose-700",
-};
-
-// ── Scroll reveal hook ────────────────────────────────────────────────────────
 function useScrollReveal(ref: React.RefObject<HTMLElement>) {
     useEffect(() => {
         const el = ref.current;
         if (!el) return;
         const cards = el.querySelectorAll(".scroll-reveal");
         const obs = new IntersectionObserver(
-            (entries) =>
-                entries.forEach((e) => {
-                    if (e.isIntersecting) e.target.classList.add("visible");
-                }),
+            (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); }),
             { threshold: 0.08 }
         );
         cards.forEach((c) => obs.observe(c));
@@ -78,8 +37,9 @@ function useScrollReveal(ref: React.RefObject<HTMLElement>) {
     }, []);
 }
 
-// ── Main component ────────────────────────────────────────────────────────────
 const MossosEsquadra = () => {
+    const { t } = useLanguage();
+    const m = t.mossosEsquadra;
     const ref = useRef<HTMLDivElement>(null);
     useScrollReveal(ref as React.RefObject<HTMLElement>);
 
@@ -88,27 +48,23 @@ const MossosEsquadra = () => {
             <Topbar />
             <Navbar />
 
-            {/* ── Breadcrumbs ───────────────────────────────────────────────────── */}
+            {/* Breadcrumbs */}
             <div className="bg-card border-b border-border">
                 <div className="container mx-auto px-4 max-w-[1400px] py-3">
                     <nav className="flex items-center gap-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.06em] text-muted-foreground">
-                        <Link to="/" className="hover:text-accent transition-colors duration-150">Inici</Link>
+                        <Link to="/" className="hover:text-accent transition-colors duration-150">{m.breadcrumbHome}</Link>
                         <ChevronRight size={12} className="opacity-40" />
-                        <Link to="/" className="hover:text-accent transition-colors duration-150">Oposicions</Link>
+                        <Link to="/" className="hover:text-accent transition-colors duration-150">{m.breadcrumbOposicions}</Link>
                         <ChevronRight size={12} className="opacity-40" />
-                        <span className="text-foreground">Mossos d'Esquadra</span>
+                        <span className="text-foreground">{m.breadcrumb}</span>
                     </nav>
                 </div>
             </div>
 
-            {/* ── Hero ──────────────────────────────────────────────────────────── */}
+            {/* Hero */}
             <div className="relative bg-primary overflow-hidden">
                 <div className="absolute inset-0">
-                    <img
-                        src="/images/heroSlider3.webp"
-                        alt="Mossos d'Esquadra"
-                        className="w-full h-full object-cover opacity-25"
-                    />
+                    <img src="/images/heroSlider3.webp" alt="Mossos d'Esquadra" className="w-full h-full object-cover opacity-25" />
                     <div className="absolute inset-0 bg-gradient-to-r via-primary/95 to-primary/70" />
                 </div>
 
@@ -116,25 +72,22 @@ const MossosEsquadra = () => {
                     <div className="max-w-2xl">
                         <span className="inline-flex items-center gap-1.5 bg-accent/20 border border-accent/30 text-accent-foreground font-body font-bold text-[10px] uppercase tracking-[0.1em] px-3 py-1 rounded-full mb-5">
                             <ShieldCheck size={10} />
-                            Oposicions
+                            {m.heroBadge}
                         </span>
 
                         <h1 className="font-display font-black text-3xl lg:text-4xl text-white leading-tight mb-3">
-                            Mossos d'Esquadra
+                            {m.heroTitle}
                         </h1>
 
                         <p className="font-body text-white/75 text-sm lg:text-base leading-relaxed mb-7 max-w-xl">
-                            Preparació completa per a les oposicions del Cos de Mossos d'Esquadra. Temari actualitzat, professors en actiu i metodologia contrastada per maximitzar les teves possibilitats d'èxit.
+                            {m.heroDesc}
                         </p>
 
                         <div className="flex flex-wrap gap-5">
                             {[
-                                {
-                                    icon: <BookOpen size={13} />,
-                                    label: `${cursos.length} cursos disponibles`,
-                                },
-                                { icon: <ShieldCheck size={13} />, label: "Professors en actiu" },
-                                { icon: <Target size={13} />, label: "Metodologia contrastada" },
+                                { icon: <BookOpen size={13} />, label: `${COURSE_META.length} ${m.cursosLabel}` },
+                                { icon: <ShieldCheck size={13} />, label: m.heroFeature2 },
+                                { icon: <Target size={13} />, label: m.heroFeature3 },
                             ].map(({ icon, label }) => (
                                 <div key={label} className="flex items-center gap-2 text-white/85 font-body font-semibold text-xs">
                                     <span className="text-accent">{icon}</span>
@@ -146,27 +99,26 @@ const MossosEsquadra = () => {
                 </div>
             </div>
 
-            {/* ── Course grid ───────────────────────────────────────────────────── */}
+            {/* Course grid */}
             <section className="py-14 bg-muted">
                 <div className="container mx-auto px-4 max-w-[1400px]">
-
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <div className="w-1 h-7 bg-accent rounded-full" />
                             <h2 className="font-display font-black text-xl text-foreground uppercase tracking-tight">
-                                {cursos.length} Cursos disponibles
+                                {COURSE_META.length} {m.cursosLabel}
                             </h2>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {cursos.map((course, i) => (
+                        {m.cursos.map((course, i) => (
                             <Link
-                                key={course.slug}
-                                to={`/oposicions/mossos-desquadra/${course.slug}`}
+                                key={COURSE_META[i].slug}
+                                to={`/oposicions/mossos-desquadra/${COURSE_META[i].slug}`}
                                 state={{
                                     courseName: `${course.titleBase} ${course.titleAccent}`,
-                                    categoryLabel: "Mossos d'Esquadra",
+                                    categoryLabel: m.categoryLabel,
                                     categoryPath: "/oposicions/mossos-desquadra",
                                 }}
                                 className="scroll-reveal group bg-card rounded-2xl border border-border overflow-hidden flex flex-col transition-[border-color,box-shadow] duration-150 hover:border-accent/40 hover:shadow-[0_8px_32px_rgba(27,48,136,0.10)]"
@@ -175,74 +127,50 @@ const MossosEsquadra = () => {
                                 {/* Image */}
                                 <div className="relative h-[190px] overflow-hidden flex-shrink-0">
                                     <img
-                                        src={course.img}
+                                        src={COURSE_META[i].img}
                                         alt={`${course.titleBase} ${course.titleAccent}`}
                                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                                         loading="lazy"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-
-                                    {/* Badge nou */}
-                                    {course.isNew && (
-                                        <div className="absolute top-3 left-3">
-                                            <span className="inline-flex items-center gap-1 bg-accent text-accent-foreground font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
-                                                <GraduationCap size={9} />
-                                                Pròximament
-                                            </span>
-                                        </div>
-                                    )}
+                                    <div className="absolute top-3 left-3">
+                                        <span className="inline-flex items-center gap-1 bg-accent text-accent-foreground font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
+                                            <GraduationCap size={9} />
+                                            {m.proximament}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 {/* Body */}
                                 <div className="p-5 flex flex-col flex-1">
-
-                                    {/* Categoria label */}
                                     <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-1.5">
-                                        Mossos d'Esquadra
+                                        {m.categoryLabel}
                                     </span>
-
-                                    {/* Títol */}
                                     <h3 className="font-display font-bold text-[14px] text-foreground leading-snug mb-1.5 line-clamp-2">
                                         {course.titleBase} {course.titleAccent}
                                     </h3>
-
-                                    {/* Descripció curta */}
                                     {course.shortDesc && (
                                         <p className="font-body text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-2">
                                             {course.shortDesc}
                                         </p>
                                     )}
-
-                                    {/* Meta row */}
                                     <div className="flex items-center gap-3 text-foreground/80 mb-2">
-                                        {course.hours && (
-                                            <span className="flex items-center gap-1 font-body text-xs">
-                                                <Clock size={12} className="text-accent" />
-                                                {course.hours}
-                                            </span>
-                                        )}
-                                        {course.students > 0 && (
-                                            <span className="flex items-center gap-1 font-body text-xs">
-                                                <Users size={12} className="text-accent" />
-                                                {course.students.toLocaleString()}
-                                            </span>
-                                        )}
+                                        <span className="flex items-center gap-1 font-body text-xs">
+                                            <Clock size={12} className="text-accent" />
+                                            {COURSE_META[i].hours}
+                                        </span>
                                     </div>
-
-                                    {/* Data inici */}
                                     {course.startDate && (
                                         <div className="flex items-center gap-3 text-foreground/80 mb-2">
                                             <span className="flex items-center gap-1 font-body text-xs">
                                                 <CalendarDays size={12} className="text-accent" />
-                                                Inici: {course.startDate}
+                                                {m.inici} {course.startDate}
                                             </span>
                                         </div>
                                     )}
-
-                                    {/* CTA */}
                                     <div className="border-t border-border pt-4 flex items-center justify-between mt-auto">
                                         <span className="inline-flex items-center gap-1.5 font-body font-semibold text-accent text-xs group-hover:gap-2.5 transition-[gap] duration-150">
-                                            Més info <ArrowRight size={13} />
+                                            {m.moreInfo} <ArrowRight size={13} />
                                         </span>
                                     </div>
                                 </div>

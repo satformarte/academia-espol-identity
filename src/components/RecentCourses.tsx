@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import {
     Clock,
     Monitor,
-    Users,
     Star,
     ArrowRight,
     Sparkles,
     CalendarDays,
     ChevronDown,
 } from "lucide-react";
-import { courses } from "@/data/courses";
+import { useCourses } from "@/hooks/useCourses";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PAGE_SIZE = 6;
 
@@ -21,12 +21,6 @@ const parseStartDate = (d?: string) => {
     return new Date(year, month - 1, day).getTime();
 };
 
-const sortedCourses = [...courses].sort((a, b) => {
-    if (a.comingSoon && !b.comingSoon) return -1;
-    if (!a.comingSoon && b.comingSoon) return 1;
-    return parseStartDate(a.gridStartDate) - parseStartDate(b.gridStartDate);
-});
-
 const levelConfig: Record<string, string> = {
     Bàsic: "bg-emerald-100 text-emerald-700",
     Intermedi: "bg-amber-100 text-amber-700",
@@ -34,12 +28,18 @@ const levelConfig: Record<string, string> = {
 };
 
 const RecentCourses = () => {
+    const { t } = useLanguage();
+    const { courses } = useCourses();
+    const sortedCourses = [...courses].sort((a, b) => {
+        if (a.comingSoon && !b.comingSoon) return -1;
+        if (!a.comingSoon && b.comingSoon) return 1;
+        return parseStartDate(a.gridStartDate) - parseStartDate(b.gridStartDate);
+    });
     const [visible, setVisible] = useState(PAGE_SIZE);
     const [loading, setLoading] = useState(false);
 
     const handleLoadMore = () => {
         setLoading(true);
-        // Petit delay per donar sensació de càrrega progressiva
         setTimeout(() => {
             setVisible((prev) => prev + PAGE_SIZE);
             setLoading(false);
@@ -59,10 +59,10 @@ const RecentCourses = () => {
                         <div className="w-1 h-7 bg-accent rounded-full" />
                         <div>
                             <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">
-                                Cursos Recents
+                                {t.recentCourses.title}
                             </h2>
                             <p className="font-body text-muted-foreground text-sm mt-0.5">
-                                {sortedCourses.length} cursos disponibles
+                                {sortedCourses.length} {t.recentCourses.available}
                             </p>
                         </div>
                     </div>
@@ -76,7 +76,6 @@ const RecentCourses = () => {
                             to={`/curs/${course.slug}`}
                             className="group bg-card rounded-2xl border border-border overflow-hidden flex flex-col transition-[border-color,box-shadow] duration-150 hover:border-accent/40 hover:shadow-[0_8px_32px_rgba(27,48,136,0.10)]"
                             style={{
-                                // Animació d'entrada per als nous cursos carregats
                                 animation: i >= visible - PAGE_SIZE ? "fadeInUp 0.4s ease forwards" : "none",
                                 animationDelay: `${(i % PAGE_SIZE) * 50}ms`,
                             }}
@@ -99,7 +98,7 @@ const RecentCourses = () => {
                                     {course.isNew && (
                                         <span className="inline-flex items-center gap-1 bg-accent text-accent-foreground font-body font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-lg">
                                             <Sparkles size={9} />
-                                            Pròxima edició
+                                            {t.recentCourses.proximaEdicio}
                                         </span>
                                     )}
                                 </div>
@@ -117,17 +116,14 @@ const RecentCourses = () => {
                             {/* Body */}
                             <div className="p-5 flex flex-col flex-1">
 
-                                {/* Categoria label */}
                                 <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-2">
                                     {course.categoriaLabel}
                                 </span>
 
-                                {/* Títol */}
                                 <h3 className="font-display font-bold text-[14px] text-foreground leading-snug mb-2 line-clamp-2">
                                     {course.titleBase} {course.titleAccent}
                                 </h3>
 
-                                {/* Descripció curta */}
                                 {course.gridShortDesc && (
                                     <p className="font-body text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-2">
                                         {course.gridShortDesc}
@@ -144,7 +140,7 @@ const RecentCourses = () => {
                                     )}
                                     <span className="flex items-center gap-1 font-body text-xs">
                                         <Monitor size={12} className="text-accent" />
-                                        Online
+                                        {t.recentCourses.online}
                                     </span>
                                 </div>
 
@@ -154,13 +150,13 @@ const RecentCourses = () => {
                                         {course.gridStartDate && (
                                             <span className="flex items-center gap-1 font-body text-xs">
                                                 <CalendarDays size={12} className="text-accent" />
-                                                Inici: {course.gridStartDate}
+                                                {t.recentCourses.inici} {course.gridStartDate}
                                             </span>
                                         )}
                                         {course.gridEndDate && (
                                             <span className="flex items-center gap-1 font-body text-xs">
                                                 <CalendarDays size={12} className="text-accent" />
-                                                Fi: {course.gridEndDate}
+                                                {t.recentCourses.fi} {course.gridEndDate}
                                             </span>
                                         )}
                                     </div>
@@ -185,7 +181,7 @@ const RecentCourses = () => {
                                 {/* CTA */}
                                 <div className="border-t border-border pt-4 flex items-center justify-between mt-auto">
                                     <span className="inline-flex items-center gap-1.5 font-body font-semibold text-accent text-xs group-hover:gap-2.5 transition-[gap] duration-150">
-                                        Més info <ArrowRight size={13} />
+                                        {t.recentCourses.moreInfo} <ArrowRight size={13} />
                                     </span>
                                 </div>
                             </div>
@@ -204,12 +200,12 @@ const RecentCourses = () => {
                             {loading ? (
                                 <>
                                     <div className="w-4 h-4 border-2 border-accent border-t-transparent rounded-full animate-spin" />
-                                    Carregant...
+                                    {t.recentCourses.loading}
                                 </>
                             ) : (
                                 <>
                                     <ChevronDown size={16} className="text-accent" />
-                                    Veure més ({sortedCourses.length - visible} restants)
+                                    {t.recentCourses.verMes.replace("{n}", String(sortedCourses.length - visible))}
                                 </>
                             )}
                         </button>
@@ -218,7 +214,6 @@ const RecentCourses = () => {
 
             </div>
 
-            {/* Keyframe per a l'animació d'entrada */}
             <style>{`
                 @keyframes fadeInUp {
                     from { opacity: 0; transform: translateY(16px); }

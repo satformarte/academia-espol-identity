@@ -43,6 +43,7 @@ export interface CourseData {
   categoriaSlug: string;
   titleBase: string;
   titleAccent?: string;
+  titleEs?: string;
   description?: string;
   img: string;
   heroStats?: { label: string }[];
@@ -67,15 +68,19 @@ export interface CourseData {
   gridStartDate?: string;
   gridEndDate?: string;
   isNew?: boolean;
-  isPopular?: boolean;
   comingSoon?: boolean;
 
   // ── Seccions opcionals ────────────────────────────────────────────────────
   modules?: CourseModule[];
+  modulesEs?: CourseModule[];
   requirements?: string[];
   audience?: { title: string; desc: string }[];
+  audienceEs?: { title: string; desc: string }[];
   faq?: { q: string; a: string }[];
+  faqEs?: { q: string; a: string }[];
   plans?: CoursePlan[];
+  plansCa?: CoursePlan[];
+  plansEs?: CoursePlan[];
   certification?: CourseCertification;
   reviews?: CourseReview;
   collaborators?: { name: string; img: string }[];
@@ -177,7 +182,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       {
@@ -263,7 +267,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       {
@@ -349,7 +352,6 @@ export const courses: CourseData[] = [
     gridStartDate: "21/07/2026",
     gridEndDate: "20/09/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       {
@@ -448,7 +450,6 @@ export const courses: CourseData[] = [
     gridStartDate: "15/09/2026",
     gridEndDate: "16/10/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       {
@@ -550,7 +551,6 @@ export const courses: CourseData[] = [
     gridStartDate: "21/07/2026",
     gridEndDate: "20/09/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       {
@@ -638,7 +638,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "TEMA 1. Introducció al tacògraf", topics: [] },
@@ -701,7 +700,6 @@ export const courses: CourseData[] = [
     gridStartDate: "21/07/2026",
     gridEndDate: "20/09/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "TEMA 1. Risc i accidentabilitat", topics: [] },
@@ -769,7 +767,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "Marc legislatiu d'aplicació: el paquet Mobilitat I de la UE", topics: [] },
@@ -838,7 +835,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "TEMA 1. Què és l'ADR?", topics: [] },
@@ -913,7 +909,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "Coneixements bàsics sobre vehicles elèctrics", topics: [] },
@@ -983,7 +978,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       {
@@ -1069,7 +1063,6 @@ export const courses: CourseData[] = [
     gridStartDate: "21/07/2026",
     gridEndDate: "20/09/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "Història i evolució de les presons", topics: [] },
@@ -1143,7 +1136,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "Principis jurídics aplicables en l'operativa policial", topics: [] },
@@ -1208,7 +1200,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "El Ciberespai", topics: [] },
@@ -1283,7 +1274,6 @@ export const courses: CourseData[] = [
     gridStartDate: "21/07/2026",
     gridEndDate: "20/09/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "MÒDUL 1. Introducció a la Criminalística Policial", topics: [] },
@@ -1352,7 +1342,6 @@ export const courses: CourseData[] = [
     gridStartDate: "21/07/2026",
     gridEndDate: "20/09/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       { title: "Introducció", topics: [] },
@@ -1418,7 +1407,6 @@ export const courses: CourseData[] = [
     gridStartDate: "16/06/2026",
     gridEndDate: "17/07/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       {
@@ -1506,7 +1494,6 @@ export const courses: CourseData[] = [
     gridStartDate: "21/07/2026",
     gridEndDate: "20/09/2026",
     isNew: true,
-    isPopular: true,
 
     modules: [
       {

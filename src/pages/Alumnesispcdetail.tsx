@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import {
     ChevronRight,
@@ -13,107 +12,26 @@ import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const WHATSAPP_NUMBER = "34694234416";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
-const cursos = [
-    {
-        slug: "bulevard",
-        nom: "Bulevard",
-        subtitol: "Formació pràctica en tècniques policials de control i contenció.",
-        durada: "18 hores",
-        sessions: 6,
-        hores: 18,
-        preu: "180 €",
-        afiliats: "150 €",
-        img: "/images/bulevard.webp",
-        descripcio: "El curs de Bulevard és una formació intensiva i pràctica que prepara als alumnes de l'ISPC en les tècniques essencials de control i contenció en entorns policials reals. Amb 6 sessions presencials, els participants adquireixen habilitats operatives directament aplicables al servei.",
-        continguts: [
-            "Tècniques de control i reducció de persones",
-            "Maneig de situacions conflictives en espai públic",
-            "Protocols d'actuació en escenaris de risc",
-            "Pràctiques amb equipament reglamentari",
-            "Simulacres d'intervenció real",
-        ],
-        requisits: [
-            "Ser alumne/a de l'ISPC",
-        ],
-    },
-    {
-        slug: "procediments-intervencio",
-        nom: "Procediments d'intervenció",
-        subtitol: "Emmanillament, intervenció amb persones agressives",
-        durada: "4,5 hores",
-        sessions: 3,
-        hores: 4.5,
-        preu: "75 €",
-        afiliats: "–",
-        img: "/images/procediments.webp",
-        descripcio: "Curs orientat als procediments bàsics d'intervenció policial: identificació de persones, ús d'emmanillament i maneig de persones agressives o conflictives. Formació pràctica i directa per a l'aplicació immediata en servei.",
-        continguts: [
-            "Procediments d'identificació policial",
-            "Tècnica correcta d'ús d'emmanillament",
-            "Estratègies de desescalada verbal",
-            "Maneig de persones agressives",
-            "Actuació davant de persones conflictives",
-        ],
-        requisits: [
-            "Ser alumne/a de l'ISPC",
-        ],
-    },
-    {
-        slug: "transit-i-transport",
-        nom: "Trànsit i Transport",
-        subtitol: "Normativa, procediments i protocols de trànsit per a agents en actiu.",
-        durada: "4,5 hores",
-        sessions: 3,
-        hores: 4.5,
-        preu: "75 €",
-        afiliats: "–",
-        img: "/images/transit-transport.webp",
-        descripcio: "Formació especialitzada en normativa de trànsit i transport, procediments de control viàri i protocols d'actuació en accidents. Dissenyada per a agents que necessiten reforçar els seus coneixements en matèria viària.",
-        continguts: [
-            "Normativa vigent de trànsit i transport",
-            "Protocols de control de vehicles",
-            "Actuació en accidents de trànsit",
-            "Gestió del trànsit en esdeveniments",
-            "Documentació i infraccions",
-        ],
-        requisits: [
-            "Ser alumne/a de l'ISPC",
-        ],
-    },
-    {
-        slug: "armament",
-        nom: "Armament",
-        subtitol: "Formació en ús i manteniment d'armament policial reglamentari.",
-        durada: "4 hores",
-        sessions: 2,
-        hores: 4,
-        preu: "50 €",
-        afiliats: "–",
-        img: "/images/armament.webp",
-        descripcio: "Curs pràctic sobre l'ús segur, manteniment i legislació de l'armament reglamentari policial. Contingut actualitzat i adaptat als protocols actuals dels cossos de seguretat de Catalunya.",
-        continguts: [
-            "Legislació sobre ús d'armament policial",
-            "Manteniment i neteja de l'arma reglamentària",
-            "Posicions de tir i seguretat activa",
-            "Protocols d'ús proporcionat de la força",
-            "Pràctiques de manipulació segura",
-        ],
-        requisits: [
-            "Ser alumne/a de l'ISPC",
-        ],
-    },
-];
+const CURSO_IMGS: Record<string, string> = {
+    "bulevard": "/images/bulevard.webp",
+    "procediments-intervencio": "/images/procediments.webp",
+    "transit-i-transport": "/images/transit-transport.webp",
+    "armament": "/images/armament.webp",
+};
 
-// ─── Component ───────────────────────────────────────────────────────────────
 const AlumnesISPCDetail = () => {
     const { slug } = useParams<{ slug: string }>();
-    const curso = cursos.find((c) => c.slug === slug);
+    const { t } = useLanguage();
+    const ai = t.alumnesISPCDetail;
 
+    const curso = ai.cursos.find((c) => c.slug === slug);
     if (!curso) return <Navigate to="/alumnes-ispc" replace />;
+
+    const img = CURSO_IMGS[slug ?? ""] ?? "";
 
     return (
         <div className="min-h-screen bg-background">
@@ -124,9 +42,9 @@ const AlumnesISPCDetail = () => {
             <div className="bg-card border-b border-border">
                 <div className="container mx-auto px-4 max-w-[1400px] py-3">
                     <nav className="flex items-center gap-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.06em] text-muted-foreground flex-wrap">
-                        <Link to="/" className="hover:text-accent transition-colors">Inici</Link>
+                        <Link to="/" className="hover:text-accent transition-colors">{ai.breadcrumbHome}</Link>
                         <ChevronRight size={12} className="opacity-40" />
-                        <Link to="/alumnes-ispc" className="hover:text-accent transition-colors">Alumnes ISPC</Link>
+                        <Link to="/alumnes-ispc" className="hover:text-accent transition-colors">{ai.breadcrumbList}</Link>
                         <ChevronRight size={12} className="opacity-40" />
                         <span className="text-foreground">{curso.nom}</span>
                     </nav>
@@ -136,13 +54,13 @@ const AlumnesISPCDetail = () => {
             {/* Hero */}
             <div className="relative bg-primary overflow-hidden">
                 <div className="absolute inset-0">
-                    <img src={curso.img} alt={curso.nom} className="w-full h-full object-cover opacity-20" />
+                    <img src={img} alt={curso.nom} className="w-full h-full object-cover opacity-20" />
                     <div className="absolute inset-0 bg-gradient-to-r via-primary/95 to-primary/70" />
                 </div>
                 <div className="relative container mx-auto px-4 max-w-[1400px] py-14 lg:py-20">
                     <div className="max-w-2xl">
                         <span className="inline-flex items-center gap-1.5 bg-accent/20 border border-accent/30 text-accent-foreground font-body font-bold text-[10px] uppercase tracking-[0.1em] px-3 py-1 rounded-full mb-5">
-                            <GraduationCap size={10} /> Alumnes ISPC
+                            <GraduationCap size={10} /> {ai.heroBadge}
                         </span>
                         <h1 className="font-display font-black text-3xl lg:text-5xl text-white leading-tight mb-4">
                             {curso.nom}
@@ -152,13 +70,13 @@ const AlumnesISPCDetail = () => {
                         </p>
                         <div className="flex flex-wrap gap-5">
                             <div className="flex items-center gap-2 text-white/90 font-body font-semibold text-sm">
-                                <Clock size={14} className="text-accent" />{curso.durada}
+                                <Clock size={14} className="text-accent" />{curso.durada ?? ""}
                             </div>
                             <div className="flex items-center gap-2 text-white/90 font-body font-semibold text-sm">
-                                <MapPin size={14} className="text-accent" />Instal·lacions GAMS (Martorelles)
+                                <MapPin size={14} className="text-accent" />{ai.heroLocationValue}
                             </div>
                             <div className="flex items-center gap-2 text-white/90 font-body font-semibold text-sm">
-                                <CalendarDays size={14} className="text-accent" />Inici: 2027
+                                <CalendarDays size={14} className="text-accent" />{ai.heroStartLabel} {ai.heroStartValue}
                             </div>
                         </div>
                     </div>
@@ -176,7 +94,7 @@ const AlumnesISPCDetail = () => {
                         <section>
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-1 h-7 bg-accent rounded-full" />
-                                <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Sobre el curs</h2>
+                                <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{ai.sobreTit}</h2>
                             </div>
                             <p className="font-body text-foreground/80 text-base leading-relaxed">
                                 {curso.descripcio}
@@ -187,7 +105,7 @@ const AlumnesISPCDetail = () => {
                         <section>
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-1 h-7 bg-accent rounded-full" />
-                                <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Continguts</h2>
+                                <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{ai.contingutsTit}</h2>
                             </div>
                             <div className="bg-card border border-border rounded-xl p-6">
                                 <ul className="space-y-4">
@@ -208,7 +126,7 @@ const AlumnesISPCDetail = () => {
                             <section>
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-1 h-7 bg-accent rounded-full" />
-                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Requisits d'Accés</h2>
+                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{ai.requisitsTit}</h2>
                                 </div>
                                 <div className="bg-card border border-border rounded-xl p-6">
                                     <ul className="space-y-4">
@@ -230,34 +148,32 @@ const AlumnesISPCDetail = () => {
                     <aside className="lg:sticky lg:top-[90px]">
                         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(27,48,136,0.10)]">
 
-                            {/* Image */}
                             <div className="relative h-48 overflow-hidden">
-                                <img src={curso.img} alt={curso.nom} className="w-full h-full object-cover" />
+                                <img src={img} alt={curso.nom} className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent" />
                                 <div className="absolute bottom-3 left-4">
                                     <span className="font-body font-bold text-[10px] uppercase tracking-widest text-white/90 bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full">
-                                        Alumnes ISPC
+                                        {ai.heroBadge}
                                     </span>
                                 </div>
                             </div>
 
                             <div className="p-6 space-y-5">
 
-                                {/* Preu */}
                                 <div>
-                                    <p className="font-body text-xs text-muted-foreground mb-1">Preu</p>
+                                    <p className="font-body text-xs text-muted-foreground mb-1">{ai.preuLabel}</p>
                                     <div className="flex items-end gap-3">
-                                        <span className="font-display font-black text-4xl text-foreground">{curso.preu}</span>
-                                        {curso.afiliats !== "–" && (
+                                        <span className="font-display font-black text-4xl text-foreground">{curso.preu ?? ""}</span>
+                                        {(curso.afiliats ?? "–") !== "–" && (
                                             <span className="font-body text-sm text-accent font-semibold bg-accent/10 px-2.5 py-1 rounded-full mb-1">
-                                                Afiliats: {curso.afiliats}
+                                                {ai.afiliatsLabel} {curso.afiliats}
                                             </span>
                                         )}
                                     </div>
                                 </div>
 
                                 <a
-                                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hola! Estic interessat/ada en el curs: ${curso.nom}`)}`}
+                                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`${ai.waText} ${curso.nom}`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="btn-hover flex items-center justify-center gap-2 w-full bg-accent text-accent-foreground font-body font-bold text-sm uppercase tracking-[0.06em] px-6 py-3.5 rounded-xl hover:shadow-lg transition-all"
@@ -265,44 +181,42 @@ const AlumnesISPCDetail = () => {
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                                     </svg>
-                                    Consulta per WhatsApp
+                                    {ai.consultaWA}
                                 </a>
 
-                                {/* Meta */}
                                 <div className="space-y-3 pt-2 border-t border-border">
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-2 text-muted-foreground">
                                             <Clock size={14} className="text-accent" />
-                                            <span className="font-body text-xs">Durada</span>
+                                            <span className="font-body text-xs">{ai.duradaLabel}</span>
                                         </div>
-                                        <span className="font-body font-bold text-xs text-foreground">{curso.durada}</span>
+                                        <span className="font-body font-bold text-xs text-foreground">{curso.durada ?? ""}</span>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-2 text-muted-foreground">
                                             <CalendarDays size={14} className="text-accent" />
-                                            <span className="font-body text-xs">Inici</span>
+                                            <span className="font-body text-xs">{ai.iniciLabel}</span>
                                         </div>
-                                        <span className="font-body font-bold text-xs text-foreground">2027</span>
+                                        <span className="font-body font-bold text-xs text-foreground">{ai.iniciValue}</span>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-2 text-muted-foreground">
                                             <MapPin size={14} className="text-accent" />
-                                            <span className="font-body text-xs">Lloc</span>
+                                            <span className="font-body text-xs">{ai.llocLabel}</span>
                                         </div>
-                                        <span className="font-body font-bold text-xs text-foreground text-right max-w-[160px]">GAMS (Martorelles)</span>
+                                        <span className="font-body font-bold text-xs text-foreground text-right max-w-[160px]">{ai.llocValue}</span>
                                     </div>
                                 </div>
 
-                                {/* Torns */}
                                 <div className="space-y-2 pt-2 border-t border-border">
-                                    <p className="font-body text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Torns disponibles</p>
+                                    <p className="font-body text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">{ai.tornsLabel}</p>
                                     <div className="flex items-center gap-2 bg-muted rounded-xl px-4 py-2.5">
                                         <Clock size={13} className="text-accent flex-shrink-0" />
-                                        <span className="font-body text-xs text-foreground font-semibold">Matí: 10:00 – 13:00 h</span>
+                                        <span className="font-body text-xs text-foreground font-semibold">{ai.matiLabel} {ai.matiValue}</span>
                                     </div>
                                     <div className="flex items-center gap-2 bg-muted rounded-xl px-4 py-2.5">
                                         <Clock size={13} className="text-accent flex-shrink-0" />
-                                        <span className="font-body text-xs text-foreground font-semibold">Tarda: 16:00 – 19:00 h</span>
+                                        <span className="font-body text-xs text-foreground font-semibold">{ai.tardaLabel} {ai.tardaValue}</span>
                                     </div>
                                 </div>
                             </div>

@@ -64,7 +64,15 @@ import {
 import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { courses } from "@/data/courses";
+import { useCourses, useCourse } from "@/hooks/useCourses";
+import { useLanguage } from "@/contexts/LanguageContext";
+import {
+    COURSE_TITLES_ES,
+    translateHeroStat,
+    FAQ_Q_ES,
+    AUDIENCE_TITLE_ES,
+    MODULES_ES,
+} from "@/i18n/courseTranslations";
 
 const MODULE_ICON_MAP: { keys: string[]; icon: JSX.Element }[] = [
     // ── Ciberseguretat (específics primer) ────────────────────────────────────
@@ -203,6 +211,8 @@ function useStickyCard() {
 
 const EnrollmentModal = ({ url, title, onClose }: { url: string; title: string; onClose: () => void }) => {
     const [loaded, setLoaded] = useState(false);
+    const { t } = useLanguage();
+    const cd = t.courseDetail;
 
     useEffect(() => {
         const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -224,11 +234,11 @@ const EnrollmentModal = ({ url, title, onClose }: { url: string; title: string; 
                             <BookOpen size={15} />
                         </div>
                         <div>
-                            <h3 className="font-display font-black text-sm text-foreground uppercase tracking-tight">Matriculació</h3>
+                            <h3 className="font-display font-black text-sm text-foreground uppercase tracking-tight">{cd.matriculacioTitle}</h3>
                             <p className="font-body text-[11px] text-muted-foreground">{title}</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="w-8 h-8 rounded-lg bg-muted hover:bg-accent hover:text-white text-muted-foreground flex items-center justify-center transition-all duration-150 cursor-pointer" aria-label="Tancar">
+                    <button onClick={onClose} className="w-8 h-8 rounded-lg bg-muted hover:bg-accent hover:text-white text-muted-foreground flex items-center justify-center transition-all duration-150 cursor-pointer" aria-label={cd.tancar}>
                         <X size={15} />
                     </button>
                 </div>
@@ -236,33 +246,40 @@ const EnrollmentModal = ({ url, title, onClose }: { url: string; title: string; 
                     {!loaded && (
                         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-card z-10">
                             <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
-                            <span className="font-body text-xs text-muted-foreground">Carregant formulari...</span>
+                            <span className="font-body text-xs text-muted-foreground">{cd.carregantFormulari}</span>
                         </div>
                     )}
-                    <iframe src={url} title="Formulari de matriculació" className="w-full h-full border-0" onLoad={() => setLoaded(true)} allow="fullscreen" />
+                    <iframe src={url} title={cd.matriculacioTitle} className="w-full h-full border-0" onLoad={() => setLoaded(true)} allow="fullscreen" />
                 </div>
                 <div className="flex items-center gap-2 px-6 py-3 border-t border-border bg-muted/50 flex-shrink-0">
                     <UserCheck size={13} className="text-accent flex-shrink-0" />
-                    <p className="font-body text-[11px] text-muted-foreground">Formulari oficial · Les teves dades estan protegides</p>
+                    <p className="font-body text-[11px] text-muted-foreground">{cd.formulariFoot}</p>
                 </div>
             </div>
         </div>
     );
 };
 
-function getIspcCode(metaItems?: { label: string; value: string }[]): string | null {
+function getIspcCode(metaItems?: any[]): string | null {
     if (!metaItems) return null;
-    const item = metaItems.find((m) =>
-        m.label.toLowerCase().includes("ispc") || m.label.toLowerCase().includes("reconegu")
-    );
+    const item = metaItems.find((m) => {
+        const lbl = (m.label_ca ?? m.label_es ?? m.label ?? "").toLowerCase();
+        return lbl.includes("ispc") || lbl.includes("reconegu");
+    });
     return item ? item.value : null;
 }
 
 const CourseDetail = () => {
     const { slug } = useParams<{ slug: string }>();
-    const course = courses.find((c) => c.slug === slug);
+    const { courses, isLoading: listLoading } = useCourses();
+    const courseFromList = courses.find((c) => c.slug === slug);
 
-    if (!course) return <Navigate to="/404" replace />;
+    // Fetch by slug in parallel so inactive/new courses (not in public list) also load
+    const { course: directCourse, isLoading: directLoading } = useCourse(slug);
+
+    const course = courseFromList ?? directCourse;
+    const { t, lang } = useLanguage();
+    const cd = t.courseDetail;
 
     const [activeModule, setActiveModule] = useState<number | null>(null);
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -271,9 +288,37 @@ const CourseDetail = () => {
     const { ref: sidebarRef } = useStickyCard();
     useScrollReveal();
 
+    // Wait while both sources are still loading, or while list is done but direct hasn't resolved yet
+    if (!course && (listLoading || directLoading)) return null;
+    if (!course) return <Navigate to="/404" replace />;
+
     const collaborators = course.collaborators ?? [];
-    const courseTitle = `${course.titleBase}${course.titleAccent ? ` ${course.titleAccent}` : ""}`;
+    const rawTitle = `${course.titleBase}${course.titleAccent ? ` ${course.titleAccent}` : ""}`;
+    const courseTitle = lang === "es" ? (COURSE_TITLES_ES[course.slug] ?? course.titleEs ?? rawTitle) : rawTitle;
+    const categoryDisplay = lang === "es"
+        ? ((t.categoryPage.categories as Record<string, { title: string }>)[course.categoriaSlug]?.title ?? course.categoriaLabel)
+        : course.categoriaLabel;
     const ispcCode = getIspcCode(course.metaItems);
+
+    const displayModules = lang === "es"
+        ? (course.modulesEs?.length ? course.modulesEs : (MODULES_ES[course.slug] ?? course.modules ?? []))
+        : (course.modules ?? []);
+    const displayFaq = lang === "es"
+        ? (course.faqEs?.length ? course.faqEs : (course.faq?.map((f) => FAQ_Q_ES[f.q] ?? f) ?? []))
+        : (course.faq ?? []);
+    const displayAudience = lang === "es"
+        ? (course.audienceEs?.length ? course.audienceEs : (course.audience?.map((a) => AUDIENCE_TITLE_ES[a.title] ?? a) ?? []))
+        : (course.audience ?? []);
+
+    const iconMap: Record<string, React.ReactNode> = {
+        "Durada": <Clock size={14} />, "Duración": <Clock size={14} />,
+        "Modalitat": <Monitor size={14} />, "Modalidad": <Monitor size={14} />,
+        "Inici": <CalendarDays size={14} />, "Inicio": <CalendarDays size={14} />,
+        "Alumnes": <Users size={14} />, "Alumnos": <Users size={14} />,
+        "Certificat": <Award size={14} />, "Certificado": <Award size={14} />,
+        "Certificat reconegut ISPC": <Award size={14} />, "Certificado reconocido ISPC": <Award size={14} />,
+        "Nivell": <Target size={14} />, "Nivel": <Target size={14} />,
+    };
 
     return (
         <div className="min-h-screen bg-background">
@@ -292,11 +337,11 @@ const CourseDetail = () => {
             <div className="bg-card border-b border-border">
                 <div className="container mx-auto px-4 max-w-[1400px] py-3">
                     <nav className="flex items-center gap-1.5 text-[11px] font-body font-semibold uppercase tracking-[0.06em] text-muted-foreground">
-                        <Link to="/" className="hover:text-accent transition-colors">Inici</Link>
+                        <Link to="/" className="hover:text-accent transition-colors">{cd.breadcrumbHome}</Link>
                         <ChevronRight size={12} className="opacity-40" />
-                        <Link to="/" className="hover:text-accent transition-colors">Cursos Puntuables</Link>
+                        <Link to="/" className="hover:text-accent transition-colors">{cd.breadcrumbCursos}</Link>
                         <ChevronRight size={12} className="opacity-40" />
-                        <Link to={`/${course.categoriaSlug}`} className="hover:text-accent transition-colors">{course.categoriaLabel}</Link>
+                        <Link to={`/${course.categoriaSlug}`} className="hover:text-accent transition-colors">{categoryDisplay}</Link>
                         <ChevronRight size={12} className="opacity-40" />
                         <span className="text-foreground">{courseTitle}</span>
                     </nav>
@@ -312,11 +357,11 @@ const CourseDetail = () => {
                 <div className="relative container mx-auto px-4 max-w-[1400px] py-14 lg:py-20">
                     <div className="max-w-2xl">
                         <span className="inline-flex items-center gap-1.5 bg-accent/20 border border-accent/30 text-accent-foreground font-body font-bold text-[10px] uppercase tracking-[0.1em] px-3 py-1 rounded-full mb-5">
-                            <BookOpen size={10} /> {course.categoriaLabel}
+                            <BookOpen size={10} /> {categoryDisplay}
                         </span>
                         <h1 className="font-display font-black text-3xl lg:text-5xl text-white leading-tight mb-4">
-                            {course.titleBase}
-                            {course.titleAccent && <><br /><span className="text-accent">{course.titleAccent}</span></>}
+                            {lang === "es" ? courseTitle : course.titleBase}
+                            {lang !== "es" && course.titleAccent && <><br /><span className="text-accent">{course.titleAccent}</span></>}
                         </h1>
                         {course.description && (
                             <p className="font-body text-white/80 text-base lg:text-lg leading-relaxed mb-8 max-w-xl">
@@ -330,11 +375,14 @@ const CourseDetail = () => {
                                     { icon: <Monitor size={14} />, label: course.heroStats[1]?.label },
                                     { icon: <CalendarDays size={14} />, label: course.heroStats[2]?.label },
                                     { icon: <Award size={14} />, label: course.heroStats[3]?.label },
-                                ].filter(s => s.label).map(({ icon, label }) => (
+                                ].filter(s => s.label).map(({ icon, label }) => {
+                                    const displayLabel = lang === "es" ? translateHeroStat(label!) : label!;
+                                    return (
                                     <div key={label} className="flex items-center gap-2 text-white/90 font-body font-semibold text-sm">
-                                        <span className="text-accent">{icon}</span>{label}
+                                        <span className="text-accent">{icon}</span>{displayLabel}
                                     </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         )}
                     </div>
@@ -349,15 +397,14 @@ const CourseDetail = () => {
                     <div className="space-y-12">
 
                         {/* Mòduls */}
-                        {course.modules && course.modules.length > 0 && (
+                        {displayModules.length > 0 && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-1 h-7 bg-accent rounded-full" />
-                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Continguts del Curs</h2>
+                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{cd.contingutsCurs}</h2>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {/* Primeros 4 módulos — siempre visibles */}
-                                    {course.modules.slice(0, 4).map((mod, i) => {
+                                    {displayModules.slice(0, 4).map((mod, i) => {
                                         const hasTopics = mod.topics.length > 0;
                                         return hasTopics ? (
                                             <div key={i} className="c-card bg-card border border-border rounded-xl p-5 cursor-pointer group" onClick={() => setActiveModule(activeModule === i ? null : i)}>
@@ -370,7 +417,7 @@ const CourseDetail = () => {
                                                             <h3 className="font-display font-bold text-sm text-foreground leading-snug">{mod.title}</h3>
                                                             <ChevronRight size={14} className={`flex-shrink-0 text-muted-foreground transition-transform duration-200 ${activeModule === i ? "rotate-90" : ""}`} />
                                                         </div>
-                                                        <span className="font-body text-[11px] text-muted-foreground">Mòdul {i + 1} · {mod.topics.length} temes</span>
+                                                        <span className="font-body text-[11px] text-muted-foreground">{cd.modulLabel} {i + 1} · {mod.topics.length} {cd.temesLabel}</span>
                                                     </div>
                                                 </div>
                                                 <div className={`overflow-hidden transition-all duration-300 ${activeModule === i ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
@@ -395,11 +442,10 @@ const CourseDetail = () => {
                                         );
                                     })}
 
-                                    {/* Módulos extra — un único contenedor col-span-full con animación */}
-                                    {course.modules.length > 4 && (
+                                    {displayModules.length > 4 && (
                                         <div className={`col-span-full overflow-hidden transition-all duration-500 ease-in-out ${showAllModules ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"}`}>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-0">
-                                                {course.modules.slice(4).map((mod, j) => {
+                                                {displayModules.slice(4).map((mod, j) => {
                                                     const i = j + 4;
                                                     const hasTopics = mod.topics.length > 0;
                                                     return hasTopics ? (
@@ -413,7 +459,7 @@ const CourseDetail = () => {
                                                                         <h3 className="font-display font-bold text-sm text-foreground leading-snug">{mod.title}</h3>
                                                                         <ChevronRight size={14} className={`flex-shrink-0 text-muted-foreground transition-transform duration-200 ${activeModule === i ? "rotate-90" : ""}`} />
                                                                     </div>
-                                                                    <span className="font-body text-[11px] text-muted-foreground">Mòdul {i + 1} · {mod.topics.length} temes</span>
+                                                                    <span className="font-body text-[11px] text-muted-foreground">{cd.modulLabel} {i + 1} · {mod.topics.length} {cd.temesLabel}</span>
                                                                 </div>
                                                             </div>
                                                             <div className={`overflow-hidden transition-all duration-300 ${activeModule === i ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
@@ -441,7 +487,7 @@ const CourseDetail = () => {
                                         </div>
                                     )}
                                 </div>
-                                {course.modules.length > 4 && (
+                                {displayModules.length > 4 && (
                                     <div className="flex justify-center mt-6">
                                         <button
                                             onClick={() => setShowAllModules(!showAllModules)}
@@ -449,8 +495,8 @@ const CourseDetail = () => {
                                         >
                                             <ChevronDown size={16} className={`text-accent transition-transform duration-200 ${showAllModules ? "rotate-180" : ""}`} />
                                             {showAllModules
-                                                ? "Veure menys"
-                                                : `Veure més (${course.modules.length - 4} restants)`}
+                                                ? cd.veureMenys
+                                                : cd.veureMes.replace("{n}", String(displayModules.length - 4))}
                                         </button>
                                     </div>
                                 )}
@@ -462,7 +508,7 @@ const CourseDetail = () => {
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-1 h-7 bg-accent rounded-full" />
-                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Certificació Oficial</h2>
+                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{cd.certificacioOficial}</h2>
                                 </div>
                                 <div className="bg-card border border-border rounded-xl overflow-hidden">
                                     <div className="bg-primary px-6 py-5 flex items-center gap-4">
@@ -470,17 +516,17 @@ const CourseDetail = () => {
                                             <Award size={28} className="text-accent" />
                                         </div>
                                         <div>
-                                            <p className="font-body text-white/70 text-[11px] uppercase tracking-widest font-semibold mb-0.5">Certificat emès per</p>
+                                            <p className="font-body text-white/70 text-[11px] uppercase tracking-widest font-semibold mb-0.5">{cd.certificatEmesPer}</p>
                                             <h3 className="font-display font-black text-white text-lg leading-tight">{course.certification.entity}</h3>
-                                            <p className="font-body text-white/60 text-xs mt-0.5">Entitat de formació homologada · Codi: {course.certification.code}</p>
+                                            <p className="font-body text-white/60 text-xs mt-0.5">{cd.entitat} {course.certification.code}</p>
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-border">
                                         {[
-                                            { icon: <BadgeCheck size={15} />, label: "Validesa", value: course.certification.validity },
-                                            { icon: <FileText size={15} />, label: "Format", value: course.certification.format },
-                                            { icon: <CalendarDays size={15} />, label: "Emissió", value: course.certification.delivery },
-                                            { icon: <Target size={15} />, label: "Puntuació", value: course.certification.score },
+                                            { icon: <BadgeCheck size={15} />, label: cd.validesa, value: course.certification.validity },
+                                            { icon: <FileText size={15} />, label: cd.format, value: course.certification.format },
+                                            { icon: <CalendarDays size={15} />, label: cd.emissio, value: course.certification.delivery },
+                                            { icon: <Target size={15} />, label: cd.puntuacio, value: course.certification.score },
                                         ].map(({ icon, label, value }) => (
                                             <div key={label} className="p-5 flex items-start gap-3">
                                                 <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center mt-0.5">{icon}</div>
@@ -500,15 +546,21 @@ const CourseDetail = () => {
                         )}
 
                         {/* Plans i preus */}
-                        {course.plans && course.plans.length > 0 && (
+                        {course.plans && course.plans.length > 0 && (() => {
+                            const displayPlans = lang === "es"
+                                ? (course.plansEs && course.plansEs.length > 0 ? course.plansEs : course.plans)
+                                : (course.plansCa && course.plansCa.length > 0 ? course.plansCa : course.plans);
+                            return (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-1 h-7 bg-accent rounded-full" />
-                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Plans i Preus</h2>
+                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{cd.plansPreus}</h2>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-                                    {course.plans.map((plan) => {
+                                    {displayPlans.map((plan) => {
+                                        const planName = plan.name;
+                                        const planBadge = plan.badge ?? null;
                                         const color = plan.highlight ? "#C42B36" : plan.name.toLowerCase().startsWith('no ') ? "#397DBA" : "#1B3088";
                                         return (
                                         <div
@@ -516,21 +568,19 @@ const CourseDetail = () => {
                                             className={`relative rounded-2xl overflow-hidden flex flex-col transition-all duration-150 ${plan.highlight ? "-my-3" : ""}`}
                                             style={{ border: `2px solid ${color}`, boxShadow: plan.highlight ? `0 12px 40px ${color}33` : `0 8px 24px ${color}22` }}
                                         >
-                                            {/* Badge superior — tots els plans */}
                                             <div
                                                 className="text-white font-body font-bold text-[10px] uppercase tracking-widest text-center py-2"
                                                 style={{ backgroundColor: color }}
                                             >
-                                                {plan.badge ?? plan.name}
+                                                {planBadge ?? planName}
                                             </div>
 
-                                            {/* Capçalera */}
                                             <div
                                                 className="px-5 pt-4 pb-4 text-center"
                                                 style={{ backgroundColor: color }}
                                             >
                                                 <p className="font-body font-bold text-[11px] text-white/60 uppercase tracking-widest mb-2">
-                                                    {plan.name}
+                                                    {planName}
                                                 </p>
                                                 <div className="flex items-end justify-center gap-1.5">
                                                     <span className={`font-display font-black text-white ${plan.highlight ? "text-4xl" : "text-3xl"}`}>
@@ -544,9 +594,10 @@ const CourseDetail = () => {
                                                 </div>
                                             </div>
 
-                                            {/* Features — sempre neutres */}
                                             <div className="px-5 pt-4 pb-5 flex-1 flex flex-col gap-3 bg-card">
-                                                {plan.features.map((feat) => (
+                                                {plan.features.map((feat) => {
+                                                    const featText = feat.text;
+                                                    return (
                                                     <div key={feat.text} className="flex items-center gap-2.5">
                                                         <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${feat.included
                                                             ? "bg-primary/10 text-primary"
@@ -558,17 +609,18 @@ const CourseDetail = () => {
                                                             }
                                                         </div>
                                                         <span className={`font-body text-xs ${feat.included ? "text-foreground" : "text-muted-foreground/50 line-through"}`}>
-                                                            {feat.text}
+                                                            {featText}
                                                         </span>
                                                     </div>
-                                                ))}
+                                                    );
+                                                })}
 
                                                 <button
                                                     onClick={() => setEnrollOpen(true)}
                                                     className="mt-auto w-full font-body font-bold text-xs uppercase tracking-[0.06em] px-4 py-2.5 rounded-xl transition-all duration-150 cursor-pointer text-white hover:opacity-90 hover:shadow-lg"
                                                     style={{ backgroundColor: color }}
                                                 >
-                                                    Matricular-me
+                                                    {cd.matricularMe}
                                                 </button>
                                             </div>
                                         </div>
@@ -576,15 +628,15 @@ const CourseDetail = () => {
                                     })}
                                 </div>
                             </section>
-                        )}
-
+                            );
+                        })()}
 
                         {/* Requisits */}
                         {course.requirements && course.requirements.length > 0 && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-1 h-7 bg-accent rounded-full" />
-                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Requisits d'Accés</h2>
+                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{cd.requisitsAcces}</h2>
                                 </div>
                                 <div className="bg-card border border-border rounded-xl p-6">
                                     <ul className="space-y-4">
@@ -602,14 +654,14 @@ const CourseDetail = () => {
                         )}
 
                         {/* Públic objectiu */}
-                        {course.audience && course.audience.length > 0 && (
+                        {displayAudience.length > 0 && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-1 h-7 bg-accent rounded-full" />
-                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">A Qui Va Dirigit</h2>
+                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{cd.aQuiVaDirigit}</h2>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {course.audience.map((item, i) => (
+                                    {displayAudience.map((item, i) => (
                                         <div key={i} className="c-card bg-card border border-border rounded-xl p-5 group">
                                             <div className="flex items-start gap-4">
                                                 <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300">
@@ -631,7 +683,7 @@ const CourseDetail = () => {
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-1 h-7 bg-accent rounded-full" />
-                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Reconeixement ISPC</h2>
+                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{cd.reconeixementISPC}</h2>
                                 </div>
                                 <div className="bg-card border border-border rounded-xl overflow-hidden">
                                     <div className="bg-primary px-6 py-5 flex items-center gap-4">
@@ -639,19 +691,20 @@ const CourseDetail = () => {
                                             <Award size={28} className="text-white" />
                                         </div>
                                         <div>
-                                            <p className="font-body text-white/70 text-[11px] uppercase tracking-widest font-semibold mb-0.5">Reconegut per</p>
-                                            <h3 className="font-display font-black text-white text-base leading-tight">Institut de Seguretat Pública de Catalunya</h3>
-                                            <p className="font-body text-white/60 text-xs mt-0.5">Codi de reconeixement: <strong className="text-white/90">{ispcCode}</strong></p>
+                                            <p className="font-body text-white/70 text-[11px] uppercase tracking-widest font-semibold mb-0.5">{cd.reconegutPer}</p>
+                                            <h3 className="font-display font-black text-white text-base leading-tight">{cd.ispcNom}</h3>
+                                            <p className="font-body text-white/60 text-xs mt-0.5">{cd.ispcCodiLabel} <strong className="text-white/90">{ispcCode}</strong></p>
                                         </div>
                                     </div>
                                     <div className="p-6 space-y-4">
-                                        <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                                            Aquest curs compta amb el reconeixement oficial de l'<strong className="text-foreground">Institut de Seguretat Pública de Catalunya (ISPC)</strong>, responsable de la formació dels cossos de seguretat de Catalunya.
-                                        </p>
+                                        <p
+                                            className="font-body text-sm text-muted-foreground leading-relaxed"
+                                            dangerouslySetInnerHTML={{ __html: cd.ispcDesc }}
+                                        />
                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                             {[
-                                                { icon: <ShieldCheck size={15} />, label: "Organisme", value: "ISPC — Generalitat de Catalunya" },
-                                                { icon: <Award size={15} />, label: "Codi", value: ispcCode },
+                                                { icon: <ShieldCheck size={15} />, label: cd.organisme, value: cd.ispcOrganisme },
+                                                { icon: <Award size={15} />, label: cd.codi, value: ispcCode },
                                             ].map(({ icon, label, value }) => (
                                                 <div key={label} className="bg-muted/50 rounded-xl p-4 flex items-start gap-3">
                                                     <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center mt-0.5">{icon}</div>
@@ -665,23 +718,24 @@ const CourseDetail = () => {
                                     </div>
                                     <div className="border-t border-border px-6 py-4 bg-muted/40 flex items-center gap-2">
                                         <BadgeAlert size={13} className="text-accent flex-shrink-0" />
-                                        <p className="font-body text-[11px] text-muted-foreground">
-                                            El reconeixement ISPC és vàlid per als processos de promoció interna i mobilitat dels <strong className="text-foreground">Mossos d'Esquadra</strong> i <strong className="text-foreground">policies locals</strong> de Catalunya.
-                                        </p>
+                                        <p
+                                            className="font-body text-[11px] text-muted-foreground"
+                                            dangerouslySetInnerHTML={{ __html: cd.ispcFootNote }}
+                                        />
                                     </div>
                                 </div>
                             </section>
                         )}
 
                         {/* FAQ */}
-                        {course.faq && course.faq.length > 0 && (
+                        {displayFaq.length > 0 && (
                             <section className="scroll-reveal">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-1 h-7 bg-accent rounded-full" />
-                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Preguntes Freqüents</h2>
+                                    <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{cd.preguntesFrequents}</h2>
                                 </div>
                                 <div className="space-y-2">
-                                    {course.faq.map((faq, i) => (
+                                    {displayFaq.map((faq, i) => (
                                         <div key={i} className="bg-card border border-border rounded-xl overflow-hidden">
                                             <button
                                                 onClick={() => setActiveFaq(activeFaq === i ? null : i)}
@@ -713,7 +767,7 @@ const CourseDetail = () => {
                                         <div className="flex items-center justify-center gap-0.5 mt-1">
                                             {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-amber-400 fill-amber-400" />)}
                                         </div>
-                                        <div className="font-body text-xs text-muted-foreground mt-1">{course.reviews.count} valoracions</div>
+                                        <div className="font-body text-xs text-muted-foreground mt-1">{course.reviews.count} {cd.valoracions}</div>
                                     </div>
                                     <div className="w-px h-16 bg-border hidden sm:block" />
                                     <div>
@@ -742,61 +796,19 @@ const CourseDetail = () => {
                                 {course.sidebarCategoryLabel && (
                                     <div className="absolute bottom-3 left-4">
                                         <span className="font-body font-bold text-[10px] uppercase tracking-widest text-white/90 bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full">
-                                            {course.sidebarCategoryLabel}
+                                            {lang === "es"
+                                                ? ((t.categoryPage.categories as Record<string, { title: string }>)[course.categoriaSlug]?.title ?? course.sidebarCategoryLabel)
+                                                : course.sidebarCategoryLabel}
                                         </span>
                                     </div>
                                 )}
                             </div>
 
                             <div className="p-6 space-y-5">
-
-                                {/* Contador de places */}
-                                {/* {course.totalPlaces && course.remainingPlaces !== undefined && (() => {
-                                    const remaining = course.remainingPlaces ?? 0;
-                                    const pct = course.totalPlaces
-                                        ? Math.round(((course.totalPlaces - remaining) / course.totalPlaces) * 100)
-                                        : 0;
-
-                                    if (remaining === 0) {
-                                        return (
-                                            <div className="bg-muted border border-border rounded-xl px-4 py-3 flex items-center gap-2">
-                                                <Flame size={13} className="text-muted-foreground flex-shrink-0" />
-                                                <p className="font-body text-xs text-muted-foreground font-semibold uppercase tracking-wide">
-                                                    Sense places disponibles
-                                                </p>
-                                            </div>
-                                        );
-                                    }
-
-                                    const color = pct >= 75
-                                        ? { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700", sub: "text-rose-600", bar: "bg-rose-500", barBg: "bg-rose-200", icon: "text-rose-500" }
-                                        : pct >= 40
-                                            ? { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", sub: "text-amber-600", bar: "bg-amber-500", barBg: "bg-amber-200", icon: "text-amber-500" }
-                                            : { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", sub: "text-emerald-600", bar: "bg-emerald-500", barBg: "bg-emerald-200", icon: "text-emerald-500" };
-
-                                    return (
-                                        <div className={`${color.bg} ${color.border} border rounded-xl px-4 py-3`}>
-                                            <div className="flex items-center justify-between mb-2">
-                                                <div className="flex items-center gap-1.5">
-                                                    <Flame size={13} className={color.icon} />
-                                                    <span className={`font-body font-bold text-xs ${color.text} uppercase tracking-wide`}>Places disponibles</span>
-                                                </div>
-                                                <span className={`font-display font-black text-sm ${color.text}`}>{remaining}/{course.totalPlaces}</span>
-                                            </div>
-                                            <div className={`w-full h-1.5 ${color.barBg} rounded-full overflow-hidden`}>
-                                                <div className={`h-full ${color.bar} rounded-full transition-all duration-700`} style={{ width: `${pct}%` }} />
-                                            </div>
-                                            <p className={`font-body text-[11px] ${color.sub} mt-1.5`}>
-                                                Queden <strong>{remaining} places</strong> · {pct}% ocupat
-                                            </p>
-                                        </div>
-                                    );
-                                })()} */}
-
                                 {/* Preu */}
                                 <div>
                                     <div className="flex items-end gap-2 mb-0.5">
-                                        <span className="font-body text-xs text-muted-foreground mb-1.5 mr-1">des de</span>
+                                        <span className="font-body text-xs text-muted-foreground mb-1.5 mr-1">{cd.desde}</span>
                                         <span className="font-display font-black text-4xl text-foreground">{course.price}€</span>
                                         {course.originalPrice && (
                                             <span className="font-body text-sm text-muted-foreground line-through mb-1">{course.originalPrice}€</span>
@@ -813,7 +825,7 @@ const CourseDetail = () => {
                                     onClick={() => setEnrollOpen(true)}
                                     className="btn-hover block w-full bg-accent text-accent-foreground font-body font-bold text-sm uppercase tracking-[0.06em] text-center px-6 py-3.5 rounded-xl hover:shadow-lg transition-all cursor-pointer"
                                 >
-                                    Matricular-me ara
+                                    {cd.matricularMeAra}
                                 </button>
 
                                 {/* Meta items */}
@@ -823,44 +835,40 @@ const CourseDetail = () => {
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2 text-muted-foreground">
                                                     <span className="text-accent"><Clock size={14} /></span>
-                                                    <span className="font-body text-xs">Durada</span>
+                                                    <span className="font-body text-xs">{cd.durada}</span>
                                                 </div>
                                                 <span className="font-body font-bold text-xs text-foreground">{course.gridHours}</span>
                                             </div>
                                         )}
-                                        {course.metaItems && course.metaItems.map(({ label, value }) => {
-                                            const iconMap: Record<string, React.ReactNode> = {
-                                                "Durada": <Clock size={14} />,
-                                                "Modalitat": <Monitor size={14} />,
-                                                "Inici": <CalendarDays size={14} />,
-                                                "Alumnes": <Users size={14} />,
-                                                "Certificat": <Award size={14} />,
-                                                "Nivell": <Target size={14} />,
-                                            };
+                                        {course.metaItems && course.metaItems.map((m: any) => {
+                                            const label = lang === "es"
+                                                ? (m.label_es || m.label_ca || m.label || "")
+                                                : (m.label_ca || m.label_es || m.label || "");
+                                            const value = m.value ?? "";
                                             return (
-                                                <div key={label} className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-2 text-muted-foreground">
-                                                        <span className="text-accent">{iconMap[label] ?? <BookOpen size={14} />}</span>
-                                                        <span className="font-body text-xs">{label}</span>
-                                                    </div>
-                                                    <span className="font-body font-bold text-xs text-foreground">{value}</span>
+                                            <div key={label} className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2 text-muted-foreground">
+                                                    <span className="text-accent">{iconMap[label] ?? <BookOpen size={14} />}</span>
+                                                    <span className="font-body text-xs">{label}</span>
                                                 </div>
+                                                <span className="font-body font-bold text-xs text-foreground">{value}</span>
+                                            </div>
                                             );
                                         })}
                                         {course.gridStartDate && (
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2 text-muted-foreground">
                                                     <span className="text-accent"><CalendarDays size={14} /></span>
-                                                    <span className="font-body text-xs">Inici</span>
+                                                    <span className="font-body text-xs">{cd.inici}</span>
                                                 </div>
-                                                <span className="font-body font-bold text-xs text-foreground">{course.gridStartDate}</span>
+                                                <span className="font-body font-bold text-xs text-foreground">{lang === "es" ? translateHeroStat(course.gridStartDate!) : course.gridStartDate}</span>
                                             </div>
                                         )}
                                         {course.gridEndDate && (
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-2 text-muted-foreground">
                                                     <span className="text-accent"><CalendarDays size={14} /></span>
-                                                    <span className="font-body text-xs">Fi</span>
+                                                    <span className="font-body text-xs">{cd.fi}</span>
                                                 </div>
                                                 <span className="font-body font-bold text-xs text-foreground">{course.gridEndDate}</span>
                                             </div>
@@ -879,7 +887,7 @@ const CourseDetail = () => {
                     <div className="container mx-auto px-4 max-w-[1400px]">
                         <div className="flex items-center gap-3 mb-8">
                             <div className="w-1 h-7 bg-accent rounded-full" />
-                            <h2 className="font-display font-black text-lg text-foreground uppercase tracking-tight">Entitats Col·laboradores</h2>
+                            <h2 className="font-display font-black text-lg text-foreground uppercase tracking-tight">{cd.entitatsColaboradores}</h2>
                         </div>
                         <div className="flex flex-wrap items-center justify-start gap-10">
                             {collaborators.map((col) => (
@@ -907,7 +915,7 @@ const CourseDetail = () => {
                         <div className="container mx-auto px-4 max-w-[1400px]">
                             <div className="flex items-center gap-3 mb-8">
                                 <div className="w-1 h-7 bg-accent rounded-full" />
-                                <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">Et pot interessar</h2>
+                                <h2 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{cd.etPotInteressar}</h2>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {suggestions.map((c) => (
@@ -926,8 +934,12 @@ const CourseDetail = () => {
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                                         </div>
                                         <div className="p-4 flex flex-col flex-1">
-                                            <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-1.5">{c.categoriaLabel}</span>
-                                            <h3 className="font-display font-bold text-sm text-foreground leading-snug mb-2 line-clamp-2">{c.titleBase} {c.titleAccent}</h3>
+                                            <span className="font-body text-accent text-[10px] uppercase tracking-[0.15em] font-semibold mb-1.5">
+                                                {lang === "es" ? ((t.categoryPage.categories as Record<string, { title: string }>)[c.categoriaSlug]?.title ?? c.categoriaLabel) : c.categoriaLabel}
+                                            </span>
+                                            <h3 className="font-display font-bold text-sm text-foreground leading-snug mb-2 line-clamp-2">
+                                                {lang === "es" ? (COURSE_TITLES_ES[c.slug] ?? `${c.titleBase} ${c.titleAccent ?? ""}`.trim()) : `${c.titleBase} ${c.titleAccent ?? ""}`.trim()}
+                                            </h3>
                                             {c.gridShortDesc && (
                                                 <p className="font-body text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-3">{c.gridShortDesc}</p>
                                             )}
@@ -935,11 +947,11 @@ const CourseDetail = () => {
                                                 {c.gridStartDate && (
                                                     <span className="flex items-center gap-1 font-body text-xs text-foreground/80">
                                                         <CalendarDays size={11} className="text-accent" />
-                                                        {c.gridStartDate}
+                                                        {lang === "es" ? translateHeroStat(c.gridStartDate) : c.gridStartDate}
                                                     </span>
                                                 )}
                                                 <span className="ml-auto inline-flex items-center gap-1 font-body font-semibold text-accent text-xs group-hover:gap-2 transition-[gap] duration-150">
-                                                    Més info <ChevronRight size={12} />
+                                                    {cd.mesInfo} <ChevronRight size={12} />
                                                 </span>
                                             </div>
                                         </div>
@@ -953,14 +965,14 @@ const CourseDetail = () => {
 
             {/* WhatsApp CTA */}
             <a
-                href={`https://wa.me/34694234416?text=${encodeURIComponent(`Hola! Estic interessat/ada en el curs: ${course.titleBase}`)}`}
+                href={`https://wa.me/34694234416?text=${encodeURIComponent(`${cd.whatsappMsg} ${courseTitle}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fixed bottom-6 right-6 z-[300] group flex items-center gap-3"
-                aria-label="Contacta per WhatsApp"
+                aria-label={cd.whatsappAriaLabel}
             >
                 <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 bg-foreground text-background font-body font-bold text-xs uppercase tracking-wide px-3 py-2 rounded-xl shadow-lg whitespace-nowrap">
-                    Consulta pel curs
+                    {cd.whatsappTooltip}
                 </span>
                 <div className="relative w-14 h-14 rounded-full bg-espol-whatsapp flex items-center justify-center shadow-[0_4px_20px_rgba(34,197,94,0.5)] hover:shadow-[0_6px_28px_rgba(34,197,94,0.7)] transition-all duration-300 hover:-translate-y-1">
                     <span className="absolute inset-0 rounded-full bg-espol-whatsapp animate-ping opacity-30" />
